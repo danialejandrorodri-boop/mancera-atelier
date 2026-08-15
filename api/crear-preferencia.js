@@ -4,10 +4,11 @@
  * Arma el cobro en Mercado Pago y devuelve el enlace de checkout.
  *
  * Todo lo que importa se recalcula aquí: los precios salen del catálogo del
- * servidor y el descuento se vuelve a validar. Lo único que aporta el
- * navegador es qué piezas quiere el cliente y en qué talla.
+ * servidor, el descuento se vuelve a validar y se comprueba que ninguna pieza
+ * esté agotada. Lo único que aporta el navegador es qué piezas quiere el
+ * cliente, en qué talla y a dónde se las llevamos.
  *
- * Cuerpo: { email, nombre?, items[], cupon?, pago }
+ * Cuerpo: { email, envio{}, items[], cupon?, pago }
  * Responde: { init_point, referencia, total }
  */
 
@@ -17,10 +18,42 @@ import { validarDescuento } from "../lib/descuentos.js";
 import { crearPreferencia, urlBase } from "../lib/mercadopago.js";
 import { soloPost, cuerpo, RE_EMAIL, dentroDelLimite } from "../lib/comun.js";
 
+const CLAVE_DISPONIBILIDAD = "disponibilidad";
+
+/** Los mismos requisitos que valida el formulario, comprobados de nuevo aquí. */
+function validarEnvio(e) {
+  if (!e || typeof e !== "object") return "Faltan los datos de envío";
+  const t = (v) => String(v || "").trim();
+
+  if (t(e.nombre).split(/\s+/).filter(Boolean).length < 2) return "Falta el nombre completo";
+  if (!/^\d{6,12}$/.test(t(e.cedula).replace(/[.\s-]/g, ""))) return "La cédula no es válida";
+  if (!/^\d{10}$/.test(t(e.tel).replace(/\D/g, ""))) return "El teléfono no es válido";
+  if (!t(e.depto)) return "Falta el departamento";
+  if (!t(e.ciudad)) return "Falta la ciudad";
+  if (t(e.dir).length < 8) return "La dirección está incompleta";
+  return null;
+}
+
+function limpiarEnvio(e) {
+  const t = (v, n) => String(v || "").trim().slice(0, n);
+  return {
+    nombre: t(e.nombre, 80),
+    cedula: t(e.cedula, 20).replace(/[.\s-]/g, ""),
+    tel: t(e.tel, 20).replace(/\D/g, ""),
+    email: t(e.email, 120).toLowerCase(),
+    depto: t(e.depto, 60),
+    ciudad: t(e.ciudad, 60),
+    dir: t(e.dir, 160),
+    compl: t(e.compl, 120),
+    cp: t(e.cp, 12),
+    notas: t(e.notas, 300)
+  };
+}
+
 export default async function handler(req, res) {
   if (!soloPost(req, res)) return;
 
-  const { email, nombre, items, cupon, pago } = cuerpo(req);
+  const { email, envio, items, cupon, pago } = cuerpo(req);
   const correo = String(email || "").trim().toLowerCase();
 
   if (!RE_EMAIL.test(correo)) {
@@ -32,6 +65,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "El pago contra entrega se confirma por WhatsApp" });
   }
 
+  const falla = validarEnvio(envio);
+  if (falla) return res.status(400).json({ error: falla });
+
   if (!(await dentroDelLimite(req, { clave: "preferencia", maximo: 20 }))) {
     return res.status(429).json({ error: "Demasiados intentos. Inténtalo en un momento." });
   }
@@ -40,7 +76,17 @@ export default async function handler(req, res) {
     /* 1. Precios reales, tomados del servidor. */
     const { lineas, subtotal } = reconstruirPedido(items);
 
-    /* 2. Descuento revalidado: el cliente solo manda el código, no el monto. */
+    /* 2. Ninguna pieza agotada u oculta puede llegar a cobrarse. */
+    const estados = (await kv.leer(CLAVE_DISPONIBILIDAD)) || {};
+    const noDisponible = lineas.find((l) => estados[l.id]);
+    if (noDisponible) {
+      return res.status(409).json({
+        error: `«${noDisponible.nombre}» ya no está disponible. Retírala de la bolsa para continuar.`,
+        id: noDisponible.id
+      });
+    }
+
+    /* 3. Descuento revalidado: el cliente solo manda el código, no el monto. */
     let factor = 1;
     let codigoAplicado = null;
     if (cupon) {
@@ -52,8 +98,9 @@ export default async function handler(req, res) {
     }
 
     const totalObjetivo = Math.round(subtotal * factor);
+    const datosEnvio = limpiarEnvio({ ...envio, email: correo });
 
-    /* 3. El descuento se reparte sobre cada pieza: Checkout Pro cobra la suma
+    /* 4. El descuento se reparte sobre cada pieza: Checkout Pro cobra la suma
           de los items, no admite un descuento a nivel de pedido. Se redondea
           hacia abajo y la diferencia se ajusta al final para que el total
           cuadre al peso. */
@@ -79,7 +126,7 @@ export default async function handler(req, res) {
       });
     }
 
-    /* 4. Referencia propia del pedido: el webhook la usa para saber a quién
+    /* 5. Referencia propia del pedido: el webhook la usa para saber a quién
           pertenece el pago y qué código quemar. */
     const referencia = `MA-${Date.now().toString(36).toUpperCase()}`;
     const sitio = urlBase(req);
@@ -89,7 +136,8 @@ export default async function handler(req, res) {
       {
         referencia,
         email: correo,
-        nombre: String(nombre || "").slice(0, 80),
+        nombre: datosEnvio.nombre,
+        envio: datosEnvio,
         lineas,
         subtotal,
         cupon: codigoAplicado,
@@ -100,14 +148,22 @@ export default async function handler(req, res) {
       30 * 86400
     );
 
-    /* 5. La preferencia. */
+    const partesNombre = datosEnvio.nombre.split(/\s+/);
+
+    /* 6. La preferencia. */
     const preferencia = await crearPreferencia(
       {
         items: itemsMP,
         payer: {
           email: correo,
-          name: String(nombre || "").split(" ")[0] || undefined,
-          surname: String(nombre || "").split(" ").slice(1).join(" ") || undefined
+          name: partesNombre[0],
+          surname: partesNombre.slice(1).join(" ") || undefined,
+          phone: { area_code: "57", number: datosEnvio.tel },
+          identification: { type: "CC", number: datosEnvio.cedula },
+          address: {
+            street_name: datosEnvio.dir,
+            zip_code: datosEnvio.cp || undefined
+          }
         },
         external_reference: referencia,
         statement_descriptor: "MANCERA",
@@ -118,8 +174,17 @@ export default async function handler(req, res) {
           failure: `${sitio}/?pago=fallo`
         },
         auto_return: "approved",
-        metadata: { referencia, cupon: codigoAplicado },
-        shipments: { mode: "not_specified" }
+        metadata: { referencia, cupon: codigoAplicado, ciudad: datosEnvio.ciudad },
+        shipments: {
+          mode: "not_specified",
+          receiver_address: {
+            street_name: datosEnvio.dir,
+            city_name: datosEnvio.ciudad,
+            state_name: datosEnvio.depto,
+            zip_code: datosEnvio.cp || undefined,
+            apartment: datosEnvio.compl || undefined
+          }
+        }
       },
       referencia
     );

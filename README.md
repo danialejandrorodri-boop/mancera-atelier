@@ -217,4 +217,30 @@ Sin estas, las funciones responden error y la tienda cae en modo demostración
 | `DESCUENTO_BIENVENIDA` | `0.10` |
 | `DIAS_VIGENCIA_BIENVENIDA` | `5` |
 | `CRON_SECRET` | Invéntala: cadena larga y aleatoria |
+| `ADMIN_CLAVE` | Invéntala: es tu clave del modo marca |
 | `SITIO_URL` | Tu dominio final, sin barra al final |
+
+---
+
+## 9. Modo marca: activar y desactivar piezas
+
+Cuando una talla se agota no hace falta tocar el código.
+
+1. Entra a tu tienda añadiendo `?admin=1` al final de la dirección:
+   `https://tu-dominio.com/?admin=1`
+2. Bajo cada pieza aparecen tres botones: **A la venta · Agotado · Oculta**.
+3. Marca las que quieras, escribe tu `ADMIN_CLAVE` en la barra inferior y pulsa
+   **Guardar cambios**.
+
+| Estado | Qué ve el cliente |
+|---|---|
+| A la venta | Normal |
+| Agotado | La pieza se ve en gris, con el sello «Agotado» y sin botón de compra. Puede pedir aviso por WhatsApp. |
+| Oculta | La pieza desaparece del catálogo por completo |
+
+El modo marca queda activo en ese navegador hasta que pulses **Salir**. La clave
+no se guarda: se pide cada vez que guardas cambios, y se verifica en el servidor.
+Aunque alguien active el modo marca, sin la clave no puede cambiar nada.
+
+Además, el servidor rechaza el cobro de cualquier pieza agotada u oculta, aunque
+alguien la tuviera en la bolsa desde antes.

@@ -80,7 +80,8 @@ export default async function handler(req, res) {
       referencia,
       lineas: pedido.lineas,
       total: pedido.total,
-      nombre: pedido.nombre
+      nombre: pedido.nombre,
+      envio: pedido.envio
     });
 
     await enviarCorreo({

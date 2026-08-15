@@ -398,6 +398,66 @@ h1.hero__h em::after{
 .card__dots{display:flex;gap:5px;margin-top:3px}
 .dot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(26,26,26,.18)}
 
+/* pieza agotada */
+.card.agotada .card__tela{filter:grayscale(.55) opacity(.55)}
+.card.agotada .card__ill{opacity:.45}
+.card.agotada .card__n,.card.agotada .card__pr{color:var(--piedra-claro)}
+.card__agot{
+  position:absolute;inset:0;display:grid;place-items:center;
+  background:rgba(247,244,238,.42);
+}
+.card__agot span{
+  padding:8px 16px;background:rgba(255,252,247,.96);border:1px solid var(--filete);
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--piedra);
+}
+
+/* ============================================================
+   PANEL DE ADMINISTRACIÓN (solo para la marca)
+   ============================================================ */
+.admin{
+  position:fixed;left:0;right:0;bottom:0;z-index:110;
+  background:var(--azabache);color:#EFEBE2;
+  padding:11px var(--gutter) calc(11px + env(safe-area-inset-bottom));
+  display:none;align-items:center;gap:14px;flex-wrap:wrap;
+  font-size:11.5px;
+  box-shadow:0 -14px 34px -22px rgba(0,0,0,.8);
+}
+body.es-admin .admin{display:flex}
+body.es-admin .wa-flota{bottom:74px}
+.admin__t{
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  color:var(--laton);margin-right:auto;
+}
+.admin button{
+  padding:8px 15px;border:1px solid rgba(239,235,226,.28);color:#EFEBE2;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-radius:1px;
+  transition:background .2s var(--e),border-color .2s var(--e);
+}
+.admin button:hover{background:rgba(239,235,226,.12);border-color:rgba(239,235,226,.6)}
+.admin input{
+  padding:8px 12px;border:1px solid rgba(239,235,226,.28);background:rgba(255,255,255,.06);
+  color:#EFEBE2;font-size:12px;border-radius:1px;min-width:220px;
+}
+.admin input::placeholder{color:rgba(239,235,226,.45)}
+.admin input:focus{outline:none;border-color:var(--laton)}
+
+/* controles sobre cada pieza en modo administración */
+.estado{display:none;gap:5px;margin-top:9px}
+body.es-admin .estado{display:flex}
+.estado button{
+  flex:1;padding:7px 4px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--piedra);
+  border-radius:1px;transition:all .18s var(--e);
+}
+.estado button:hover{border-color:var(--piedra)}
+.estado button[aria-pressed="true"]{background:var(--azabache);border-color:var(--azabache);color:#EFEBE2}
+body.es-admin .card.oculta{opacity:.5}
+body.es-admin .card.oculta .card__media::after{
+  content:"OCULTA";position:absolute;inset:0;display:grid;place-items:center;
+  background:rgba(26,26,26,.55);color:#EFEBE2;
+  font-size:11px;letter-spacing:.24em;font-weight:700;
+}
+
 .vacio{padding:70px 20px;text-align:center;border:1px dashed var(--filete);grid-column:1/-1}
 .vacio h3{font-size:22px;color:var(--botanico);margin-bottom:8px}
 .vacio p{color:var(--piedra);font-size:14px;margin-bottom:20px}
@@ -638,13 +698,40 @@ h1.hero__h em::after{
 
 .campo{display:grid;gap:6px;margin-bottom:13px}
 .campo label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--azabache)}
-.campo input{
+.campo label .opc{font-weight:500;letter-spacing:.06em;text-transform:none;color:var(--piedra-claro)}
+.campo input,.campo select,.campo textarea{
   padding:13px 14px;border:1px solid var(--filete);background:var(--blanco);
-  font-size:14px;border-radius:1px;color:var(--azabache);
+  font-size:14px;border-radius:1px;color:var(--azabache);width:100%;
+  font-family:var(--sans);
 }
-.campo input:focus{outline:none;border-color:var(--botanico)}
-.campo input.err{border-color:#9E3B2C;box-shadow:0 0 0 3px rgba(158,59,44,.1)}
+.campo select{
+  appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:38px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--piedra) 50%),linear-gradient(135deg,var(--piedra) 50%,transparent 50%);
+  background-position:calc(100% - 19px) calc(50% + 1px),calc(100% - 14px) calc(50% + 1px);
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;
+}
+.campo textarea{resize:vertical;min-height:66px;line-height:1.5}
+.campo input:focus,.campo select:focus,.campo textarea:focus{outline:none;border-color:var(--botanico)}
+.campo input.err,.campo select.err,.campo textarea.err{border-color:#9E3B2C;box-shadow:0 0 0 3px rgba(158,59,44,.1)}
 .campo small{font-size:11px;color:var(--piedra-claro)}
+.campo__err{font-size:11px;color:#9E3B2C;display:none}
+.campo.malo .campo__err{display:block}
+
+.co__sec{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  color:var(--piedra);padding:16px 0 14px;margin-top:6px;
+  border-top:1px solid var(--filete);display:flex;align-items:center;gap:10px;
+}
+.co__sec::after{content:"";flex:1;height:1px;background:var(--filete)}
+.duo{display:grid;gap:0 12px}
+@media (min-width:520px){.duo{grid-template-columns:1fr 1fr}}
+
+.co__envio{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 14px;background:var(--lino);border:1px solid var(--filete);
+  margin-bottom:16px;font-size:12px;
+}
+.co__envio strong{color:var(--botanico)}
 
 .co__seguro{
   display:flex;gap:9px;align-items:flex-start;margin-top:12px;
@@ -1214,13 +1301,9 @@ h1.hero__h em::after{
   <div class="co__f">
     <button class="btn btn--p btn--full" id="btnPagarMP">
       <svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg>
-      Pagar con Mercado Pago
+      <span id="btnPagarTxt">Pagar</span>
     </button>
-    <div class="co__seguro">
-      <svg aria-hidden="true"><use href="#u-candado"/></svg>
-      <span>Pago procesado por <strong style="color:var(--azabache)">Mercado Pago</strong>. Tarjeta, PSE, Nequi y efectivo.
-      Mancera Atelier no almacena los datos de tu tarjeta.</span>
-    </div>
+    <div class="co__seguro" id="coSeguro"></div>
   </div>
 </div>
 
@@ -1361,6 +1444,15 @@ h1.hero__h em::after{
   </div>
 </div>
 
+<!-- BARRA DE ADMINISTRACIÓN -->
+<div class="admin" id="admin" role="region" aria-label="Administración de disponibilidad">
+  <span class="admin__t">Modo marca · Disponibilidad</span>
+  <span id="adminEstado" style="color:rgba(239,235,226,.7)"></span>
+  <input type="password" id="adminClave" placeholder="Clave de administración" autocomplete="off" aria-label="Clave de administración">
+  <button id="adminGuardar">Guardar cambios</button>
+  <button id="adminSalir">Salir</button>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1395,6 +1487,49 @@ async function api(ruta, datos){
   if(!r.ok) throw Object.assign(new Error(j.error || "Error de red"), { datos:j, status:r.status });
   return j;
 }
+
+/* ==========================================================================
+   DEPARTAMENTOS Y MUNICIPIOS DE COLOMBIA
+   Capitales y municipios de mayor despacho. Cada lista termina en
+   "Otro municipio…", que habilita un campo libre: así nadie se queda
+   sin poder comprar si su municipio no está en la lista.
+   ========================================================================== */
+const CO = {
+  "Amazonas":["Leticia","Puerto Nariño"],
+  "Antioquia":["Medellín","Bello","Itagüí","Envigado","Sabaneta","La Estrella","Caldas","Copacabana","Girardota","Rionegro","La Ceja","Marinilla","Apartadó","Turbo","Caucasia"],
+  "Arauca":["Arauca","Saravena","Tame","Arauquita"],
+  "Atlántico":["Barranquilla","Soledad","Malambo","Puerto Colombia","Sabanalarga","Baranoa","Galapa"],
+  "Bogotá D.C.":["Bogotá"],
+  "Bolívar":["Cartagena","Magangué","Turbaco","Arjona","El Carmen de Bolívar"],
+  "Boyacá":["Tunja","Duitama","Sogamoso","Chiquinquirá","Paipa","Villa de Leyva"],
+  "Caldas":["Manizales","La Dorada","Chinchiná","Villamaría","Riosucio"],
+  "Caquetá":["Florencia","San Vicente del Caguán"],
+  "Casanare":["Yopal","Aguazul","Villanueva","Tauramena"],
+  "Cauca":["Popayán","Santander de Quilichao","Puerto Tejada","Piendamó"],
+  "Cesar":["Valledupar","Aguachica","Agustín Codazzi","La Jagua de Ibirico"],
+  "Chocó":["Quibdó","Istmina","Riosucio"],
+  "Córdoba":["Montería","Lorica","Cereté","Sahagún","Montelíbano","Planeta Rica"],
+  "Cundinamarca":["Soacha","Chía","Zipaquirá","Cajicá","Facatativá","Mosquera","Madrid","Funza","Fusagasugá","Girardot","Sopó","Tocancipá","La Calera","Ubaté","Villeta"],
+  "Guainía":["Inírida"],
+  "Guaviare":["San José del Guaviare"],
+  "Huila":["Neiva","Pitalito","Garzón","La Plata","Campoalegre"],
+  "La Guajira":["Riohacha","Maicao","Uribia","Fonseca","San Juan del Cesar"],
+  "Magdalena":["Santa Marta","Ciénaga","Fundación","El Banco","Zona Bananera"],
+  "Meta":["Villavicencio","Acacías","Granada","Puerto López","Restrepo"],
+  "Nariño":["Pasto","Ipiales","Tumaco","Túquerres","La Unión"],
+  "Norte de Santander":["Cúcuta","Ocaña","Pamplona","Villa del Rosario","Los Patios"],
+  "Putumayo":["Mocoa","Puerto Asís","Orito","Villagarzón"],
+  "Quindío":["Armenia","Calarcá","Montenegro","Quimbaya","Circasia","Filandia"],
+  "Risaralda":["Pereira","Dosquebradas","Santa Rosa de Cabal","La Virginia"],
+  "San Andrés y Providencia":["San Andrés","Providencia"],
+  "Santander":["Bucaramanga","Floridablanca","Girón","Piedecuesta","Barrancabermeja","San Gil","Socorro","Málaga"],
+  "Sucre":["Sincelejo","Corozal","Sampués","San Marcos","Santiago de Tolú"],
+  "Tolima":["Ibagué","Espinal","Melgar","Honda","Líbano","Chaparral"],
+  "Valle del Cauca":["Cali","Palmira","Buenaventura","Tuluá","Cartago","Guadalajara de Buga","Jamundí","Yumbo","Candelaria","Zarzal"],
+  "Vaupés":["Mitú"],
+  "Vichada":["Puerto Carreño","La Primavera"]
+};
+const OTRO_MUNICIPIO = "Otro municipio…";
 
 /* ==========================================================================
    PALETA DE COLORES DE PRODUCTO
@@ -1512,7 +1647,10 @@ const S = {
   carrito: [],
   pago: "adelantado",
   cupon: null,
-  email: null
+  email: null,
+  estados: {},      // id → "agotado" | "oculta"
+  cambios: {},      // cambios de disponibilidad sin guardar
+  envio: null       // datos de entrega del último pedido
 };
 
 /* --- almacenamiento tolerante a fallos --- */
@@ -1539,6 +1677,97 @@ function trazo(hex){
   const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
   const lum = (0.299*r + 0.587*g + 0.114*b)/255;
   return lum > 0.62 ? "rgba(44,62,46,.72)" : "rgba(247,244,238,.82)";
+}
+
+/* ==========================================================================
+   DISPONIBILIDAD DE PIEZAS
+   Tres estados: "disponible", "agotado" (se ve, no se compra) y
+   "oculta" (no aparece en la tienda). Lo decide la marca desde el
+   modo administración y se guarda en el servidor, así lo ven todos.
+   ========================================================================== */
+const estadoDe = id => S.estados[id] || "disponible";
+const esAdmin = () => document.body.classList.contains("es-admin");
+
+async function cargarDisponibilidad(){
+  try{
+    const r = await fetch(CONFIG.api + "/api/disponibilidad");
+    if(!r.ok) throw new Error("sin datos");
+    const j = await r.json();
+    S.estados = j.estados || {};
+    pintarGrid();
+  }catch(e){
+    /* Sin backend la tienda muestra todo el catálogo: es el
+       comportamiento correcto, nunca esconder piezas por un fallo de red. */
+    SIN_BACKEND = true;
+  }
+}
+
+/* --- modo administración --- */
+function iniciarAdmin(){
+  const p = new URLSearchParams(location.search);
+  if(p.get("admin") === "1" || store.get("mancera.admin") === "1"){
+    store.set("mancera.admin", "1");
+    document.body.classList.add("es-admin");
+    history.replaceState({}, "", location.pathname + location.hash);
+    pintarGrid();
+    contarPendientes();
+  }
+
+  $("#adminSalir").onclick = () => {
+    store.set("mancera.admin", "0");
+    document.body.classList.remove("es-admin");
+    S.cambios = {};
+    pintarGrid();
+  };
+
+  $("#adminGuardar").onclick = guardarDisponibilidad;
+}
+
+function contarPendientes(){
+  const n = Object.keys(S.cambios).length;
+  $("#adminEstado").textContent = n
+    ? `${n} ${n === 1 ? "cambio sin guardar" : "cambios sin guardar"}`
+    : "Sin cambios pendientes";
+}
+
+function cambiarEstado(id, estado){
+  if(estado === "disponible") delete S.estados[id];
+  else S.estados[id] = estado;
+  S.cambios[id] = estado;
+  pintarGrid();
+  contarPendientes();
+}
+
+async function guardarDisponibilidad(){
+  const clave = ($("#adminClave").value || "").trim();
+  if(!clave){ toast("Escribe la clave de administración"); $("#adminClave").focus(); return; }
+  if(!Object.keys(S.cambios).length){ toast("No hay cambios por guardar"); return; }
+
+  const btn = $("#adminGuardar");
+  btn.disabled = true;
+  const antes = btn.textContent;
+  btn.textContent = "Guardando…";
+
+  try{
+    const r = await fetch(CONFIG.api + "/api/admin-disponibilidad", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + clave },
+      body: JSON.stringify({ cambios: S.cambios })
+    });
+    if(r.status === 401){ toast("Clave incorrecta"); return; }
+    if(!r.ok) throw new Error("fallo");
+    const j = await r.json();
+    S.estados = j.estados || S.estados;
+    S.cambios = {};
+    contarPendientes();
+    pintarGrid();
+    toast("Disponibilidad actualizada para toda la tienda");
+  }catch(e){
+    toast("No se pudo guardar. Revisa que la tienda esté desplegada.");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = antes;
+  }
 }
 
 /* ==========================================================================
@@ -1677,6 +1906,10 @@ function limpiar(){
    ========================================================================== */
 function filtrar(){
   let r = P.filter(p => {
+    /* Las piezas ocultas desaparecen de la tienda, salvo en modo marca.
+       El modo se lee siempre del <body>: una sola fuente de verdad, para que
+       la vista y el filtro nunca puedan contradecirse. */
+    if(!esAdmin() && estadoDe(p.id) === "oculta") return false;
     if(S.sec !== "todo" && p.sec !== S.sec) return false;
     if(S.sub && p.sub !== S.sub) return false;
     if(S.f.subcat.length && !S.f.subcat.includes(p.sub)) return false;
@@ -1696,18 +1929,26 @@ function filtrar(){
 
 function tarjeta(p){
   const c = p.col[0];
-  return `<article class="card">
+  const est = estadoDe(p.id);
+  const agotada = est === "agotado";
+
+  return `<article class="card ${agotada ? "agotada" : ""} ${est === "oculta" ? "oculta" : ""}">
     <button class="card__media" data-abrir="${p.id}" aria-label="Ver ${esc(p.n)}">
       <span class="card__tela" style="${tela(c.hex)}"></span>
       <span class="card__ill"><svg viewBox="0 0 120 140" style="color:${trazo(c.hex)}" aria-hidden="true"><use href="#${p.ico}"/></svg></span>
-      ${p.badge ? `<span class="card__badge">${esc(p.badge)}</span>` : ""}
-      <span class="card__ver">Ver producto</span>
+      ${p.badge && !agotada ? `<span class="card__badge">${esc(p.badge)}</span>` : ""}
+      ${agotada ? `<span class="card__agot"><span>Agotado</span></span>` : `<span class="card__ver">Ver producto</span>`}
     </button>
     <div class="card__info">
       <h3 class="card__n">${esc(p.n)}</h3>
       <span class="card__m">${esc(p.fit || (p.tiro || "Accesorio"))}${p.tiro && p.fit ? " · " + esc(p.tiro) : ""}</span>
       <div class="card__dots">${p.col.map(x => `<span class="dot" style="background:${x.hex}" title="${esc(x.n)}"></span>`).join("")}</div>
       <span class="card__pr">${money(p.precio)}</span>
+      <div class="estado" role="group" aria-label="Disponibilidad de ${esc(p.n)}">
+        <button data-est="disponible" data-id="${p.id}" aria-pressed="${est==="disponible"}">A la venta</button>
+        <button data-est="agotado" data-id="${p.id}" aria-pressed="${est==="agotado"}">Agotado</button>
+        <button data-est="oculta" data-id="${p.id}" aria-pressed="${est==="oculta"}">Oculta</button>
+      </div>
     </div>
   </article>`;
 }
@@ -1722,6 +1963,10 @@ function pintarGrid(){
        </div>`;
   $$("[data-abrir]", g).forEach(b => b.onclick = () => abrirFicha(b.dataset.abrir));
   $$("[data-limpiar]", g).forEach(b => b.onclick = limpiar);
+  $$("[data-est]", g).forEach(b => b.onclick = e => {
+    e.stopPropagation();
+    cambiarEstado(b.dataset.id, b.dataset.est);
+  });
   $("#conteo").textContent = `${r.length} ${r.length === 1 ? "pieza" : "piezas"}`;
 }
 
@@ -1776,18 +2021,24 @@ function pintarFicha(){
       </div>
 
       <div class="ficha__acts">
-        <button class="btn btn--p btn--full" id="btnAgregar">Agregar a la bolsa</button>
+        ${estadoDe(p.id) === "disponible"
+          ? `<button class="btn btn--p btn--full" id="btnAgregar">Agregar a la bolsa</button>`
+          : `<button class="btn btn--p btn--full" disabled>Agotado por ahora</button>`}
         <button class="btn btn--wa btn--full" id="btnWaProducto">
-          <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg> Preguntar por esta pieza
+          <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg>
+          ${estadoDe(p.id) === "disponible" ? "Preguntar por esta pieza" : "Avísenme cuando vuelva"}
         </button>
       </div>
     </div>`;
 
   $$("#fichaCuerpo [data-c]").forEach(b => b.onclick = () => { sel.color = +b.dataset.c; pintarFicha(); });
   $$("#fichaCuerpo [data-t]").forEach(b => b.onclick = () => { sel.talla = b.dataset.t; pintarFicha(); });
-  $("#btnAgregar").onclick = agregar;
+  const ba = $("#btnAgregar");
+  if(ba) ba.onclick = agregar;
   $("#btnWaProducto").onclick = () => {
-    const t = `Hola, me interesa la pieza *${p.n}*${sel.talla ? " en talla " + sel.talla : ""} (color ${c.n}). ¿Está disponible?`;
+    const t = estadoDe(p.id) === "disponible"
+      ? `Hola, me interesa la pieza *${p.n}*${sel.talla ? " en talla " + sel.talla : ""} (color ${c.n}). ¿Está disponible?`
+      : `Hola, quisiera que me avisen cuando vuelva *${p.n}*${sel.talla ? " en talla " + sel.talla : ""} (color ${c.n}).`;
     abrirWa(t);
   };
 }
@@ -1870,11 +2121,17 @@ function pintarCarrito(){
     <div class="pago__ops">
       <button class="pop" data-pago="adelantado" aria-pressed="${S.pago==="adelantado"}">
         <span class="pop__r"></span>
-        <span><span class="pop__n">Pago por adelantado</span><span class="pop__s">Envío gratis · Wompi, Mercado Pago o PSE</span></span>
+        <span>
+          <span class="pop__n">Pago por adelantado · <span style="color:#2C6B4F">ENVÍO GRATIS</span></span>
+          <span class="pop__s">Tarjeta, PSE, Nequi o efectivo. No pagas envío.</span>
+        </span>
       </button>
       <button class="pop" data-pago="contraentrega" aria-pressed="${S.pago==="contraentrega"}">
         <span class="pop__r"></span>
-        <span><span class="pop__n">Pago contra entrega</span><span class="pop__s">Aplica costo de envío de ${money(CONFIG.envioContraentrega)}</span></span>
+        <span>
+          <span class="pop__n">Pago contra entrega · <span style="color:var(--laton)">ENVÍO ${money(CONFIG.envioContraentrega)}</span></span>
+          <span class="pop__s">Pagas al recibir. El envío lo cubre el cliente.</span>
+        </span>
       </button>
     </div>
 
@@ -1891,14 +2148,14 @@ function pintarCarrito(){
     </div>
 
     <div class="acciones">
-      ${S.pago === "adelantado" ? `
-        <button class="btn btn--p btn--full" id="btnPago">
-          <svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg>
-          Pagar con Mercado Pago
-        </button>` : ""}
+      <button class="btn btn--p btn--full" id="btnPago">
+        ${S.pago === "adelantado"
+          ? `<svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg> Continuar al pago`
+          : `Continuar con contra entrega`}
+      </button>
       <button class="btn btn--wa btn--full" id="btnWaCarrito">
         <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg>
-        ${S.pago === "adelantado" ? "Completar pedido por WhatsApp" : "Confirmar pedido contra entrega"}
+        Prefiero cerrar por WhatsApp
       </button>
     </div>
 
@@ -2019,8 +2276,20 @@ function abrirCheckout(){
   abrir("checkout");
 }
 
+/* Los datos de entrega se recuerdan para que un cliente que vuelve
+   no tenga que escribirlos otra vez. */
+function envioGuardado(){
+  try{ return JSON.parse(store.get("mancera.envio") || "{}"); }catch(e){ return {}; }
+}
+
 function pintarCheckout(){
   const t = totales();
+  const g = envioGuardado();
+  const v = k => g[k] ? esc(g[k]) : "";
+
+  const opcionesDepto = Object.keys(CO).map(d =>
+    `<option value="${esc(d)}" ${g.depto === d ? "selected" : ""}>${esc(d)}</option>`).join("");
+
   $("#coCuerpo").innerHTML = `
     <div class="co__res">
       ${S.carrito.map(l => `
@@ -2032,51 +2301,220 @@ function pintarCheckout(){
       ${t.desc ? `<div class="co__li"><span style="color:#2C6B4F">Descuento ${esc(S.cupon.codigo)}</span><strong style="color:#2C6B4F">− ${money(t.desc)}</strong></div>` : ""}
       <div class="co__li"><span>Envío</span><strong>${t.envio ? money(t.envio) : "Gratis"}</strong></div>
       <div class="co__li" style="border-bottom:0;padding-top:14px">
-        <span style="font-size:15px">Total a pagar</span>
+        <span style="font-size:15px">Total</span>
         <strong style="font-size:19px;color:var(--botanico)">${money(t.total)}</strong>
       </div>
     </div>
 
-    <div class="campo">
+    <div class="co__envio">
+      <span>${S.pago === "adelantado"
+        ? "Pagas ahora en línea"
+        : "Pagas al recibir el pedido"}</span>
+      <strong>${S.pago === "adelantado"
+        ? "Envío gratis"
+        : "Envío " + money(CONFIG.envioContraentrega)}</strong>
+    </div>
+
+    <div class="co__sec">Datos de contacto</div>
+
+    <div class="campo" id="c-nombre">
+      <label for="coNombre">Nombres y apellidos</label>
+      <input type="text" id="coNombre" autocomplete="name" placeholder="Como aparece en tu cédula" value="${v("nombre")}">
+      <small>Van en la guía de transporte.</small>
+      <span class="campo__err">Escribe tu nombre y tus apellidos.</span>
+    </div>
+
+    <div class="duo">
+      <div class="campo" id="c-cedula">
+        <label for="coCedula">Cédula o NIT</label>
+        <input type="text" id="coCedula" inputmode="numeric" placeholder="1020304050" value="${v("cedula")}">
+        <span class="campo__err">La transportadora exige la cédula.</span>
+      </div>
+      <div class="campo" id="c-tel">
+        <label for="coTel">Teléfono / WhatsApp</label>
+        <input type="tel" id="coTel" inputmode="tel" autocomplete="tel" placeholder="300 123 4567" value="${v("tel")}">
+        <span class="campo__err">Escribe un celular de 10 dígitos.</span>
+      </div>
+    </div>
+
+    <div class="campo" id="c-email">
       <label for="coEmail">Correo electrónico</label>
-      <input type="email" id="coEmail" placeholder="tu@correo.com" autocomplete="email" value="${S.email ? esc(S.email) : ""}">
-      <small>Ahí te llega la confirmación y el número de guía.</small>
+      <input type="email" id="coEmail" autocomplete="email" placeholder="tu@correo.com" value="${S.email ? esc(S.email) : v("email")}">
+      <small>Ahí te llegan la confirmación y el número de rastreo.</small>
+      <span class="campo__err">Escribe un correo válido.</span>
+    </div>
+
+    <div class="co__sec">Dirección de entrega</div>
+
+    <div class="duo">
+      <div class="campo" id="c-depto">
+        <label for="coDepto">Departamento</label>
+        <select id="coDepto">
+          <option value="">Selecciona…</option>
+          ${opcionesDepto}
+        </select>
+        <span class="campo__err">Elige tu departamento.</span>
+      </div>
+      <div class="campo" id="c-ciudad">
+        <label for="coCiudad">Ciudad / Municipio</label>
+        <select id="coCiudad"><option value="">Selecciona…</option></select>
+        <span class="campo__err">Elige tu municipio.</span>
+      </div>
+    </div>
+
+    <div class="campo" id="c-ciudadOtra" hidden>
+      <label for="coCiudadOtra">Escribe tu municipio</label>
+      <input type="text" id="coCiudadOtra" placeholder="Nombre del municipio" value="${v("ciudadOtra")}">
+      <span class="campo__err">Escribe el nombre de tu municipio.</span>
+    </div>
+
+    <div class="campo" id="c-dir">
+      <label for="coDir">Dirección principal</label>
+      <input type="text" id="coDir" autocomplete="street-address" placeholder="Cl. 93 #11-20, Barrio Chicó" value="${v("dir")}">
+      <small>Calle, carrera o transversal, número y barrio.</small>
+      <span class="campo__err">Escribe la dirección completa.</span>
     </div>
 
     <div class="campo">
-      <label for="coNombre">Nombre completo</label>
-      <input type="text" id="coNombre" placeholder="Como aparece en tu documento" autocomplete="name" value="${store.get("mancera.nombre") ? esc(store.get("mancera.nombre")) : ""}">
+      <label for="coCompl">Edificio, torre, apartamento <span class="opc">(opcional)</span></label>
+      <input type="text" id="coCompl" placeholder="Torre 2 Apto 501 · Conjunto Los Cedros" value="${v("compl")}">
+    </div>
+
+    <div class="campo">
+      <label for="coCP">Código postal <span class="opc">(opcional)</span></label>
+      <input type="text" id="coCP" inputmode="numeric" placeholder="110221" value="${v("cp")}">
+      <small>Si no lo conoces, déjalo vacío: no lo necesitamos para despachar.</small>
+    </div>
+
+    <div class="campo">
+      <label for="coNotas">Indicaciones de entrega <span class="opc">(opcional)</span></label>
+      <textarea id="coNotas" placeholder="Dejar en portería · Timbrar en el segundo piso">${v("notas")}</textarea>
     </div>
 
     <div class="avisos" style="margin:4px 0 6px">
       <div class="aviso"><svg aria-hidden="true"><use href="#u-info"/></svg>
-        <span><strong>Preparación de 5 a 7 días hábiles</strong> (lunes a viernes, sin contar festivos). La dirección de entrega se confirma en el siguiente paso.</span></div>
+        <span><strong>Preparación de 5 a 7 días hábiles</strong> (lunes a viernes, sin contar festivos).</span></div>
     </div>`;
+
+  /* municipios dependientes del departamento */
+  const selD = $("#coDepto"), selC = $("#coCiudad");
+  const llenarCiudades = (preseleccion) => {
+    const lista = CO[selD.value] || [];
+    selC.innerHTML = `<option value="">Selecciona…</option>` +
+      lista.concat(OTRO_MUNICIPIO).map(c =>
+        `<option value="${esc(c)}" ${preseleccion === c ? "selected" : ""}>${esc(c)}</option>`).join("");
+    alternarOtra();
+  };
+  const alternarOtra = () => {
+    $("#c-ciudadOtra").hidden = selC.value !== OTRO_MUNICIPIO;
+  };
+  selD.onchange = () => llenarCiudades(null);
+  selC.onchange = alternarOtra;
+  if(g.depto) llenarCiudades(g.ciudad);
+
+  $$("#coCuerpo input, #coCuerpo select, #coCuerpo textarea").forEach(el => {
+    el.addEventListener("input", () => {
+      el.classList.remove("err");
+      el.closest(".campo")?.classList.remove("malo");
+    });
+  });
+
+  actualizarBotonPago();
 }
 
-async function pagarConMP(){
-  const email = ($("#coEmail")?.value || "").trim().toLowerCase();
-  const nombre = ($("#coNombre")?.value || "").trim();
-  const inp = $("#coEmail");
+function actualizarBotonPago(){
+  const t = totales();
+  $("#btnPagarTxt").textContent = S.pago === "adelantado"
+    ? `Pagar ${money(t.total)}`
+    : `Confirmar pedido · ${money(t.total)}`;
 
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
-    inp.classList.add("err"); inp.focus();
-    toast("Escribe un correo válido para enviarte la confirmación");
+  $("#coSeguro").innerHTML = S.pago === "adelantado"
+    ? `<svg aria-hidden="true"><use href="#u-candado"/></svg>
+       <span>En el siguiente paso eliges cómo pagar: <strong style="color:var(--azabache)">tarjeta de crédito o débito, PSE, Nequi o efectivo</strong>.
+       El cobro lo procesa Mercado Pago; Mancera Atelier no almacena los datos de tu tarjeta.</span>`
+    : `<svg aria-hidden="true"><use href="#u-info"/></svg>
+       <span>Confirmamos tu pedido por WhatsApp y pagas <strong style="color:var(--azabache)">al recibirlo</strong>.
+       El envío de ${money(CONFIG.envioContraentrega)} se paga junto con el pedido.</span>`;
+}
+
+/* --- validación y recolección --- */
+function leerFormularioEnvio(){
+  const val = id => ($("#" + id)?.value || "").trim();
+  const marcar = (campo, ok) => {
+    const c = $("#c-" + campo);
+    if(c) c.classList.toggle("malo", !ok);
+    return ok;
+  };
+
+  const nombre = val("coNombre");
+  const cedula = val("coCedula").replace(/[.\s-]/g, "");
+  const tel = val("coTel").replace(/[^\d]/g, "");
+  const email = val("coEmail").toLowerCase();
+  const depto = val("coDepto");
+  let ciudad = val("coCiudad");
+  const ciudadOtra = val("coCiudadOtra");
+  const dir = val("coDir");
+
+  const pruebas = [
+    marcar("nombre", nombre.split(/\s+/).filter(Boolean).length >= 2),
+    marcar("cedula", /^\d{6,12}$/.test(cedula)),
+    marcar("tel", /^\d{10}$/.test(tel)),
+    marcar("email", /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)),
+    marcar("depto", !!depto),
+    marcar("ciudad", !!ciudad),
+    marcar("dir", dir.length >= 8)
+  ];
+
+  if(ciudad === OTRO_MUNICIPIO){
+    pruebas.push(marcar("ciudadOtra", ciudadOtra.length >= 3));
+    if(ciudadOtra.length >= 3) ciudad = ciudadOtra;
+  }
+
+  if(pruebas.includes(false)){
+    const primero = $(".campo.malo input, .campo.malo select");
+    if(primero){
+      primero.classList.add("err");
+      primero.focus({ preventScroll:false });
+    }
+    toast("Revisa los campos marcados en rojo");
+    return null;
+  }
+
+  return {
+    nombre, cedula, tel, email, depto, ciudad,
+    ciudadOtra: ciudad === ciudadOtra ? ciudadOtra : "",
+    dir,
+    compl: val("coCompl"),
+    cp: val("coCP"),
+    notas: val("coNotas")
+  };
+}
+
+async function finalizarPedido(){
+  const envio = leerFormularioEnvio();
+  if(!envio) return;
+
+  S.envio = envio;
+  S.email = envio.email;
+  store.set("mancera.envio", JSON.stringify(envio));
+  guardar();
+
+  /* Contra entrega no pasa por la pasarela: se cierra por WhatsApp
+     con todos los datos ya recogidos. */
+  if(S.pago === "contraentrega"){
+    pedidoWa();
+    cerrar("checkout");
     return;
   }
-  inp.classList.remove("err");
-
-  S.email = email;
-  store.set("mancera.nombre", nombre);
-  guardar();
 
   const btn = $("#btnPagarMP");
   btn.classList.add("cargando"); btn.disabled = true;
 
   try{
     const r = await api("/api/crear-preferencia", {
-      email, nombre,
-      items: S.carrito.map(l => ({ id:l.id, n:l.n, color:l.color, talla:l.talla, q:l.q, precio:l.precio })),
+      email: envio.email,
+      envio,
+      items: S.carrito.map(l => ({ id:l.id, color:l.color, talla:l.talla, q:l.q })),
       cupon: S.cupon ? S.cupon.codigo : null,
       pago: S.pago
     });
@@ -2085,8 +2523,8 @@ async function pagarConMP(){
   }catch(e){
     btn.classList.remove("cargando"); btn.disabled = false;
     SIN_BACKEND = true;
-    toast("No pudimos abrir la pasarela. Cierra tu pedido por WhatsApp y te ayudamos.");
     console.warn("crear-preferencia:", e.message);
+    toast("La pasarela aún no está disponible. Cierra tu pedido por WhatsApp y te ayudamos.");
   }
 }
 
@@ -2099,8 +2537,8 @@ function revisarRetornoDePago(){
   const casos = {
     exito: {
       ico:"#u-check", clase:"ok",
-      h:"Pago confirmado",
-      t:"Gracias por tu compra. Te enviamos la confirmación por correo y el número de guía en cuanto tu pedido salga del taller, entre 5 y 7 días hábiles."
+      h:"Gracias por tu compra",
+      t:"Tu pago quedó confirmado. Acabamos de enviarte la confirmación del pedido a tu correo — revisa Promociones o Spam si no la ves. Tu pieza entra al taller hoy mismo y te avisamos con el número de guía en cuanto salga, entre 5 y 7 días hábiles."
     },
     pendiente: {
       ico:"#u-reloj-arena", clase:"esp",
@@ -2144,9 +2582,20 @@ function pedidoWa(){
     `Envío: ${t.envio ? money(t.envio) : "Gratis"}`,
     `*TOTAL: ${money(t.total)}*`,
     "",
-    `Método de pago: ${S.pago === "adelantado" ? "Pago por adelantado (envío gratis)" : "Pago contra entrega (aplica costo de envío)"}`,
-    "",
-    "Quedo atento para confirmar mis datos de envío."
+    `Método de pago: ${S.pago === "adelantado" ? "Pago por adelantado (envío gratis)" : `Pago contra entrega (envío ${money(CONFIG.envioContraentrega)})`}`,
+    ...(S.envio ? [
+      "",
+      "*DATOS DE ENVÍO*",
+      `Nombre: ${S.envio.nombre}`,
+      `Cédula/NIT: ${S.envio.cedula}`,
+      `Teléfono: ${S.envio.tel}`,
+      `Correo: ${S.envio.email}`,
+      `Ciudad: ${S.envio.ciudad}, ${S.envio.depto}`,
+      `Dirección: ${S.envio.dir}`,
+      ...(S.envio.compl ? [`Complemento: ${S.envio.compl}`] : []),
+      ...(S.envio.cp ? [`Código postal: ${S.envio.cp}`] : []),
+      ...(S.envio.notas ? [`Indicaciones: ${S.envio.notas}`] : [])
+    ] : ["", "Quedo atento para confirmar mis datos de envío."])
   ].join("\n");
   abrirWa(l);
 }
@@ -2399,7 +2848,9 @@ function init(){
   $("#limpiarMovil").onclick = limpiar;
   $("#orden").onchange = e => { S.orden = e.target.value; pintarGrid(); };
   $("#velo").onclick = cerrarTodo;
-  $("#btnPagarMP").onclick = pagarConMP;
+  $("#btnPagarMP").onclick = finalizarPedido;
+  cargarDisponibilidad();
+  iniciarAdmin();
   $("#btnResWa").onclick = () => abrirWa("Hola, acabo de intentar un pago en la tienda y quisiera ayuda con mi pedido.");
   revisarRetornoDePago();
   $("#btnWaFooter").onclick = () => abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier.");
