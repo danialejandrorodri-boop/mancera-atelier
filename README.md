@@ -80,21 +80,34 @@ de pruebas `onboarding@resend.dev`.
 
 ---
 
-## 3. Los cron
+## 3. Las tareas programadas
 
-El proyecto vive en el equipo **Mancera**, que es una cuenta de equipo, así que
-puede correr cron a cualquier frecuencia:
+El proyecto está en el **plan Hobby**, que solo permite tareas programadas una
+vez al día. Un recordatorio de carrito que se revisa una vez cada 24 horas no
+sirve de nada, así que `vercel.json` **no lleva bloque `crons`** y las tres
+tareas se disparan desde fuera, gratis.
 
-| Tarea | Frecuencia | Qué hace |
+| Tarea | Cada cuánto | Qué hace |
 |---|---|---|
-| `carrito-1h` | cada 15 min | Busca bolsas de entre 60 y 90 minutos |
-| `carrito-48h` | cada hora | Busca bolsas de entre 48 y 50 horas |
-| `boletin-mensual` | día 1, 14:00 UTC (9:00 Colombia) | Boletín de marketing |
+| `/api/cron/carrito-1h` | 15 minutos | Busca bolsas de entre 60 y 90 minutos |
+| `/api/cron/carrito-48h` | 1 hora | Busca bolsas de entre 48 y 50 horas |
+| `/api/cron/boletin-mensual` | día 1 de cada mes, 9:00 | Boletín de marketing |
 
-Si algún día mueves el proyecto a una cuenta personal con plan Hobby, los cron
-quedan limitados a una ejecución diaria y el recordatorio de 1 hora dejaría de
-funcionar. En ese caso, dispáralos desde [cron-job.org](https://cron-job.org)
-con la cabecera `Authorization: Bearer <tu CRON_SECRET>`.
+### Configurarlas en cron-job.org (gratis)
+
+1. Crea una cuenta en [cron-job.org](https://cron-job.org).
+2. **Create cronjob** por cada fila de la tabla.
+3. En *URL* pon `https://TU-DOMINIO/api/cron/carrito-1h` (y así con cada una).
+4. En *Schedule* elige la frecuencia de la tabla.
+5. Abre *Advanced* → **Headers** y añade una cabecera:
+   - Nombre: `Authorization`
+   - Valor: `Bearer TU_CRON_SECRET`
+
+Sin esa cabecera el endpoint responde `401` y no hace nada: es lo que impide
+que un desconocido dispare tus correos.
+
+> Si algún día pasas a Vercel Pro, basta con devolver el bloque `crons` a
+> `vercel.json` y borrar las tareas de cron-job.org.
 
 ---
 
