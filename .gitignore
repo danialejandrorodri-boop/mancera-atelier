@@ -5,3 +5,7 @@
 node_modules
 .DS_Store
 Thumbs.db
+
+# Fotos originales sin comprimir: se quedan en tu computador, no en el
+# repositorio. La web solo usa las versiones ligeras.
+img/originales/

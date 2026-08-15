@@ -705,7 +705,7 @@ body.es-admin .card.oculta .card__media::after{
 .lead__aviso strong{color:var(--azabache);font-weight:600}
 .lead__vence{font-size:11.5px;color:var(--piedra);margin-top:4px}
 .lead__vence strong{color:var(--botanico)}
-.btn.cargando{position:relative;color:transparent !important}
+.btn.cargando{position:relative;color:transparent !important;pointer-events:none}
 .btn.cargando::after{
   content:"";position:absolute;width:15px;height:15px;border-radius:50%;
   border:1.6px solid rgba(242,239,231,.35);border-top-color:#F2EFE7;
@@ -1367,10 +1367,10 @@ body.es-admin .card.oculta .card__media::after{
   </div>
   <div class="co__b" id="coCuerpo"></div>
   <div class="co__f">
-    <button class="btn btn--p btn--full" id="btnPagarMP">
+    <a class="btn btn--p btn--full" id="btnPagarMP" href="#" role="button">
       <svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg>
       <span id="btnPagarTxt">Pagar</span>
-    </button>
+    </a>
     <div class="co__seguro" id="coSeguro"></div>
   </div>
 </div>
@@ -1602,16 +1602,21 @@ const OTRO_MUNICIPIO = "Otro municipio…";
 /* ==========================================================================
    PALETA DE COLORES DE PRODUCTO
    ========================================================================== */
+/* Un color = un nombre. Si la misma tela apareciera como "Blanco Marfil" en
+   una prenda y "Crema Marfil" en otra, el filtro de color se partiría en dos
+   y el cliente vería medio catálogo. Todo marfil es "Crema Marfil". */
 const C = {
-  marino:  { n: "Azul Marino",   hex: "#26334A" },
-  marfil:  { n: "Crema Marfil",  hex: "#EDE6D8" },
-  melange: { n: "Gris Melange",  hex: "#9A9791" },
-  negro:   { n: "Negro Azabache",hex: "#26262A" },
-  khaki:   { n: "Beige / Khaki", hex: "#C4B18C" },
-  marengo: { n: "Gris Marengo",  hex: "#4A4A48" },
-  cognac:  { n: "Cuero Cognac",  hex: "#8A5A34" },
-  acero:   { n: "Acero",         hex: "#B9BCC0" },
-  oro:     { n: "Oro Viejo",     hex: "#B08D57" }
+  negro:    { n: "Negro Azabache",       hex: "#26262A" },
+  marfil:   { n: "Crema Marfil",         hex: "#EDE6D8" },
+  imperial: { n: "Azul Marino Imperial", hex: "#232F45" },
+  melange:  { n: "Gris Melange",         hex: "#9A9791" },
+  espresso: { n: "Café Espresso",        hex: "#4A342B" },
+  taupe:    { n: "Taupe Jaspeado",       hex: "#A79684" },
+  khaki:    { n: "Beige / Khaki",        hex: "#C4B18C" },
+  marengo:  { n: "Gris Marengo",         hex: "#4A4A48" },
+  cognac:   { n: "Cuero Cognac",         hex: "#8A5A34" },
+  acero:    { n: "Acero",                hex: "#B9BCC0" },
+  oro:      { n: "Oro Viejo",            hex: "#B08D57" }
 };
 
 /* ==========================================================================
@@ -1635,9 +1640,10 @@ const SECCIONES = [
    CATÁLOGO
    ========================================================================== */
 const P = [
+  /* ---------------- CAMISETAS BÁSICAS ---------------- */
   {
     id: "ost01",
-    n: "Organic Stretch Slim Tee /01",
+    n: "Organic Stretch Slim Tee",
     sec: "superiores", sub: "camisetas", ico: "i-tee",
     precio: 129900,
     fit: "Slim Fit",
@@ -1646,7 +1652,7 @@ const P = [
       { ...C.negro,  fotos: ["ost01-negro-1.jpg",  "ost01-negro-2.jpg"] },
       { ...C.marfil, fotos: ["ost01-marfil-1.jpg", "ost01-marfil-2.jpg"] }
     ],
-    badge: "Nuevo",
+    badge: "Esencial",
     orden: 1,
     d: "Silueta entallada, limpia y estructurada, pensada para un estilo sobrio y atemporal. Cae recta desde el hombro y marca el torso sin apretar.",
     materiales: "95 % algodón orgánico · 5 % elastano reciclado",
@@ -1655,6 +1661,151 @@ const P = [
       "Lavar del revés y con prendas de color similar.",
       "No usar blanqueador ni secadora: el calor arruina la elasticidad.",
       "Planchar a temperatura media y por el revés."
+    ],
+    medidas: null
+  },
+  {
+    id: "kvt02",
+    n: "Knit Viscose Essential Tee",
+    sec: "superiores", sub: "camisetas", ico: "i-tee",
+    precio: 229900,
+    fit: "Regular Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.negro,  fotos: ["kvt02-negro-1.jpg",  "kvt02-negro-2.jpg"] },
+      { ...C.marfil, fotos: ["kvt02-marfil-1.jpg", "kvt02-marfil-2.jpg"] }
+    ],
+    orden: 2,
+    d: "Camiseta de punto tejido en hilatura de viscosa, con caída fluida y textura ultrasuave al tacto. Corte regular estructurado con acabados en rib en cuello y mangas, que eleva la básica tradicional hacia una pieza de sofisticación cotidiana.",
+    materiales: "Punto de viscosa",
+    cuidado: [
+      "Lavar a mano o en programa delicado, máximo 30 °C.",
+      "Secar en plano, nunca colgada: el punto se descuelga con el peso del agua.",
+      "No usar blanqueador ni secadora.",
+      "Planchar a temperatura baja con paño intermedio."
+    ],
+    medidas: null
+  },
+
+  /* ---------------- POLOS ---------------- */
+  {
+    id: "ocp03",
+    n: "Organic Open Collar Knit Polo",
+    sec: "superiores", sub: "polos", ico: "i-polo",
+    precio: 319900,
+    fit: "Regular Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.imperial, fotos: ["ocp03-imperial-1.jpg", "ocp03-imperial-2.jpg"] },
+      { ...C.marfil,   fotos: ["ocp03-marfil-1.jpg",   "ocp03-marfil-2.jpg"] },
+      { ...C.espresso, fotos: ["ocp03-espresso-1.jpg", "ocp03-espresso-2.jpg"] }
+    ],
+    badge: "Cápsula 1",
+    orden: 3,
+    d: "Polo de punto tejido en hilatura de puro algodón orgánico certificado. Cuello solapa con abertura frontal limpia, sin botones, y remates acanalados en rib: la frescura de una fibra natural con una textura de alta presencia visual.",
+    materiales: "100 % algodón orgánico certificado",
+    cuidado: [
+      "Lavar a máquina en frío, máximo 30 °C, en programa delicado.",
+      "Secar en plano para que el cuello no pierda la forma.",
+      "No usar blanqueador ni secadora.",
+      "Planchar a temperatura media por el revés."
+    ],
+    medidas: null
+  },
+  {
+    id: "ozp04",
+    n: "Organic Zipper Knit Polo",
+    sec: "superiores", sub: "polos", ico: "i-polo",
+    precio: 319900,
+    fit: "Regular Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.taupe,    fotos: ["ozp04-taupe-1.jpg",    "ozp04-taupe-2.jpg"] },
+      { ...C.imperial, fotos: ["ozp04-imperial-1.jpg", "ozp04-imperial-2.jpg"] },
+      { ...C.marfil,   fotos: ["ozp04-marfil-1.jpg",   "ozp04-marfil-2.jpg"] }
+    ],
+    orden: 4,
+    d: "Polo de punto tejido en hilatura de algodón orgánico certificado, con cierre frontal de cremallera sutil. Una reinterpretación moderna del polo de punto tradicional, con un detalle metálico sobrio para un aire urbano y refinado.",
+    materiales: "100 % algodón orgánico certificado",
+    cuidado: [
+      "Lavar a máquina en frío, máximo 30 °C, con la cremallera cerrada.",
+      "Secar en plano, nunca colgado.",
+      "No usar blanqueador ni secadora.",
+      "Planchar por el revés evitando la cremallera."
+    ],
+    medidas: null
+  },
+
+  /* ---------------- QUARTER-ZIP ---------------- */
+  {
+    id: "iqz05",
+    n: "Interlock Quarter-Zip Pullover",
+    sec: "superiores", sub: "qzip", ico: "i-qzip",
+    precio: 319900,
+    fit: "Regular Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.imperial, fotos: ["iqz05-imperial-1.jpg", "iqz05-imperial-2.jpg"] },
+      { ...C.marfil,   fotos: ["iqz05-marfil-1.jpg",   "iqz05-marfil-2.jpg"] },
+      { ...C.melange,  fotos: ["iqz05-melange-1.jpg",  "iqz05-melange-2.jpg"] }
+    ],
+    badge: "Cápsula 1",
+    orden: 5,
+    d: "Sudadera de corte estructurado en tejido técnico interlock de algodón con elasticidad adaptativa. Cuello solapa con cremallera frontal y un tacto ultrasuave de densidad superior: la prenda clave para superponer en días fríos o templados.",
+    materiales: "Interlock de algodón con elastano",
+    cuidado: [
+      "Lavar a máquina en frío, máximo 30 °C, del revés.",
+      "No usar blanqueador ni secadora.",
+      "Secar en plano para conservar la estructura del cuello.",
+      "Planchar a temperatura media por el revés."
+    ],
+    medidas: null
+  },
+  {
+    id: "ehq06",
+    n: "Essential High-Neck Quarter-Zip",
+    sec: "superiores", sub: "qzip", ico: "i-qzip",
+    precio: 319900,
+    fit: "Regular Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.imperial, fotos: ["ehq06-imperial-1.jpg", "ehq06-imperial-2.jpg"] },
+      { ...C.marfil,   fotos: ["ehq06-marfil-1.jpg",   "ehq06-marfil-2.jpg"] },
+      { ...C.negro,    fotos: ["ehq06-negro-1.jpg",    "ehq06-negro-2.jpg"] }
+    ],
+    orden: 6,
+    d: "Sudadera de silueta estructurada con cuello subido y cierre frontal de cremallera metálica. Confeccionada en una mezcla densa de algodón con acabado en rib, protege del frío manteniendo una presencia sobria y atemporal.",
+    materiales: "Mezcla densa de algodón con acabado en rib",
+    cuidado: [
+      "Lavar a máquina en frío, máximo 30 °C, con la cremallera cerrada.",
+      "No usar blanqueador ni secadora.",
+      "Secar en plano.",
+      "Planchar a temperatura media por el revés."
+    ],
+    medidas: null
+  },
+  {
+    id: "opk07",
+    n: "Organic Pearl-Knit Perkins Quarter-Zip",
+    sec: "superiores", sub: "qzip", ico: "i-qzip",
+    precio: 319900,
+    fit: "Regular Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.imperial, fotos: ["opk07-imperial-1.jpg", "opk07-imperial-2.jpg"] },
+      { ...C.marfil,   fotos: ["opk07-marfil-1.jpg",   "opk07-marfil-2.jpg"] },
+      { ...C.melange,  fotos: ["opk07-melange-1.jpg",  "opk07-melange-2.jpg"] },
+      { ...C.espresso, fotos: ["opk07-espresso-1.jpg", "opk07-espresso-2.jpg"] }
+    ],
+    badge: "Serie corta",
+    orden: 7,
+    d: "Jersey de punto perlado en hilatura de puro algodón orgánico certificado. Cuello perkins de estructura erguida con cierre frontal de cremallera metálica y una textura de relieve tridimensional que da presencia y cuerpo al atuendo.",
+    materiales: "100 % algodón orgánico certificado, punto perlado",
+    cuidado: [
+      "Lavar a mano o en programa lana, máximo 30 °C.",
+      "Secar en plano, nunca colgado.",
+      "No usar blanqueador ni secadora.",
+      "Planchar a temperatura baja con paño intermedio."
     ],
     medidas: null
   }
@@ -1889,13 +2040,13 @@ function defFiltros(){
   if(S.sec === "superiores") return [
     { k:"talla", t:"Talla", tipo:"chip", ops:["S","M","L","XL"] },
     { k:"fit",   t:"Corte / Fit", tipo:"chip", ops:["Slim Fit","Regular Fit"] },
-    { k:"color", t:"Color", tipo:"color", ops:[C.marino,C.marfil,C.melange,C.negro] }
+    { k:"color", t:"Color", tipo:"color", ops:[C.negro,C.marfil,C.imperial,C.melange,C.espresso,C.taupe] }
   ];
   if(S.sec === "inferiores") return [
     { k:"talla", t:"Talla", tipo:"chip", ops:["28","30","32","34","36"] },
     { k:"fit",   t:"Corte / Fit", tipo:"chip", ops:["Tailored Fit","Regular Fit","Slim Fit"] },
     { k:"tiro",  t:"Tipo de tiro", tipo:"chip", ops:["Tiro Medio","Tiro Alto"] },
-    { k:"color", t:"Color", tipo:"color", ops:[C.khaki,C.marengo,C.marino,C.negro] }
+    { k:"color", t:"Color", tipo:"color", ops:[C.khaki,C.marengo,C.imperial,C.negro] }
   ];
   if(S.sec === "accesorios") return [
     { k:"subcat", t:"Subcategoría", tipo:"chip",
@@ -1905,7 +2056,7 @@ function defFiltros(){
     { k:"talla", t:"Talla", tipo:"chip", ops:["S","M","L","XL","28","30","32","34","36"] },
     { k:"fit",   t:"Corte / Fit", tipo:"chip", ops:["Slim Fit","Regular Fit","Tailored Fit"] },
     { k:"tiro",  t:"Tipo de tiro", tipo:"chip", ops:["Tiro Medio","Tiro Alto"] },
-    { k:"color", t:"Color", tipo:"color", ops:[C.marino,C.marfil,C.melange,C.negro,C.khaki,C.marengo] }
+    { k:"color", t:"Color", tipo:"color", ops:[C.negro,C.marfil,C.imperial,C.melange,C.espresso,C.taupe,C.khaki,C.marengo] }
   ];
 }
 
@@ -2270,10 +2421,11 @@ function pintarCarrito(){
           ? `<svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg> Continuar al pago`
           : `Continuar con contra entrega`}
       </button>
-      <button class="btn btn--wa btn--full" id="btnWaCarrito">
+      <a class="btn btn--wa btn--full" id="btnWaCarrito"
+         href="${esc(urlWa(mensajePedido()))}" target="_blank" rel="noopener noreferrer">
         <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg>
         Prefiero cerrar por WhatsApp
-      </button>
+      </a>
     </div>
 
     <div class="nota">
@@ -2290,7 +2442,8 @@ function pintarCarrito(){
   $("#btnCupon").onclick = aplicarCupon;
   const bp = $("#btnPago");
   if(bp) bp.onclick = abrirCheckout;
-  $("#btnWaCarrito").onclick = pedidoWa;
+  /* El de WhatsApp es un enlace de verdad con el pedido ya escrito en la
+     dirección: así lo abre el navegador por su cuenta y nunca queda mudo. */
   enlazarCierres();
 }
 
@@ -2541,6 +2694,12 @@ function pintarCheckout(){
 
 function actualizarBotonPago(){
   const t = totales();
+  const enlace = $("#btnPagarMP");
+  delete enlace.dataset.modo;
+  enlace.href = "#";
+  enlace.removeAttribute("target");
+  enlace.classList.remove("cargando");
+
   $("#btnPagarTxt").textContent = S.pago === "adelantado"
     ? `Pagar ${money(t.total)}`
     : `Confirmar pedido · ${money(t.total)}`;
@@ -2607,25 +2766,41 @@ function leerFormularioEnvio(){
   };
 }
 
-async function finalizarPedido(){
+async function finalizarPedido(e){
+  const enlace = $("#btnPagarMP");
+
+  /* Si la pasarela ya falló antes, el botón quedó convertido en cierre por
+     WhatsApp: se deja pasar el clic sin volver a intentar el cobro. */
+  if(enlace.dataset.modo === "whatsapp"){
+    enlace.href = urlWa(mensajePedido());
+    return;
+  }
+
   const envio = leerFormularioEnvio();
-  if(!envio) return;
+  if(!envio){ if(e) e.preventDefault(); return; }
 
   S.envio = envio;
   S.email = envio.email;
   store.set("mancera.envio", JSON.stringify(envio));
   guardar();
 
-  /* Contra entrega no pasa por la pasarela: se cierra por WhatsApp
-     con todos los datos ya recogidos. */
+  /* Contra entrega no pasa por la pasarela: se cierra por WhatsApp con los
+     datos ya recogidos. Escribimos la dirección en el propio enlace y dejamos
+     que el navegador la abra: así no depende de que permita ventanas nuevas. */
   if(S.pago === "contraentrega"){
-    pedidoWa();
-    cerrar("checkout");
+    enlace.href = urlWa(mensajePedido());
+    enlace.target = "_blank";
+    setTimeout(() => cerrar("checkout"), 600);
     return;
   }
 
-  const btn = $("#btnPagarMP");
-  btn.classList.add("cargando"); btn.disabled = true;
+  /* La pasarela necesita una consulta al servidor antes de saber a dónde ir,
+     así que aquí sí frenamos el enlace y navegamos nosotros. */
+  if(e) e.preventDefault();
+  enlace.href = "#";
+  enlace.removeAttribute("target");
+  const btn = enlace;
+  btn.classList.add("cargando");
 
   try{
     const r = await api("/api/crear-preferencia", {
@@ -2637,11 +2812,17 @@ async function finalizarPedido(){
     });
     if(!r.init_point) throw new Error("Respuesta incompleta de la pasarela");
     window.location.href = r.init_point;
-  }catch(e){
-    btn.classList.remove("cargando"); btn.disabled = false;
+  }catch(err){
+    btn.classList.remove("cargando");
     SIN_BACKEND = true;
-    console.warn("crear-preferencia:", e.message);
-    toast("La pasarela aún no está disponible. Cierra tu pedido por WhatsApp y te ayudamos.");
+    console.warn("crear-preferencia:", err.message);
+    /* Si la pasarela no responde, el botón se convierte en el cierre por
+       WhatsApp para que la venta no se pierda. */
+    enlace.dataset.modo = "whatsapp";
+    enlace.href = urlWa(mensajePedido());
+    enlace.target = "_blank";
+    $("#btnPagarTxt").textContent = "Continuar por WhatsApp";
+    toast("La pasarela no respondió. Pulsa de nuevo y cerramos tu pedido por WhatsApp.");
   }
 }
 
@@ -2687,8 +2868,14 @@ function revisarRetornoDePago(){
 
 function pedidoWa(){
   if(!S.carrito.length) return;
+  abrirWa(mensajePedido());
+}
+
+/* Texto del pedido tal como llega al WhatsApp de la marca. */
+function mensajePedido(){
+  if(!S.carrito.length) return "Hola, quisiera hacer un pedido en Mancera Atelier.";
   const t = totales();
-  const l = [
+  return [
     "*NUEVO PEDIDO — MANCERA ATELIER*",
     "",
     ...S.carrito.map((x,i) =>
@@ -2714,7 +2901,6 @@ function pedidoWa(){
       ...(S.envio.notas ? [`Indicaciones: ${S.envio.notas}`] : [])
     ] : ["", "Quedo atento para confirmar mis datos de envío."])
   ].join("\n");
-  abrirWa(l);
 }
 
 function urlWa(texto){
