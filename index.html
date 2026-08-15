@@ -1,0 +1,2430 @@
+<title>Mancera Atelier</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Mancera Atelier — colección cápsula de caballero: camisetas, polos, quarter-zips, chinos, pantalones de vestir y accesorios. Envío gratis con pago por adelantado.">
+
+<style>
+/* ============================================================
+   MANCERA ATELIER — Identidad única (marfil), pintada explícitamente
+   ============================================================ */
+:root{
+  --marfil:#F7F4EE;
+  --lino:#EFEAE1;
+  --lino-hondo:#E7E1D6;
+  --filete:#E2DDD5;
+  --botanico:#2C3E2E;
+  --botanico-hondo:#1F2C21;
+  --azabache:#1A1A1A;
+  --piedra:#6E6A62;
+  --piedra-claro:#8C877E;
+  --laton:#9C7C4F;
+  --blanco:#FFFCF7;
+
+  --serif: "Optima", "Palatino Linotype", "Book Antiqua", Palatino, "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
+  --gutter:20px;
+  --max:1280px;
+  --header-h:64px;
+  --bar-h:38px;
+
+  --e:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--marfil);
+  color:var(--azabache);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.no-scroll{overflow:hidden}
+img,svg{max-width:100%;display:block}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;padding:0}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;font-family:var(--serif);font-weight:400;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+
+:focus-visible{outline:2px solid var(--botanico);outline-offset:3px;border-radius:1px}
+
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+
+/* --- utilidades tipográficas --- */
+.eyebrow{
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:600;color:var(--piedra);
+}
+.rule{height:1px;background:var(--filete);border:0;margin:0}
+
+/* ============================================================
+   BARRA DE ANUNCIO
+   ============================================================ */
+.anuncio{
+  background:var(--botanico);color:#EDE9E0;
+  min-height:var(--bar-h);display:flex;align-items:center;justify-content:center;
+  padding:9px 16px;text-align:center;
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+}
+.anuncio span{opacity:.62;margin-inline:8px}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header{
+  position:sticky;top:0;z-index:60;
+  background:rgba(247,244,238,.92);
+  backdrop-filter:saturate(140%) blur(10px);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--filete);
+}
+.header__in{
+  height:var(--header-h);display:flex;align-items:center;gap:14px;
+}
+.burger{width:40px;height:40px;margin-left:-10px;display:grid;place-items:center;color:var(--azabache)}
+.marca{
+  display:flex;flex-direction:column;line-height:1;margin-right:auto;
+}
+.marca__n{
+  font-family:var(--serif);font-size:19px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--azabache);
+}
+.marca__s{
+  font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:var(--piedra);
+  margin-top:5px;padding-left:3px;
+}
+.header__acc{display:flex;align-items:center;gap:4px}
+.iconbtn{
+  width:40px;height:40px;display:grid;place-items:center;position:relative;
+  color:var(--azabache);border-radius:2px;transition:color .2s var(--e);
+}
+.iconbtn:hover{color:var(--botanico)}
+.pill{
+  position:absolute;top:4px;right:2px;min-width:16px;height:16px;padding:0 4px;
+  background:var(--botanico);color:var(--marfil);border-radius:8px;
+  font-size:9.5px;font-weight:700;line-height:16px;text-align:center;
+  font-variant-numeric:tabular-nums;
+  transform:scale(0);transition:transform .25s var(--e);
+}
+.pill.on{transform:scale(1)}
+
+/* nav escritorio */
+.nav{display:none}
+@media (min-width:1000px){
+  :root{--header-h:74px}
+  .burger{display:none}
+  .marca{margin-right:40px}
+  .marca__n{font-size:21px}
+  .nav{display:flex;align-items:stretch;gap:2px;margin-right:auto;height:100%}
+  .nav__i{position:relative;display:flex;align-items:center}
+  .nav__t{
+    padding:0 16px;height:100%;display:flex;align-items:center;gap:6px;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+    color:var(--azabache);position:relative;
+  }
+  .nav__t::after{
+    content:"";position:absolute;left:16px;right:16px;bottom:22px;height:1px;
+    background:var(--botanico);transform:scaleX(0);transform-origin:left;
+    transition:transform .3s var(--e);
+  }
+  .nav__i:hover .nav__t::after,.nav__i:focus-within .nav__t::after{transform:scaleX(1)}
+  .drop{
+    position:absolute;top:100%;left:0;min-width:246px;
+    background:var(--blanco);border:1px solid var(--filete);
+    padding:10px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .22s var(--e),transform .22s var(--e),visibility .22s;
+    box-shadow:0 18px 44px -22px rgba(26,26,26,.28);
+  }
+  .nav__i:hover .drop,.nav__i:focus-within .drop{opacity:1;visibility:visible;transform:translateY(0)}
+  .drop button{
+    display:block;width:100%;text-align:left;padding:9px 14px;
+    font-size:13px;color:var(--azabache);
+    transition:background .18s var(--e),padding-left .18s var(--e);
+  }
+  .drop button:hover{background:var(--lino);padding-left:19px;color:var(--botanico)}
+}
+
+/* menú móvil */
+.mmenu{
+  position:fixed;inset:0;z-index:80;
+  background:var(--marfil);
+  transform:translateX(-100%);transition:transform .4s var(--e);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.mmenu.on{transform:translateX(0)}
+.mmenu__top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px var(--gutter);border-bottom:1px solid var(--filete);
+}
+.mmenu__b{padding:8px var(--gutter) 60px}
+.mgrp{border-bottom:1px solid var(--filete);padding:20px 0 22px}
+.mgrp h4{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--piedra);font-family:var(--sans);font-weight:600;margin-bottom:14px}
+.mgrp button{
+  display:block;width:100%;text-align:left;padding:10px 0;
+  font-family:var(--serif);font-size:20px;color:var(--azabache);
+}
+.mmenu__cta{padding:26px 0 0}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{border-bottom:1px solid var(--filete)}
+.hero__in{display:grid;gap:0}
+@media (min-width:900px){
+  .hero__in{grid-template-columns:1fr 1fr;align-items:stretch;min-height:min(74vh,640px)}
+}
+.hero__txt{
+  padding:56px var(--gutter) 60px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+/* En escritorio el texto se apoya en el borde interior de su columna:
+   sin margin-left:auto, que en pantallas anchas abría un hueco enorme. */
+@media (min-width:900px){
+  .hero__txt{padding:72px clamp(36px,4vw,80px);max-width:640px;margin-right:auto}
+}
+
+.hero__lead{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.hero__lead .ln{width:34px;height:1px;background:var(--laton)}
+h1.hero__h{
+  font-size:clamp(38px,8.4vw,62px);line-height:1.02;letter-spacing:-.012em;
+  color:var(--botanico);
+}
+h1.hero__h em{font-style:normal;position:relative;white-space:nowrap}
+h1.hero__h em::after{
+  content:"";position:absolute;left:0;right:0;bottom:.06em;height:1px;
+  background:var(--laton);opacity:.55;
+}
+.hero__p{
+  margin-top:24px;max-width:44ch;font-size:15px;color:var(--piedra);line-height:1.75;
+}
+.hero__acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero__meta{
+  display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:38px;
+  padding-top:22px;border-top:1px solid var(--filete);
+}
+.hero__meta li{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--piedra-claro);display:flex;align-items:center;gap:7px}
+.hero__meta li::before{content:"";width:3px;height:3px;background:var(--laton);border-radius:50%}
+
+.hero__img{
+  position:relative;min-height:340px;overflow:hidden;
+  background:
+    radial-gradient(120% 88% at 78% 6%, #FBF8F2 0%, #F1EBE0 44%, #E4DCCD 100%);
+  border-left:1px solid var(--filete);
+}
+@media (max-width:899px){.hero__img{border-left:0;border-top:1px solid var(--filete);min-height:420px;order:-1}}
+.hero__luz{
+  position:absolute;top:-14%;left:52%;width:52%;height:88%;
+  background:linear-gradient(196deg,rgba(255,253,247,.96),rgba(255,253,247,0) 72%);
+  transform:skewX(-13deg);filter:blur(2px);
+}
+.hero__ill{position:absolute;inset:0;display:grid;place-items:center;padding:34px}
+.hero__ill svg{width:min(74%,420px);height:auto;color:var(--botanico)}
+.hero__piso{
+  position:absolute;left:0;right:0;bottom:0;height:24%;
+  background:linear-gradient(180deg,rgba(160,142,116,0) 0%,rgba(160,142,116,.13) 100%);
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 30px;border:1px solid transparent;border-radius:1px;
+  font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:background .25s var(--e),color .25s var(--e),border-color .25s var(--e),transform .18s var(--e);
+  text-align:center;
+}
+.btn:active{transform:translateY(1px)}
+.btn--p{background:var(--botanico);color:#F4F1E9;border-color:var(--botanico)}
+.btn--p:hover{background:var(--botanico-hondo);border-color:var(--botanico-hondo)}
+.btn--g{background:transparent;color:var(--botanico);border-color:var(--botanico)}
+.btn--g:hover{background:var(--botanico);color:#F4F1E9}
+.btn--wa{background:#1F6B4E;color:#F2F7F3;border-color:#1F6B4E}
+.btn--wa:hover{background:#185740;border-color:#185740}
+.btn--full{width:100%}
+.btn--sm{padding:11px 20px;font-size:10px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* ============================================================
+   MANIFIESTO
+   ============================================================ */
+.manif{padding:72px 0 76px;border-bottom:1px solid var(--filete)}
+.manif__h{font-size:clamp(28px,5vw,42px);line-height:1.12;color:var(--botanico);margin-top:16px;max-width:15ch}
+.manif__p{margin-top:20px;max-width:66ch;color:var(--piedra);font-size:15px;line-height:1.8}
+.pilares{display:grid;gap:0;margin-top:52px;border-top:1px solid var(--filete)}
+@media (min-width:760px){.pilares{grid-template-columns:repeat(3,1fr)}}
+.pilar{padding:32px 0 34px;border-bottom:1px solid var(--filete)}
+@media (min-width:760px){
+  .pilar{padding:34px 34px 36px 0;border-bottom:0;border-right:1px solid var(--filete)}
+  .pilar:last-child{border-right:0;padding-right:0}
+  .pilar+.pilar{padding-left:34px}
+}
+.pilar svg{width:30px;height:30px;color:var(--botanico);margin-bottom:20px}
+.pilar h3{font-size:20px;color:var(--azabache);margin-bottom:9px}
+.pilar p{color:var(--piedra);font-size:14px;line-height:1.72}
+
+/* ============================================================
+   CATÁLOGO
+   ============================================================ */
+.cat{padding:64px 0 90px;scroll-margin-top:calc(var(--header-h) + 8px)}
+.cat__head{display:flex;flex-direction:column;gap:14px;margin-bottom:30px}
+.cat__h{font-size:clamp(27px,4.6vw,38px);color:var(--botanico)}
+.cat__sub{color:var(--piedra);font-size:14px;max-width:56ch}
+
+/* cintas de sección */
+.secciones{
+  display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:14px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.secciones::-webkit-scrollbar{display:none}
+.sec{
+  flex:0 0 auto;padding:10px 18px;border:1px solid var(--filete);border-radius:999px;
+  background:var(--blanco);color:var(--piedra);
+  font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+  transition:all .22s var(--e);white-space:nowrap;
+}
+.sec:hover{border-color:var(--botanico);color:var(--botanico)}
+.sec[aria-pressed="true"]{background:var(--botanico);border-color:var(--botanico);color:#F2EFE7}
+
+.subs{display:flex;gap:20px;overflow-x:auto;padding-bottom:14px;scrollbar-width:none;border-bottom:1px solid var(--filete)}
+.subs::-webkit-scrollbar{display:none}
+.sub{
+  flex:0 0 auto;padding:0 0 12px;position:relative;
+  font-size:12.5px;color:var(--piedra);white-space:nowrap;transition:color .2s var(--e);
+}
+.sub::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--botanico);transform:scaleX(0);transform-origin:left;transition:transform .26s var(--e)}
+.sub:hover{color:var(--azabache)}
+.sub[aria-pressed="true"]{color:var(--botanico);font-weight:600}
+.sub[aria-pressed="true"]::after{transform:scaleX(1)}
+
+.cat__body{display:grid;gap:0;margin-top:26px}
+@media (min-width:1000px){.cat__body{grid-template-columns:214px 1fr;gap:44px}}
+
+/* --- filtros --- */
+.filtros{display:none}
+@media (min-width:1000px){
+  .filtros{display:block;position:sticky;top:calc(var(--header-h) + 22px);align-self:start;max-height:calc(100vh - var(--header-h) - 44px);overflow-y:auto;padding-right:6px}
+  .filtros::-webkit-scrollbar{width:3px}
+  .filtros::-webkit-scrollbar-thumb{background:var(--filete)}
+}
+.fgrp{padding:20px 0;border-bottom:1px solid var(--filete)}
+.fgrp:first-child{padding-top:0}
+.fgrp__t{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--azabache);margin-bottom:15px}
+.fops{display:flex;flex-wrap:wrap;gap:8px}
+.fop{
+  padding:8px 14px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:12px;color:var(--piedra);border-radius:1px;
+  transition:all .18s var(--e);
+}
+.fop:hover{border-color:var(--piedra)}
+.fop[aria-pressed="true"]{border-color:var(--botanico);background:var(--botanico);color:#F2EFE7}
+.fops--col{flex-direction:column;gap:10px;align-items:stretch}
+.fcolor{
+  display:flex;align-items:center;gap:11px;padding:6px 8px;border:1px solid transparent;
+  font-size:12.5px;color:var(--piedra);text-align:left;width:100%;border-radius:1px;
+  transition:all .18s var(--e);
+}
+.fcolor:hover{background:var(--lino)}
+.fcolor[aria-pressed="true"]{border-color:var(--botanico);color:var(--azabache);font-weight:600}
+.sw{width:17px;height:17px;border-radius:50%;border:1px solid rgba(26,26,26,.16);flex:0 0 auto}
+.fbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 18px;flex-wrap:wrap}
+.fbar__n{font-size:12px;color:var(--piedra);font-variant-numeric:tabular-nums}
+.limpiar{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--botanico);border-bottom:1px solid var(--filete);padding-bottom:2px}
+.limpiar:hover{border-color:var(--botanico)}
+.movil-f{
+  display:flex;align-items:center;gap:9px;padding:11px 18px;border:1px solid var(--botanico);
+  color:var(--botanico);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border-radius:1px;
+}
+@media (min-width:1000px){.movil-f{display:none}}
+.orden{
+  padding:11px 14px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:12px;color:var(--piedra);border-radius:1px;
+}
+
+/* drawer filtros móvil */
+.fdrawer{
+  position:fixed;inset:auto 0 0 0;z-index:85;max-height:88vh;
+  background:var(--marfil);border-top:1px solid var(--filete);
+  transform:translateY(101%);transition:transform .38s var(--e);
+  display:flex;flex-direction:column;
+  box-shadow:0 -20px 50px -30px rgba(26,26,26,.4);
+}
+.fdrawer.on{transform:translateY(0)}
+.fdrawer__t{display:flex;align-items:center;justify-content:space-between;padding:16px var(--gutter);border-bottom:1px solid var(--filete)}
+.fdrawer__b{overflow-y:auto;padding:4px var(--gutter) 12px;flex:1}
+.fdrawer__f{padding:14px var(--gutter) calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--filete);display:flex;gap:10px}
+
+/* --- grid productos --- */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 12px}
+@media (min-width:620px){.grid{grid-template-columns:repeat(3,1fr);gap:22px 18px}}
+@media (min-width:1000px){.grid{grid-template-columns:repeat(3,1fr);gap:30px 22px}}
+@media (min-width:1240px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+.card{display:flex;flex-direction:column;text-align:left;height:100%;position:relative}
+.card__media{
+  position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--filete);
+  background:var(--lino);
+}
+.card__tela{position:absolute;inset:0;transition:transform .7s var(--e)}
+.card:hover .card__tela{transform:scale(1.035)}
+.card__ill{position:absolute;inset:0;display:grid;place-items:center;padding:16%}
+.card__ill svg{width:100%;height:100%;opacity:.9}
+.card__badge{
+  position:absolute;top:10px;left:10px;padding:5px 10px;
+  background:rgba(255,252,247,.94);border:1px solid var(--filete);
+  font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--botanico);
+}
+.card__ver{
+  position:absolute;left:10px;right:10px;bottom:10px;
+  padding:11px;background:rgba(255,252,247,.96);border:1px solid var(--filete);
+  font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--botanico);
+  text-align:center;opacity:0;transform:translateY(8px);
+  transition:opacity .28s var(--e),transform .28s var(--e);
+}
+@media (hover:hover){.card:hover .card__ver{opacity:1;transform:translateY(0)}}
+@media (hover:none){.card__ver{opacity:1;transform:none}}
+.card__info{padding:13px 2px 0;display:flex;flex-direction:column;gap:5px;flex:1}
+.card__n{font-family:var(--serif);font-size:15.5px;line-height:1.3;color:var(--azabache)}
+@media (min-width:620px){.card__n{font-size:17px}}
+.card__m{font-size:11px;letter-spacing:.06em;color:var(--piedra-claro);text-transform:uppercase}
+.card__pr{font-size:14px;font-weight:600;color:var(--botanico);margin-top:auto;padding-top:7px;font-variant-numeric:tabular-nums}
+.card__dots{display:flex;gap:5px;margin-top:3px}
+.dot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(26,26,26,.18)}
+
+.vacio{padding:70px 20px;text-align:center;border:1px dashed var(--filete);grid-column:1/-1}
+.vacio h3{font-size:22px;color:var(--botanico);margin-bottom:8px}
+.vacio p{color:var(--piedra);font-size:14px;margin-bottom:20px}
+
+/* ============================================================
+   FRANJA DE CONFIANZA
+   ============================================================ */
+.confianza{background:var(--lino);border-block:1px solid var(--filete);padding:44px 0}
+.confianza__g{display:grid;gap:26px}
+@media (min-width:760px){.confianza__g{grid-template-columns:repeat(4,1fr);gap:22px}}
+.conf{display:flex;gap:14px;align-items:flex-start}
+.conf svg{width:22px;height:22px;color:var(--botanico);flex:0 0 auto;margin-top:2px}
+.conf h4{font-family:var(--sans);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;margin-bottom:5px}
+.conf p{font-size:12.5px;color:var(--piedra);line-height:1.6}
+
+/* ============================================================
+   MODALES / DRAWERS genéricos
+   ============================================================ */
+.velo{
+  position:fixed;inset:0;z-index:70;background:rgba(26,26,26,.42);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--e),visibility .3s;
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+}
+.velo.on{opacity:1;visibility:visible}
+.cerrar{width:38px;height:38px;display:grid;place-items:center;color:var(--azabache);border-radius:2px}
+.cerrar:hover{color:var(--botanico)}
+
+/* CARRITO */
+.carrito{
+  position:fixed;top:0;right:0;bottom:0;z-index:90;width:min(430px,100%);
+  background:var(--marfil);border-left:1px solid var(--filete);
+  transform:translateX(101%);transition:transform .4s var(--e);
+  display:flex;flex-direction:column;
+}
+.carrito.on{transform:translateX(0)}
+.carrito__t{display:flex;align-items:center;justify-content:space-between;padding:16px var(--gutter);border-bottom:1px solid var(--filete)}
+.carrito__t h3{font-size:15px;font-family:var(--sans);letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.carrito__b{flex:1;overflow-y:auto;padding:0 var(--gutter)}
+.carrito__f{border-top:1px solid var(--filete);padding:16px var(--gutter) calc(18px + env(safe-area-inset-bottom));background:var(--lino)}
+
+.linea{display:grid;grid-template-columns:70px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--filete)}
+.linea__m{aspect-ratio:4/5;position:relative;border:1px solid var(--filete);overflow:hidden}
+.linea__n{font-family:var(--serif);font-size:15px;line-height:1.3;padding-right:22px}
+.linea__d{font-size:11.5px;color:var(--piedra);margin-top:5px}
+.linea__r{display:flex;align-items:center;justify-content:space-between;margin-top:11px;gap:10px}
+.qty{display:flex;align-items:center;border:1px solid var(--filete);background:var(--blanco)}
+.qty button{width:28px;height:28px;display:grid;place-items:center;color:var(--piedra);font-size:15px;line-height:1}
+.qty button:hover{color:var(--botanico)}
+.qty span{min-width:26px;text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums}
+.linea__p{font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.quitar{position:absolute;top:16px;right:0;color:var(--piedra-claro);width:26px;height:26px;display:grid;place-items:center}
+.quitar:hover{color:#8C3A2E}
+.linea{position:relative}
+
+.pago__t{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px;color:var(--azabache)}
+.pago__ops{display:grid;gap:8px;margin-bottom:16px}
+.pop{
+  display:flex;align-items:flex-start;gap:11px;padding:12px 13px;text-align:left;
+  border:1px solid var(--filete);background:var(--blanco);border-radius:1px;
+  transition:border-color .2s var(--e),background .2s var(--e);
+}
+.pop[aria-pressed="true"]{border-color:var(--botanico);background:#F3F1EA}
+.pop__r{width:15px;height:15px;border-radius:50%;border:1px solid var(--piedra-claro);flex:0 0 auto;margin-top:2px;position:relative}
+.pop[aria-pressed="true"] .pop__r{border-color:var(--botanico)}
+.pop[aria-pressed="true"] .pop__r::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--botanico)}
+.pop__n{font-size:12.5px;font-weight:600;display:block}
+.pop__s{font-size:11px;color:var(--piedra);display:block;margin-top:2px}
+
+.cupon{display:flex;gap:8px;margin-bottom:14px}
+.cupon input{
+  flex:1;min-width:0;padding:11px 13px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:12.5px;border-radius:1px;text-transform:uppercase;letter-spacing:.08em;
+}
+.cupon input::placeholder{text-transform:none;letter-spacing:0;color:var(--piedra-claro)}
+.cupon input:focus{outline:none;border-color:var(--botanico)}
+.cupon button{padding:0 16px;border:1px solid var(--botanico);color:var(--botanico);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.cupon button:hover{background:var(--botanico);color:#F2EFE7}
+
+.totales{display:grid;gap:7px;margin-bottom:15px;padding-bottom:14px;border-bottom:1px solid var(--filete)}
+.tot{display:flex;justify-content:space-between;font-size:12.5px;color:var(--piedra)}
+.tot strong{color:var(--azabache);font-variant-numeric:tabular-nums}
+.tot--g{font-size:15px;color:var(--azabache);padding-top:8px}
+.tot--g strong{font-size:18px;font-weight:600}
+.tot--d strong{color:#2C6B4F}
+.acciones{display:grid;gap:9px}
+.nota{
+  display:flex;gap:9px;align-items:flex-start;margin-top:13px;
+  font-size:11px;color:var(--piedra);line-height:1.55;
+}
+.nota svg{width:14px;height:14px;flex:0 0 auto;margin-top:2px;color:var(--laton)}
+
+.carrito-vacio{text-align:center;padding:70px 12px}
+.carrito-vacio svg{width:44px;height:44px;color:var(--filete);margin:0 auto 18px}
+.carrito-vacio h4{font-family:var(--serif);font-size:21px;margin-bottom:8px}
+.carrito-vacio p{font-size:13.5px;color:var(--piedra);margin-bottom:22px}
+
+/* FICHA DE PRODUCTO */
+.ficha{
+  position:fixed;z-index:90;left:50%;top:50%;transform:translate(-50%,-46%) scale(.98);
+  width:min(940px,calc(100% - 28px));max-height:min(88vh,860px);
+  background:var(--marfil);border:1px solid var(--filete);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--e),transform .3s var(--e),visibility .3s;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 40px 90px -50px rgba(26,26,26,.6);
+}
+.ficha.on{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+@media (max-width:719px){
+  .ficha{inset:auto 0 0 0;left:0;top:auto;transform:translateY(101%);width:100%;max-height:92vh;border-inline:0}
+  .ficha.on{transform:translateY(0)}
+}
+.ficha__x{position:absolute;top:10px;right:10px;z-index:3;background:rgba(255,252,247,.9);border:1px solid var(--filete)}
+.ficha__g{display:grid;overflow-y:auto;flex:1}
+@media (min-width:720px){.ficha__g{grid-template-columns:1fr 1fr;overflow:hidden}}
+.ficha__m{position:relative;min-height:280px;border-right:1px solid var(--filete)}
+@media (max-width:719px){.ficha__m{aspect-ratio:5/4;min-height:0;border-right:0;border-bottom:1px solid var(--filete)}}
+.ficha__ill{position:absolute;inset:0;display:grid;place-items:center;padding:11%}
+.ficha__d{padding:26px var(--gutter) 24px;overflow-y:auto}
+@media (min-width:720px){.ficha__d{padding:32px 30px}}
+.ficha__n{font-size:clamp(23px,3.4vw,29px);line-height:1.15;margin:11px 0 6px;color:var(--botanico)}
+.ficha__pr{font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:16px}
+.ficha__p{font-size:13.5px;color:var(--piedra);line-height:1.75;margin-bottom:22px}
+.opt{margin-bottom:20px}
+.opt__t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.opt__t span:first-child{font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+.opt__t span:last-child{font-size:12px;color:var(--piedra)}
+.tallas{display:flex;flex-wrap:wrap;gap:7px}
+.talla{
+  min-width:47px;padding:11px 12px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:12.5px;border-radius:1px;transition:all .18s var(--e);font-variant-numeric:tabular-nums;
+}
+.talla:hover{border-color:var(--piedra)}
+.talla[aria-pressed="true"]{border-color:var(--botanico);background:var(--botanico);color:#F2EFE7;font-weight:600}
+.colores{display:flex;flex-wrap:wrap;gap:9px}
+.colr{width:31px;height:31px;border-radius:50%;border:1px solid rgba(26,26,26,.16);position:relative;transition:transform .18s var(--e)}
+.colr:hover{transform:scale(1.06)}
+.colr[aria-pressed="true"]::after{
+  content:"";position:absolute;inset:-5px;border:1px solid var(--botanico);border-radius:50%;
+}
+.avisos{display:grid;gap:8px;margin:18px 0 20px;padding:14px;background:var(--lino);border:1px solid var(--filete)}
+.aviso{display:flex;gap:9px;align-items:flex-start;font-size:11.5px;color:var(--piedra);line-height:1.55}
+.aviso svg{width:14px;height:14px;flex:0 0 auto;margin-top:2px;color:var(--botanico)}
+.aviso strong{color:var(--azabache);font-weight:600}
+.ficha__acts{display:grid;gap:9px}
+
+/* MODAL LEAD */
+.lead{
+  position:fixed;z-index:95;left:50%;top:50%;transform:translate(-50%,-46%);
+  width:min(560px,calc(100% - 28px));background:var(--marfil);border:1px solid var(--filete);
+  opacity:0;visibility:hidden;transition:opacity .34s var(--e),transform .34s var(--e),visibility .34s;
+  box-shadow:0 40px 90px -50px rgba(26,26,26,.6);overflow:hidden;
+}
+.lead.on{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+.lead__g{display:grid}
+@media (min-width:640px){.lead__g{grid-template-columns:.85fr 1.15fr}}
+.lead__m{position:relative;min-height:150px;background:radial-gradient(120% 100% at 30% 10%,#F3EEE3,#DFD6C4);border-right:1px solid var(--filete)}
+@media (max-width:639px){.lead__m{display:none}}
+.lead__m svg{position:absolute;inset:0;margin:auto;width:56%;color:var(--botanico);opacity:.75}
+.lead__d{padding:34px 26px 30px;position:relative}
+.lead__x{position:absolute;top:8px;right:8px}
+.lead__h{font-size:26px;line-height:1.15;color:var(--botanico);margin:12px 0 10px}
+.lead__p{font-size:13px;color:var(--piedra);line-height:1.7;margin-bottom:20px}
+.lead__f{display:grid;gap:9px}
+.lead__f input{
+  padding:14px;border:1px solid var(--filete);background:var(--blanco);font-size:13.5px;border-radius:1px;
+}
+.lead__f input:focus{outline:none;border-color:var(--botanico)}
+.lead__leg{font-size:10.5px;color:var(--piedra-claro);margin-top:12px;line-height:1.5}
+.lead__ok{text-align:center;padding:14px 0}
+.lead__code{
+  display:inline-block;margin:14px 0 6px;padding:13px 26px;border:1px dashed var(--botanico);
+  font-family:var(--sans);font-size:19px;letter-spacing:.22em;font-weight:700;color:var(--botanico);
+}
+
+/* consentimiento — Ley 1581 de 2012 */
+.consent{
+  display:flex;gap:10px;align-items:flex-start;margin:2px 0 4px;
+  font-size:11.5px;line-height:1.55;color:var(--piedra);text-align:left;cursor:pointer;
+}
+.consent input{
+  appearance:none;-webkit-appearance:none;
+  width:17px;height:17px;flex:0 0 auto;margin:1px 0 0;
+  border:1px solid var(--piedra-claro);background:var(--blanco);border-radius:1px;
+  cursor:pointer;position:relative;transition:background .18s var(--e),border-color .18s var(--e);
+}
+.consent input:checked{background:var(--botanico);border-color:var(--botanico)}
+.consent input:checked::after{
+  content:"";position:absolute;left:5px;top:1.5px;width:4px;height:9px;
+  border:solid #F2EFE7;border-width:0 1.6px 1.6px 0;transform:rotate(42deg);
+}
+.consent a{color:var(--botanico);text-decoration:underline;text-underline-offset:2px}
+.consent.err input{border-color:#9E3B2C;box-shadow:0 0 0 3px rgba(158,59,44,.12)}
+.consent.err{color:#9E3B2C}
+.lead__aviso{
+  display:flex;gap:9px;align-items:flex-start;text-align:left;
+  margin-top:16px;padding:13px;background:var(--lino);border:1px solid var(--filete);
+  font-size:11.5px;line-height:1.6;color:var(--piedra);
+}
+.lead__aviso svg{width:14px;height:14px;flex:0 0 auto;margin-top:2px;color:var(--laton)}
+.lead__aviso strong{color:var(--azabache);font-weight:600}
+.lead__vence{font-size:11.5px;color:var(--piedra);margin-top:4px}
+.lead__vence strong{color:var(--botanico)}
+.btn.cargando{position:relative;color:transparent !important}
+.btn.cargando::after{
+  content:"";position:absolute;width:15px;height:15px;border-radius:50%;
+  border:1.6px solid rgba(242,239,231,.35);border-top-color:#F2EFE7;
+  animation:giro .7s linear infinite;
+}
+.btn--g.cargando::after{border-color:rgba(44,62,46,.25);border-top-color:var(--botanico)}
+@keyframes giro{to{transform:rotate(360deg)}}
+
+/* ============================================================
+   CHECKOUT — resumen previo al pago
+   ============================================================ */
+.co{
+  position:fixed;z-index:94;left:50%;top:50%;transform:translate(-50%,-46%);
+  width:min(560px,calc(100% - 28px));max-height:90vh;
+  background:var(--marfil);border:1px solid var(--filete);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--e),transform .3s var(--e),visibility .3s;
+  display:flex;flex-direction:column;box-shadow:0 40px 90px -50px rgba(26,26,26,.6);
+}
+.co.on{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+@media (max-width:719px){
+  .co{inset:auto 0 0 0;left:0;top:auto;transform:translateY(101%);width:100%;max-height:93vh;border-inline:0}
+  .co.on{transform:translateY(0)}
+}
+.co__t{display:flex;align-items:center;justify-content:space-between;padding:16px var(--gutter);border-bottom:1px solid var(--filete)}
+.co__t h3{font-size:16px;color:var(--botanico)}
+.co__b{overflow-y:auto;padding:22px var(--gutter) 8px}
+@media (min-width:720px){.co__b{padding:24px 28px 8px}}
+.co__f{padding:16px var(--gutter) calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--filete);background:var(--lino)}
+@media (min-width:720px){.co__f{padding:18px 28px 22px}}
+
+.co__res{border-top:1px solid var(--filete);margin-bottom:18px}
+.co__li{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--filete);font-size:13px}
+.co__li span:first-child{color:var(--azabache)}
+.co__li em{display:block;font-style:normal;font-size:11px;color:var(--piedra);margin-top:3px}
+.co__li strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.campo{display:grid;gap:6px;margin-bottom:13px}
+.campo label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--azabache)}
+.campo input{
+  padding:13px 14px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:14px;border-radius:1px;color:var(--azabache);
+}
+.campo input:focus{outline:none;border-color:var(--botanico)}
+.campo input.err{border-color:#9E3B2C;box-shadow:0 0 0 3px rgba(158,59,44,.1)}
+.campo small{font-size:11px;color:var(--piedra-claro)}
+
+.co__seguro{
+  display:flex;gap:9px;align-items:flex-start;margin-top:12px;
+  font-size:11px;line-height:1.6;color:var(--piedra);
+}
+.co__seguro svg{width:14px;height:14px;flex:0 0 auto;margin-top:2px;color:var(--botanico)}
+.co__mp{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--botanico);
+}
+
+/* resultado del pago al volver de Mercado Pago */
+.res{
+  position:fixed;z-index:97;left:50%;top:50%;transform:translate(-50%,-46%);
+  width:min(480px,calc(100% - 28px));background:var(--marfil);border:1px solid var(--filete);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--e),transform .3s var(--e),visibility .3s;
+  box-shadow:0 40px 90px -50px rgba(26,26,26,.6);text-align:center;
+}
+.res.on{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+.res__b{padding:38px 28px 30px}
+.res__ico{width:46px;height:46px;margin:0 auto 18px}
+.res__ico.ok{color:#2C6B4F}
+.res__ico.esp{color:var(--laton)}
+.res__ico.mal{color:#9E3B2C}
+.res__h{font-size:24px;color:var(--botanico);margin-bottom:10px}
+.res__p{font-size:13.5px;line-height:1.75;color:var(--piedra);margin-bottom:22px;max-width:42ch;margin-inline:auto}
+
+/* POLÍTICA DE DATOS */
+.politica{
+  position:fixed;z-index:96;left:50%;top:50%;transform:translate(-50%,-46%);
+  width:min(760px,calc(100% - 28px));max-height:88vh;
+  background:var(--marfil);border:1px solid var(--filete);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--e),transform .3s var(--e),visibility .3s;
+  display:flex;flex-direction:column;box-shadow:0 40px 90px -50px rgba(26,26,26,.6);
+}
+.politica.on{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+@media (max-width:719px){
+  .politica{inset:auto 0 0 0;left:0;top:auto;transform:translateY(101%);width:100%;max-height:93vh;border-inline:0}
+  .politica.on{transform:translateY(0)}
+}
+.politica__t{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px var(--gutter);border-bottom:1px solid var(--filete)}
+.politica__t h3{font-size:17px;color:var(--botanico)}
+.politica__b{overflow-y:auto;padding:22px var(--gutter) 30px}
+@media (min-width:720px){.politica__b{padding:26px 34px 36px}}
+.politica__b h4{
+  font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;color:var(--azabache);margin:26px 0 9px;
+}
+.politica__b h4:first-child{margin-top:0}
+.politica__b p{font-size:13.5px;line-height:1.8;color:var(--piedra);margin-bottom:10px;max-width:70ch}
+.politica__b ul{display:grid;gap:7px;margin:8px 0 12px}
+.politica__b li{font-size:13.5px;line-height:1.7;color:var(--piedra);padding-left:17px;position:relative}
+.politica__b li::before{content:"";position:absolute;left:0;top:.78em;width:7px;height:1px;background:var(--laton)}
+.politica__b strong{color:var(--azabache);font-weight:600}
+.politica__meta{
+  margin-top:26px;padding:15px;background:var(--lino);border:1px solid var(--filete);
+  font-size:12px;color:var(--piedra);line-height:1.7;
+}
+.pendiente{
+  background:rgba(156,124,79,.14);border-bottom:1px dashed var(--laton);
+  padding:0 3px;color:var(--azabache);font-weight:600;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;left:50%;bottom:26px;z-index:120;transform:translate(-50%,22px);
+  background:var(--azabache);color:#F5F2EB;padding:13px 22px;border-radius:2px;
+  font-size:12.5px;letter-spacing:.04em;opacity:0;visibility:hidden;
+  transition:opacity .28s var(--e),transform .28s var(--e),visibility .28s;
+  max-width:calc(100% - 32px);text-align:center;
+  box-shadow:0 20px 40px -24px rgba(0,0,0,.7);
+}
+.toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:var(--botanico);color:#DCD8CE;padding:60px 0 0;margin-top:0}
+.footer a{color:#DCD8CE}
+.footer__g{display:grid;gap:38px;padding-bottom:44px}
+@media (min-width:900px){.footer__g{grid-template-columns:1.15fr 1fr;gap:60px}}
+.footer__marca .marca__n{color:#F2EFE7;font-size:21px}
+.footer__marca .marca__s{color:rgba(220,216,206,.6)}
+.footer__p{margin-top:20px;font-size:13px;line-height:1.75;color:rgba(220,216,206,.72);max-width:42ch}
+.footer__wa{margin-top:24px}
+.footer__soc{display:flex;gap:8px;margin-top:24px}
+.footer__soc a{
+  width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(226,221,213,.22);
+  transition:background .22s var(--e),border-color .22s var(--e);
+}
+.footer__soc a:hover{background:rgba(226,221,213,.1);border-color:rgba(226,221,213,.5)}
+.footer__soc svg{width:16px;height:16px}
+
+.acor{border-top:1px solid rgba(226,221,213,.16)}
+.acor__i{border-bottom:1px solid rgba(226,221,213,.16)}
+.acor__t{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:17px 0;text-align:left;color:#F2EFE7;
+  font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+}
+.acor__t svg{width:13px;height:13px;flex:0 0 auto;transition:transform .3s var(--e)}
+.acor__i.on .acor__t svg{transform:rotate(45deg)}
+.acor__c{max-height:0;overflow:hidden;transition:max-height .38s var(--e)}
+.acor__in{padding:0 0 20px;font-size:13px;line-height:1.8;color:rgba(220,216,206,.76);max-width:62ch}
+.acor__in strong{color:#F2EFE7;font-weight:600}
+.acor__in ul{margin-top:10px;display:grid;gap:7px}
+.acor__in li{padding-left:16px;position:relative}
+.acor__in li::before{content:"";position:absolute;left:0;top:.72em;width:6px;height:1px;background:rgba(220,216,206,.5)}
+.tabla-tallas{width:100%;margin-top:12px;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+.tabla-tallas th,.tabla-tallas td{border:1px solid rgba(226,221,213,.2);padding:7px 9px;text-align:left}
+.tabla-tallas th{color:#F2EFE7;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.tabla-scroll{overflow-x:auto}
+
+.footer__base{
+  border-top:1px solid rgba(226,221,213,.16);padding:20px 0 26px;
+  display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;
+  font-size:11px;color:rgba(220,216,206,.55);letter-spacing:.05em;
+}
+@media (min-width:760px){.footer__base{flex-direction:row;justify-content:space-between;text-align:left}}
+.footer__pagos{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+
+/* WhatsApp flotante */
+.wa-flota{
+  position:fixed;right:16px;bottom:16px;z-index:55;
+  width:52px;height:52px;border-radius:50%;background:#1F6B4E;color:#F2F7F3;
+  display:grid;place-items:center;
+  box-shadow:0 12px 28px -12px rgba(31,107,78,.9);
+  transition:transform .22s var(--e);
+}
+.wa-flota:hover{transform:scale(1.06)}
+.wa-flota svg{width:25px;height:25px}
+@media (max-width:719px){.wa-flota{bottom:16px;right:14px;width:50px;height:50px}}
+
+/* animación de entrada */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s var(--e),transform .7s var(--e)}
+.rev.vis{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  .rev{opacity:1;transform:none}
+}
+</style>
+
+<!-- ============ ICONOS (sprite) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- prendas: trazo fino, ilustración de línea -->
+    <symbol id="i-tee" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M45 20 L28 27 L15 45 L28 55 L34 47 L34 124 L86 124 L86 47 L92 55 L105 45 L92 27 L75 20 Z"/>
+        <path d="M45 20 C50 32 70 32 75 20"/>
+        <path d="M46.5 23 C51 33 69 33 73.5 23"/>
+      </g>
+    </symbol>
+    <symbol id="i-polo" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M45 20 L28 27 L15 45 L28 55 L34 47 L34 124 L86 124 L86 47 L92 55 L105 45 L92 27 L75 20 Z"/>
+        <path d="M45 20 L53 34 L60 28 L67 34 L75 20"/>
+        <path d="M53 34 L57 55 L63 55 L67 34"/>
+        <circle cx="60" cy="41" r="1.4" fill="currentColor" stroke="none"/>
+        <circle cx="60" cy="50" r="1.4" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="i-qzip" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M43 24 L26 31 L13 51 L27 60 L33 51 L33 126 L87 126 L87 51 L93 60 L107 51 L94 31 L77 24 Z"/>
+        <path d="M43 24 L50 14 L70 14 L77 24"/>
+        <path d="M50 14 L54 30 L60 26 L66 30 L70 14"/>
+        <path d="M60 26 L60 58"/>
+        <rect x="57.5" y="55" width="5" height="8" rx="1"/>
+        <path d="M33 108 L87 108"/>
+      </g>
+    </symbol>
+    <symbol id="i-chino" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M32 16 L88 16 L88 30 L84 128 L64 128 L60 62 L56 128 L36 128 L32 30 Z"/>
+        <path d="M32 30 L88 30"/>
+        <path d="M60 30 L60 62"/>
+        <path d="M36 120 L56 120 M64 120 L84 120"/>
+      </g>
+    </symbol>
+    <symbol id="i-vestir" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M32 16 L88 16 L88 30 L84 128 L64 128 L60 62 L56 128 L36 128 L32 30 Z"/>
+        <path d="M32 30 L88 30"/>
+        <path d="M48 30 L45 120 M72 30 L75 120"/>
+        <path d="M36 118 L56 118 M64 118 L84 118"/>
+        <path d="M41 22 L47 22 M73 22 L79 22"/>
+      </g>
+    </symbol>
+    <symbol id="i-anillo" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <circle cx="60" cy="82" r="34"/>
+        <circle cx="60" cy="82" r="25"/>
+        <path d="M44 54 L48 34 L72 34 L76 54"/>
+        <path d="M48 34 C54 42 66 42 72 34"/>
+      </g>
+    </symbol>
+    <symbol id="i-collar" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M28 26 C28 74 42 96 60 96 C78 96 92 74 92 26"/>
+        <path d="M32 26 C32 72 44 91 60 91 C76 91 88 72 88 26" stroke-dasharray="3 3.5"/>
+        <path d="M60 96 L60 104"/>
+        <path d="M52 104 L68 104 L64 122 L56 122 Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-reloj" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <circle cx="60" cy="70" r="27"/>
+        <circle cx="60" cy="70" r="21"/>
+        <path d="M60 58 L60 70 L69 75"/>
+        <path d="M47 45 L44 14 L76 14 L73 45"/>
+        <path d="M47 95 L44 126 L76 126 L73 95"/>
+        <path d="M44 24 L76 24 M44 116 L76 116"/>
+        <path d="M87 64 L91 64 L91 76 L87 76"/>
+      </g>
+    </symbol>
+    <symbol id="i-cinturon" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M8 58 L44 58 L44 82 L8 82 Z"/>
+        <path d="M44 58 L112 58 L112 82 L44 82 Z"/>
+        <rect x="44" y="52" width="30" height="36" rx="3"/>
+        <path d="M58 52 L58 88"/>
+        <path d="M58 70 L40 70"/>
+        <path d="M86 64 L86 76 M96 64 L96 76 M106 64 L106 76"/>
+      </g>
+    </symbol>
+    <symbol id="i-billetera" viewBox="0 0 120 140">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <rect x="16" y="38" width="88" height="62" rx="5"/>
+        <path d="M16 58 L104 58"/>
+        <path d="M72 68 L104 68 L104 88 L72 88 C66 88 62 83 62 78 C62 73 66 68 72 68 Z"/>
+        <circle cx="76" cy="78" r="3.2"/>
+      </g>
+    </symbol>
+    <!-- hero -->
+    <symbol id="i-hero" viewBox="0 0 300 380">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M150 22 C142 22 136 28 136 36 C136 42 140 46 146 48 L150 50"/>
+        <path d="M150 50 L44 96 C38 99 40 106 47 106 L253 106 C260 106 262 99 256 96 Z"/>
+        <path d="M112 100 L86 118 L66 156 L88 172 L100 150 L100 330 L200 330 L200 150 L212 172 L234 156 L214 118 L188 100"/>
+        <path d="M112 100 C122 122 178 122 188 100"/>
+        <path d="M116 104 C126 124 174 124 184 104"/>
+        <path d="M150 122 L150 320" stroke-dasharray="2 5" opacity=".55"/>
+        <path d="M100 300 C124 312 176 312 200 300" opacity=".5"/>
+        <path d="M100 268 C126 258 174 258 200 268" opacity=".35"/>
+      </g>
+    </symbol>
+    <!-- interfaz -->
+    <symbol id="u-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></g></symbol>
+    <symbol id="u-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></g></symbol>
+    <symbol id="u-bolsa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4.5 7.5h15l-1.1 12.2a1.5 1.5 0 0 1-1.5 1.3H7.1a1.5 1.5 0 0 1-1.5-1.3Z"/><path d="M8.7 10V6.6a3.3 3.3 0 0 1 6.6 0V10"/></g></symbol>
+    <symbol id="u-mas" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></g></symbol>
+    <symbol id="u-filtro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></g></symbol>
+    <symbol id="u-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/></g></symbol>
+    <symbol id="u-camion" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M2 6.5h11v10H2z"/><path d="M13 10h4l3 3.2v3.3h-7z"/><circle cx="6.5" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></g></symbol>
+    <symbol id="u-escudo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2.8 4.5 6v6c0 4.6 3.1 7.9 7.5 9.2 4.4-1.3 7.5-4.6 7.5-9.2V6Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></g></symbol>
+    <symbol id="u-cambio" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 9h13l-3-3M20.5 15h-13l3 3"/></g></symbol>
+    <symbol id="u-tijera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M7.8 16.2 19 4M16.2 16.2 5 4"/></g></symbol>
+    <symbol id="u-tela" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M3 6c3-2 5 2 8 0s5-2 8 0v12c-3-2-5 2-8 0s-5-2-8 0Z"/><path d="M11 6v12"/></g></symbol>
+    <symbol id="u-regla" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="8" rx="1.2"/><path d="M6.5 8v3M10 8v4.5M13.5 8v3M17 8v4.5"/></g></symbol>
+    <symbol id="u-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.94.53 3.75 1.44 5.3L2 22l4.98-1.6a9.8 9.8 0 0 0 5.06 1.4h.01c5.43 0 9.84-4.4 9.84-9.84C21.89 6.4 17.48 2 12.04 2Zm0 17.98h-.01a8.2 8.2 0 0 1-4.16-1.14l-.3-.18-3.1.99.99-3.02-.2-.31a8.14 8.14 0 0 1-1.25-4.36c0-4.5 3.67-8.16 8.18-8.16 2.18 0 4.23.85 5.77 2.4a8.1 8.1 0 0 1 2.4 5.77c0 4.5-3.67 8.16-8.17 8.16Zm4.49-6.11c-.25-.13-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.13-1.04-.39-1.98-1.22-.73-.65-1.22-1.46-1.37-1.7-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.09-.17.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.81-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.3-.22.25-.86.84-.86 2.05s.88 2.37 1 2.54c.13.16 1.73 2.64 4.2 3.7.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.45-.59 1.66-1.17.2-.57.2-1.06.14-1.16-.06-.11-.22-.17-.47-.29Z"/></symbol>
+    <symbol id="u-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="u-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 2h-2.7v13.1a2.6 2.6 0 1 1-2.6-2.6c.2 0 .4 0 .6.07V9.8a5.5 5.5 0 1 0 4.7 5.44V8.6a6.3 6.3 0 0 0 3.7 1.2V7.1a3.6 3.6 0 0 1-3.7-3.5V2Z"/></symbol>
+    <symbol id="u-tarjeta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.2"/><path d="M2.5 9.5h19"/><path d="M6 14.5h4"/></g></symbol>
+    <symbol id="u-candado" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></g></symbol>
+    <symbol id="u-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="m7.8 12.3 2.9 2.9 5.5-6"/></g></symbol>
+    <symbol id="u-alerta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v5.4M12 16.3v.1"/></g></symbol>
+    <symbol id="u-reloj-arena" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M6.5 3h11M6.5 21h11"/><path d="M7.5 3v3.6c0 2 4.5 3.7 4.5 5.4 0 1.7-4.5 3.4-4.5 5.4V21"/><path d="M16.5 3v3.6c0 2-4.5 3.7-4.5 5.4 0 1.7 4.5 3.4 4.5 5.4V21"/></g></symbol>
+    <symbol id="u-sobre" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="14" y="30" width="92" height="60" rx="3"/><path d="M14 34 60 66 106 34"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- ============ ANUNCIO ============ -->
+<div class="anuncio" role="status">
+  Envío gratis con pago por adelantado <span>·</span> Entrega de 5 a 7 días hábiles <span>·</span> Envíos a toda Colombia
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="wrap header__in">
+    <button class="burger" id="btnMenu" aria-label="Abrir menú de navegación" aria-expanded="false">
+      <svg width="22" height="22" aria-hidden="true"><use href="#u-menu"/></svg>
+    </button>
+
+    <a href="#top" class="marca" aria-label="Mancera Atelier, inicio">
+      <span class="marca__n">Mancera</span>
+      <span class="marca__s">Atelier · Old Money</span>
+    </a>
+
+    <nav class="nav" id="navEscritorio" aria-label="Categorías"></nav>
+
+    <div class="header__acc">
+      <button class="iconbtn" id="btnCarrito" aria-label="Abrir bolsa de compra">
+        <svg width="21" height="21" aria-hidden="true"><use href="#u-bolsa"/></svg>
+        <span class="pill" id="pillCarrito" aria-hidden="true">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MENÚ MÓVIL ============ -->
+<div class="mmenu" id="menuMovil" role="dialog" aria-modal="true" aria-label="Navegación" hidden>
+  <div class="mmenu__top">
+    <span class="marca__n" style="font-size:16px">Mancera</span>
+    <button class="cerrar" id="btnCerrarMenu" aria-label="Cerrar menú">
+      <svg width="20" height="20" aria-hidden="true"><use href="#u-x"/></svg>
+    </button>
+  </div>
+  <div class="mmenu__b" id="menuMovilCuerpo"></div>
+</div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__in">
+      <div class="hero__img">
+        <div class="hero__luz"></div>
+        <div class="hero__piso"></div>
+        <div class="hero__ill">
+          <svg viewBox="0 0 300 380" aria-hidden="true"><use href="#i-hero"/></svg>
+        </div>
+      </div>
+
+      <div class="hero__txt">
+        <div class="hero__lead">
+          <span class="ln"></span>
+          <span class="eyebrow">Colección cápsula · Caballero</span>
+        </div>
+        <h1 class="hero__h">Elegancia <em>silenciosa</em>.<br>Ajuste <em>impecable</em>.</h1>
+        <p class="hero__p">
+          Prendas de peso real, tejidos nobles y cortes estructurados. Piezas pensadas para
+          durar temporadas, no semanas: nada que pierda forma, nada que compita por la atención.
+        </p>
+        <div class="hero__acts">
+          <button class="btn btn--p" data-ir="todo">Explorar colección</button>
+          <a class="btn btn--g" href="#manifiesto">Nuestro criterio</a>
+        </div>
+        <ul class="hero__meta">
+          <li>Envío gratis pago anticipado</li>
+          <li>Pago contra entrega</li>
+          <li>Garantía de fábrica</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFIESTO ============ -->
+  <section class="manif" id="manifiesto">
+    <div class="wrap">
+      <div class="rev">
+        <span class="eyebrow">El manifiesto</span>
+        <h2 class="manif__h">Calidad en los detalles</h2>
+        <p class="manif__p">
+          La verdadera elegancia no se anuncia — se percibe. Cada prenda está concebida desde la
+          materia prima hasta el último punto de costura con una sola obsesión: la permanencia.
+          Trabajamos con talleres pequeños, series cortas y controles pieza por pieza.
+        </p>
+      </div>
+
+      <div class="pilares">
+        <article class="pilar rev">
+          <svg aria-hidden="true"><use href="#u-tela"/></svg>
+          <h3>Tejidos con peso</h3>
+          <p>Algodón peinado de 240 g, piqué de doble torsión y lana fría. Materiales que caen bien desde el primer día y no se deforman con el uso.</p>
+        </article>
+        <article class="pilar rev">
+          <svg aria-hidden="true"><use href="#u-tijera"/></svg>
+          <h3>Confección estructurada</h3>
+          <p>Costuras reforzadas, cuellos con entretela y pretinas construidas. Detalles invisibles que sostienen la forma de la prenda temporada tras temporada.</p>
+        </article>
+        <article class="pilar rev">
+          <svg aria-hidden="true"><use href="#u-regla"/></svg>
+          <h3>Patronaje propio</h3>
+          <p>Tres cortes definidos y dos alturas de tiro, ajustados sobre cuerpos reales. La talla correcta hace más por tu imagen que cualquier logotipo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATÁLOGO ============ -->
+  <section class="cat" id="coleccion">
+    <div class="wrap">
+      <div class="cat__head">
+        <span class="eyebrow">La colección</span>
+        <h2 class="cat__h" id="catTitulo">Toda la colección</h2>
+        <p class="cat__sub" id="catSub">Prendas superiores, inferiores y accesorios seleccionados uno a uno.</p>
+      </div>
+
+      <div class="secciones" id="secciones" role="group" aria-label="Secciones"></div>
+      <div class="subs" id="subs" role="group" aria-label="Subcategorías"></div>
+
+      <div class="fbar">
+        <button class="movil-f" id="btnFiltros">
+          <svg width="15" height="15" aria-hidden="true"><use href="#u-filtro"/></svg>
+          Filtrar <span id="fCuenta"></span>
+        </button>
+        <span class="fbar__n" id="conteo"></span>
+        <label style="margin-left:auto">
+          <span class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ordenar por</span>
+          <select class="orden" id="orden">
+            <option value="destacado">Ordenar: destacados</option>
+            <option value="menor">Precio: menor a mayor</option>
+            <option value="mayor">Precio: mayor a menor</option>
+            <option value="nombre">Nombre A – Z</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="cat__body">
+        <aside class="filtros" id="filtrosEscritorio" aria-label="Filtros"></aside>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONFIANZA ============ -->
+  <section class="confianza">
+    <div class="wrap confianza__g">
+      <div class="conf">
+        <svg aria-hidden="true"><use href="#u-camion"/></svg>
+        <div><h4>Envío gratis</h4><p>Sin costo en todos los pedidos con pago por adelantado.</p></div>
+      </div>
+      <div class="conf">
+        <svg aria-hidden="true"><use href="#u-info"/></svg>
+        <div><h4>5 a 7 días hábiles</h4><p>Alistamiento y entrega de lunes a viernes, sin contar festivos.</p></div>
+      </div>
+      <div class="conf">
+        <svg aria-hidden="true"><use href="#u-cambio"/></svg>
+        <div><h4>Cambio por talla</h4><p>Cambia tu talla dentro de los 10 días siguientes a la entrega.</p></div>
+      </div>
+      <div class="conf">
+        <svg aria-hidden="true"><use href="#u-escudo"/></svg>
+        <div><h4>Garantía de fábrica</h4><p>Defectos de confección cubiertos 100 % por la marca.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__g">
+      <div class="footer__marca">
+        <span class="marca__n" style="display:block">Mancera</span>
+        <span class="marca__s" style="display:block;margin-top:6px">Atelier · Old Money</span>
+        <p class="footer__p">
+          Colección cápsula de caballero. Prendas de peso real y cortes estructurados, en series
+          cortas y con atención uno a uno.
+        </p>
+        <div class="footer__wa">
+          <button class="btn btn--wa" id="btnWaFooter">
+            <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg>
+            Asesoría por WhatsApp
+          </button>
+        </div>
+        <div class="footer__soc">
+          <a href="#" aria-label="Instagram de Mancera Atelier"><svg aria-hidden="true"><use href="#u-ig"/></svg></a>
+          <a href="#" aria-label="TikTok de Mancera Atelier"><svg aria-hidden="true"><use href="#u-tiktok"/></svg></a>
+        </div>
+      </div>
+
+      <div class="acor" id="acordeon"></div>
+    </div>
+
+    <div class="footer__base">
+      <span>© <span id="anio"></span> Mancera Atelier. Todos los derechos reservados.</span>
+      <div class="footer__pagos">
+        <a href="#" data-politica style="text-decoration:underline;text-underline-offset:3px">Política de datos</a>
+        <span>Wompi</span><span>Mercado Pago</span><span>Contra entrega</span><span>PSE</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-flota" id="waFlota" href="#" aria-label="Escribir por WhatsApp">
+  <svg aria-hidden="true"><use href="#u-wa"/></svg>
+</a>
+
+<!-- ============ CAPAS ============ -->
+<div class="velo" id="velo" hidden></div>
+
+<!-- DRAWER FILTROS MÓVIL -->
+<div class="fdrawer" id="drawerFiltros" role="dialog" aria-modal="true" aria-label="Filtros" hidden>
+  <div class="fdrawer__t">
+    <h3 style="font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">Filtrar</h3>
+    <button class="cerrar" data-cerrar="drawerFiltros" aria-label="Cerrar filtros">
+      <svg width="20" height="20" aria-hidden="true"><use href="#u-x"/></svg>
+    </button>
+  </div>
+  <div class="fdrawer__b" id="filtrosMovil"></div>
+  <div class="fdrawer__f">
+    <button class="btn btn--g" id="limpiarMovil" style="flex:1">Limpiar</button>
+    <button class="btn btn--p" id="verResultados" style="flex:1.4">Ver resultados</button>
+  </div>
+</div>
+
+<!-- FICHA DE PRODUCTO -->
+<div class="ficha" id="ficha" role="dialog" aria-modal="true" aria-labelledby="fichaNombre" hidden>
+  <button class="cerrar ficha__x" data-cerrar="ficha" aria-label="Cerrar ficha de producto">
+    <svg width="19" height="19" aria-hidden="true"><use href="#u-x"/></svg>
+  </button>
+  <div class="ficha__g" id="fichaCuerpo"></div>
+</div>
+
+<!-- CARRITO -->
+<aside class="carrito" id="carrito" role="dialog" aria-modal="true" aria-label="Bolsa de compra" hidden>
+  <div class="carrito__t">
+    <h3>Tu bolsa <span id="carritoN" style="color:var(--piedra);font-weight:400"></span></h3>
+    <button class="cerrar" data-cerrar="carrito" aria-label="Cerrar bolsa">
+      <svg width="20" height="20" aria-hidden="true"><use href="#u-x"/></svg>
+    </button>
+  </div>
+  <div class="carrito__b" id="carritoCuerpo"></div>
+  <div class="carrito__f" id="carritoPie" hidden></div>
+</aside>
+
+<!-- MODAL LEAD -->
+<div class="lead" id="lead" role="dialog" aria-modal="true" aria-labelledby="leadTitulo" hidden>
+  <div class="lead__g">
+    <div class="lead__m"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#u-sobre"/></svg></div>
+    <div class="lead__d">
+      <button class="cerrar lead__x" data-cerrar="lead" aria-label="Cerrar">
+        <svg width="18" height="18" aria-hidden="true"><use href="#u-x"/></svg>
+      </button>
+      <div id="leadForm">
+        <span class="eyebrow">Primera compra</span>
+        <h3 class="lead__h" id="leadTitulo">10 % en tu primer pedido</h3>
+        <p class="lead__p">Déjanos tu correo y te enviamos un código personal, válido durante 5 días, junto con los lanzamientos de cada colección cápsula.</p>
+        <form class="lead__f" id="formLead" novalidate>
+          <input type="email" id="leadEmail" placeholder="tu@correo.com" autocomplete="email" required aria-label="Correo electrónico">
+          <label class="consent" id="consentRow" for="leadConsent">
+            <input type="checkbox" id="leadConsent" required>
+            <span>Acepto la <a href="#" data-politica>política de tratamiento de datos personales</a> y autorizo a Mancera Atelier a enviarme comunicaciones comerciales.</span>
+          </label>
+          <button type="submit" class="btn btn--p btn--full" id="btnLead">Quiero mi 10 %</button>
+        </form>
+        <p class="lead__leg">Ley 1581 de 2012. Puedes revocar tu autorización o darte de baja en cualquier momento.</p>
+      </div>
+      <div id="leadOk" hidden>
+        <div class="lead__ok">
+          <span class="eyebrow">Código enviado</span>
+          <h3 class="lead__h">Tu 10 % ya va en camino</h3>
+          <span class="lead__code" id="leadCodigo">—</span>
+          <p class="lead__vence">Válido hasta el <strong id="leadVence">—</strong> · Solo primera compra</p>
+          <div class="lead__aviso">
+            <svg aria-hidden="true"><use href="#u-info"/></svg>
+            <span><strong>¡Tu código de 10 % ya fue enviado!</strong> Revisa tu bandeja de entrada. Si no lo ves, búscalo en <strong>Promociones</strong> o <strong>Spam</strong> y arrástralo a tu bandeja Principal para no perderte nuestras ediciones limitadas.</span>
+          </div>
+          <button class="btn btn--g btn--full" data-cerrar="lead" style="margin-top:16px">Seguir comprando</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="co" id="checkout" role="dialog" aria-modal="true" aria-labelledby="coTitulo" hidden>
+  <div class="co__t">
+    <h3 id="coTitulo">Confirmar y pagar</h3>
+    <button class="cerrar" data-cerrar="checkout" aria-label="Cerrar checkout">
+      <svg width="20" height="20" aria-hidden="true"><use href="#u-x"/></svg>
+    </button>
+  </div>
+  <div class="co__b" id="coCuerpo"></div>
+  <div class="co__f">
+    <button class="btn btn--p btn--full" id="btnPagarMP">
+      <svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg>
+      Pagar con Mercado Pago
+    </button>
+    <div class="co__seguro">
+      <svg aria-hidden="true"><use href="#u-candado"/></svg>
+      <span>Pago procesado por <strong style="color:var(--azabache)">Mercado Pago</strong>. Tarjeta, PSE, Nequi y efectivo.
+      Mancera Atelier no almacena los datos de tu tarjeta.</span>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTADO DEL PAGO -->
+<div class="res" id="resultado" role="dialog" aria-modal="true" aria-labelledby="resTitulo" hidden>
+  <div class="res__b">
+    <svg class="res__ico" id="resIco" aria-hidden="true"><use href="#u-check"/></svg>
+    <h3 class="res__h" id="resTitulo">—</h3>
+    <p class="res__p" id="resTexto">—</p>
+    <div style="display:grid;gap:9px">
+      <button class="btn btn--p btn--full" data-cerrar="resultado">Seguir explorando</button>
+      <button class="btn btn--wa btn--full" id="btnResWa">
+        <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg> Hablar con la marca
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- POLÍTICA DE TRATAMIENTO DE DATOS — Ley 1581 de 2012 -->
+<div class="politica" id="politica" role="dialog" aria-modal="true" aria-labelledby="politicaTitulo" hidden>
+  <div class="politica__t">
+    <h3 id="politicaTitulo">Política de Tratamiento de Datos Personales</h3>
+    <button class="cerrar" data-cerrar="politica" aria-label="Cerrar política de datos">
+      <svg width="20" height="20" aria-hidden="true"><use href="#u-x"/></svg>
+    </button>
+  </div>
+  <div class="politica__b">
+    <p style="font-size:12px;color:var(--piedra-claro)">
+      En cumplimiento de la Ley Estatutaria 1581 de 2012, el Decreto 1377 de 2013 y el Decreto Único
+      Reglamentario 1074 de 2015 de la República de Colombia. Última actualización:
+      <span id="politicaFecha">—</span>.
+    </p>
+
+    <h4>1. Responsable del tratamiento</h4>
+    <p>
+      <strong>Mancera Atelier</strong>, identificada con NIT <span class="pendiente">[completar NIT]</span>,
+      con domicilio en <span class="pendiente">[completar dirección]</span>, Colombia, es la responsable
+      del tratamiento de los datos personales recolectados a través de este sitio web.
+    </p>
+    <ul>
+      <li>Correo electrónico de contacto: <strong>datos@manceracol.com</strong></li>
+      <li>Teléfono / WhatsApp: <span class="pendiente">[completar teléfono]</span></li>
+      <li>Área responsable de la atención de peticiones: Servicio al Cliente</li>
+    </ul>
+
+    <h4>2. Datos que recolectamos</h4>
+    <ul>
+      <li><strong>Datos de contacto:</strong> nombre, correo electrónico y número de teléfono.</li>
+      <li><strong>Datos de entrega:</strong> dirección, ciudad y departamento, cuando realizas un pedido.</li>
+      <li><strong>Datos de tu actividad de compra:</strong> prendas guardadas en la bolsa, pedidos realizados y códigos de descuento utilizados.</li>
+    </ul>
+    <p>
+      No recolectamos datos sensibles en los términos del artículo 5 de la Ley 1581 de 2012, ni datos de
+      niñas, niños y adolescentes. <strong>No almacenamos datos de tarjetas de crédito o débito:</strong>
+      los pagos se procesan directamente en la pasarela de pagos, que actúa como responsable independiente.
+    </p>
+
+    <h4>3. Finalidades del tratamiento</h4>
+    <p>Tus datos personales son tratados con las siguientes finalidades:</p>
+    <ul>
+      <li>Gestionar, preparar, despachar y hacer seguimiento a tus pedidos.</li>
+      <li>Emitir y validar códigos de descuento, incluido el código de bienvenida.</li>
+      <li>Enviarte recordatorios sobre prendas que dejaste guardadas en tu bolsa sin finalizar la compra.</li>
+      <li>Enviarte comunicaciones comerciales, novedades, lanzamientos y ediciones limitadas, previa autorización expresa.</li>
+      <li>Atender tus peticiones, consultas, reclamos, cambios por talla y solicitudes de garantía.</li>
+      <li>Cumplir obligaciones legales, contables y tributarias aplicables.</li>
+    </ul>
+
+    <h4>4. Autorización del titular</h4>
+    <p>
+      La recolección de tus datos requiere tu <strong>autorización previa, expresa e informada</strong>. La
+      otorgas al marcar la casilla de aceptación en nuestro formulario de suscripción o al completar un
+      pedido. Conservamos evidencia de dicha autorización, incluyendo la fecha y hora en que fue otorgada,
+      conforme al artículo 7 del Decreto 1377 de 2013.
+    </p>
+
+    <h4>5. Derechos del titular (artículo 8, Ley 1581 de 2012)</h4>
+    <p>Como titular de los datos, tienes derecho a:</p>
+    <ul>
+      <li>Conocer, actualizar y rectificar tus datos personales frente al responsable.</li>
+      <li>Solicitar prueba de la autorización otorgada, salvo en los casos exceptuados por la ley.</li>
+      <li>Ser informado, previa solicitud, sobre el uso que se ha dado a tus datos personales.</li>
+      <li>Presentar quejas ante la <strong>Superintendencia de Industria y Comercio</strong> por infracciones a la ley, una vez agotado el trámite de consulta o reclamo ante el responsable.</li>
+      <li>Revocar la autorización y solicitar la supresión de tus datos, cuando no exista un deber legal o contractual que lo impida.</li>
+      <li>Acceder de forma gratuita a tus datos personales que hayan sido objeto de tratamiento.</li>
+    </ul>
+
+    <h4>6. Cómo ejercer tus derechos</h4>
+    <p>
+      Puedes ejercer cualquiera de estos derechos escribiendo a <strong>datos@manceracol.com</strong> con el
+      asunto «Protección de datos», indicando tu nombre, tu solicitud y un medio de contacto.
+    </p>
+    <ul>
+      <li><strong>Consultas:</strong> se atienden en un término máximo de <strong>diez (10) días hábiles</strong>, prorrogable por cinco (5) días hábiles más (artículo 14).</li>
+      <li><strong>Reclamos:</strong> se atienden en un término máximo de <strong>quince (15) días hábiles</strong>, prorrogable por ocho (8) días hábiles más (artículo 15).</li>
+      <li><strong>Baja de comunicaciones comerciales:</strong> cada correo que enviamos incluye un enlace de cancelación que surte efecto de forma inmediata.</li>
+    </ul>
+
+    <h4>7. Encargados y transferencia de datos</h4>
+    <p>
+      Para operar la tienda nos apoyamos en proveedores que actúan como <strong>encargados del
+      tratamiento</strong> y que están obligados contractualmente a proteger tus datos:
+    </p>
+    <ul>
+      <li><strong>Resend</strong> — envío y administración de correos electrónicos.</li>
+      <li><strong>Vercel</strong> y <strong>Upstash</strong> — alojamiento del sitio y almacenamiento de los datos de suscripción y bolsa de compra.</li>
+      <li><strong>Pasarela de pagos</strong> — procesamiento de transacciones.</li>
+      <li><strong>Empresa transportadora</strong> — entrega de los pedidos.</li>
+    </ul>
+    <p>
+      Algunos de estos proveedores almacenan información en servidores ubicados fuera de Colombia. Al
+      aceptar esta política autorizas dicha transferencia internacional, que se realiza bajo estándares de
+      seguridad equiparables a los exigidos por la normativa colombiana.
+    </p>
+
+    <h4>8. Seguridad y conservación</h4>
+    <p>
+      Aplicamos medidas técnicas, humanas y administrativas razonables para evitar la adulteración,
+      pérdida, consulta, uso o acceso no autorizado de tus datos. Conservamos tus datos mientras la
+      relación comercial esté vigente y durante los plazos que exija la ley; los datos de la bolsa de
+      compra no finalizada se eliminan automáticamente a los <strong>siete (7) días</strong> y los códigos
+      de bienvenida vencidos, a los cinco (5) días de su emisión.
+    </p>
+
+    <h4>9. Vigencia</h4>
+    <p>
+      Esta política rige a partir de su publicación y permanece vigente mientras Mancera Atelier
+      desarrolle su objeto social. Cualquier modificación sustancial será informada a través de este sitio
+      web o por correo electrónico antes de su entrada en vigor. Las bases de datos se conservarán durante
+      el tiempo necesario para cumplir las finalidades descritas.
+    </p>
+
+    <div class="politica__meta">
+      Este documento fue redactado siguiendo la estructura que exige la Ley 1581 de 2012. Antes de
+      publicarlo en firme, complete los campos resaltados y valídelo con su asesor jurídico: la
+      responsabilidad legal frente a la Superintendencia de Industria y Comercio recae sobre la marca.
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+"use strict";
+
+/* ==========================================================================
+   CONFIGURACIÓN — cambia estos valores por los reales de la marca
+   ========================================================================== */
+const CONFIG = {
+  whatsapp: "573197379462",          // WhatsApp Business de la marca
+  envioContraentrega: 15000,         // ← costo de envío en pago contra entrega (COP)
+  api: "",                           // base de la API. "" = mismo origen
+  moneda: "COP",
+  marca: { nombre:"Mancera Atelier", dominio:"manceracol.com", correo:"hola@manceracol.com" },
+  /* La public key es pública por diseño: identifica la cuenta, no autoriza cobros.
+     El access token vive solo en el servidor, nunca aquí. */
+  mercadoPago: { publicKey: "APP_USR-8a48ece6-0ed0-4937-b8fe-c4e2c1a87adc" }
+};
+
+/* Sin backend (vista previa estática) la página sigue siendo navegable:
+   simula las respuestas de la API y lo advierte en pantalla. */
+let SIN_BACKEND = false;
+
+async function api(ruta, datos){
+  const r = await fetch(CONFIG.api + ruta, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datos)
+  });
+  const j = await r.json().catch(() => ({}));
+  if(!r.ok) throw Object.assign(new Error(j.error || "Error de red"), { datos:j, status:r.status });
+  return j;
+}
+
+/* ==========================================================================
+   PALETA DE COLORES DE PRODUCTO
+   ========================================================================== */
+const C = {
+  marino:  { n: "Azul Marino",   hex: "#26334A" },
+  marfil:  { n: "Crema Marfil",  hex: "#EDE6D8" },
+  melange: { n: "Gris Melange",  hex: "#9A9791" },
+  negro:   { n: "Negro Azabache",hex: "#26262A" },
+  khaki:   { n: "Beige / Khaki", hex: "#C4B18C" },
+  marengo: { n: "Gris Marengo",  hex: "#4A4A48" },
+  cognac:  { n: "Cuero Cognac",  hex: "#8A5A34" },
+  acero:   { n: "Acero",         hex: "#B9BCC0" },
+  oro:     { n: "Oro Viejo",     hex: "#B08D57" }
+};
+
+/* ==========================================================================
+   ESTRUCTURA DE NAVEGACIÓN
+   ========================================================================== */
+const SECCIONES = [
+  { id:"todo", n:"Todo", titulo:"Toda la colección",
+    sub:"Prendas superiores, inferiores y accesorios seleccionados uno a uno.", subs:[] },
+  { id:"superiores", n:"Prendas Superiores", titulo:"Prendas Superiores",
+    sub:"Camisetas de peso real, polos de punto firme y quarter-zips de media estación.",
+    subs:[{id:"camisetas",n:"Camisetas Básicas"},{id:"polos",n:"Polos"},{id:"qzip",n:"Quarter-Zip"}] },
+  { id:"inferiores", n:"Prendas Inferiores", titulo:"Prendas Inferiores",
+    sub:"Chinos y pantalones de vestir en tiro medio y tiro alto, con y sin pinzas.",
+    subs:[{id:"chinos",n:"Pantalones Chinos"},{id:"vestir",n:"Pantalones de Vestir"}] },
+  { id:"accesorios", n:"Accesorios", titulo:"Accesorios",
+    sub:"Piezas de remate: joyería sobria, relojería y marroquinería de grano fino.",
+    subs:[{id:"anillos",n:"Anillos"},{id:"collares",n:"Collares"},{id:"relojes",n:"Relojes"},{id:"marroquineria",n:"Marroquinería"}] }
+];
+
+/* ==========================================================================
+   CATÁLOGO
+   ========================================================================== */
+const P = [
+  // ---- CAMISETAS BÁSICAS ----
+  {id:"cb1", n:"Camiseta Peso Pesado 240 g", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:89000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.negro,C.melange], badge:"Best seller", orden:1,
+   d:"Punto de algodón peinado de 240 g que cae recto desde el hombro. Cuello redondo con ribete doble que no se abre con el lavado. La base de todo el guardarropa."},
+  {id:"cb2", n:"Camiseta Pima Cuello Redondo", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:95000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.marino,C.marfil], orden:2,
+   d:"Algodón Pima de fibra larga, tacto sedoso y color estable. Corte ceñido en cintura, pensado para llevarse solo o bajo quarter-zip."},
+  {id:"cb3", n:"Camiseta Cuello Alto Estructurado", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:99000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.negro,C.melange], orden:3,
+   d:"Cuello de mayor altura con entretela ligera que sostiene la forma. Un detalle mínimo que cambia por completo la silueta del torso."},
+  {id:"cb4", n:"Camiseta Bolsillo Ribeteado", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:92000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.melange,C.marfil], orden:4,
+   d:"Bolsillo de parche con ribete al tono, cosido a mano sobre el pecho. Jersey de 220 g con acabado mate."},
+
+  // ---- POLOS ----
+  {id:"po1", n:"Polo Piqué Clásico", sec:"superiores", sub:"polos", ico:"i-polo", precio:139000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marino,C.marfil], badge:"Icónico", orden:5,
+   d:"Piqué de doble torsión, cuello tejido aparte y tapeta de tres botones de corozo. El polo que resuelve del almuerzo a la oficina."},
+  {id:"po2", n:"Polo Punto Milano", sec:"superiores", sub:"polos", ico:"i-polo", precio:159000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.melange,C.negro], orden:6,
+   d:"Punto Milano de superficie lisa y cuerpo firme. Cae como una prenda de punto fino pero se comporta como una camiseta."},
+  {id:"po3", n:"Polo Manga Larga Tejido", sec:"superiores", sub:"polos", ico:"i-polo", precio:169000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.marino], orden:7,
+   d:"Manga larga con puño acanalado y tapeta corta. La alternativa cómoda a la camisa cuando el clima baja."},
+  {id:"po4", n:"Polo Cuello Camisero", sec:"superiores", sub:"polos", ico:"i-polo", precio:149000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.negro,C.marino], orden:8,
+   d:"Cuello camisero con entretela suave que se sostiene abierto sin plancha. Punto de algodón mercerizado con brillo discreto."},
+
+  // ---- QUARTER-ZIP ----
+  {id:"qz1", n:"Quarter-Zip Merino", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:229000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marino,C.melange], badge:"Serie corta", orden:9,
+   d:"Lana merino de 19,5 micras: térmica, ligera y sin picor. Cremallera metálica con tirador embebido y cuello alto."},
+  {id:"qz2", n:"Quarter-Zip Algodón Peinado", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:199000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.negro], orden:10,
+   d:"Algodón peinado de punto medio para entretiempo. Puños y bajo acanalados que mantienen la prenda en su sitio."},
+  {id:"qz3", n:"Quarter-Zip Cuello Alto", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:219000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.melange,C.marengo], orden:11,
+   d:"Cuello de 9 cm que se puede llevar cerrado sin agobiar. Hombro caído mínimo para una silueta más relajada."},
+  {id:"qz4", n:"Quarter-Zip Tejido de Ochos", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:249000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.marino], orden:12,
+   d:"Trenzado de ochos en el delantero, tejido en galga gruesa. Una pieza de invierno con carácter, sin estridencias."},
+
+  // ---- CHINOS ----
+  {id:"ch1", n:"Chino Clásico Tiro Medio", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:159000, fit:"Regular Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.khaki,C.marino], badge:"Best seller", orden:13,
+   d:"Gabardina de algodón con 2 % de elastano y pretina construida. Tiro medio, pierna recta y bajo sin dobladillo para ajustar a tu altura."},
+  {id:"ch2", n:"Chino Gabardina Tiro Alto", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:179000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.khaki,C.marengo], orden:14,
+   d:"Tiro alto que alarga la pierna y permite llevar la camiseta por dentro sin tirones. Gabardina compacta de 280 g."},
+  {id:"ch3", n:"Chino Slim Tiro Medio", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:165000, fit:"Slim Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.negro,C.marino], orden:15,
+   d:"Corte estrecho de muslo a tobillo, con caída limpia sobre el zapato. Para quien busca una línea vertical continua."},
+  {id:"ch4", n:"Chino con Pinzas Frontales", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:189000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.khaki,C.marengo], badge:"Nuevo", orden:16,
+   d:"Dos pinzas por delantero que dan volumen en la cadera y estrechan hacia el bajo. El chino más cercano a un pantalón de sastre."},
+
+  // ---- PANTALONES DE VESTIR ----
+  {id:"pv1", n:"Pantalón de Vestir con Pinzas", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:219000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.marengo,C.marino], badge:"Sastrería", orden:17,
+   d:"Pinza profunda, pretina alta con trabilla interna y raya marcada permanente. Tejido de lana fría con caída fluida."},
+  {id:"pv2", n:"Pantalón de Vestir Liso", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:199000, fit:"Regular Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.negro,C.marengo], orden:18,
+   d:"Delantero liso sin pinzas para una silueta limpia. Forro parcial hasta la rodilla que evita que se marque la pierna."},
+  {id:"pv3", n:"Pantalón Lana Fría con Pinzas", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:259000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.marino,C.marengo], badge:"Serie corta", orden:19,
+   d:"Lana fría Super 110's de tejido abierto, transpirable y con recuperación natural del pliegue. La pieza más formal de la casa."},
+  {id:"pv4", n:"Pantalón de Vestir Slim", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:209000, fit:"Slim Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.negro,C.marino], orden:20,
+   d:"Versión afilada del pantalón de vestir, con bajo estrecho pensado para llevar sin doblez sobre mocasín o bota."},
+
+  // ---- ACCESORIOS ----
+  {id:"ac1", n:"Anillo Sello Acero", sec:"accesorios", sub:"anillos", ico:"i-anillo", precio:79000, tallas:["16","18","20","22"], col:[C.acero,C.oro], orden:21,
+   d:"Sello de cara ovalada en acero quirúrgico con acabado satinado. Grabado opcional sin costo adicional."},
+  {id:"ac2", n:"Anillo Banda Pulida", sec:"accesorios", sub:"anillos", ico:"i-anillo", precio:69000, tallas:["16","18","20","22"], col:[C.acero,C.oro], orden:22,
+   d:"Banda de 4 mm con canto redondeado y pulido espejo. Discreta, cómoda y resistente al agua."},
+  {id:"ac3", n:"Collar Cadena Veneciana", sec:"accesorios", sub:"collares", ico:"i-collar", precio:119000, tallas:["50 cm","55 cm"], col:[C.acero,C.oro], orden:23,
+   d:"Eslabón veneciano de 2,5 mm con cierre de mosquetón reforzado. Se lleva bajo la camiseta o a la vista con el cuello abierto."},
+  {id:"ac4", n:"Collar Placa Grabada", sec:"accesorios", sub:"collares", ico:"i-collar", precio:129000, tallas:["50 cm","55 cm"], col:[C.acero], badge:"Personalizable", orden:24,
+   d:"Placa rectangular de canto biselado sobre cadena fina. Personalizable con iniciales grabadas a láser."},
+  {id:"ac5", n:"Reloj Automático Esfera Marfil", sec:"accesorios", sub:"relojes", ico:"i-reloj", precio:459000, tallas:["Talla única"], col:[C.marfil,C.acero], badge:"Serie corta", orden:25,
+   d:"Movimiento automático de 40 h de reserva, caja de 38 mm y esfera color marfil con índices aplicados. Correa intercambiable."},
+  {id:"ac6", n:"Reloj Correa de Cuero Cognac", sec:"accesorios", sub:"relojes", ico:"i-reloj", precio:389000, tallas:["Talla única"], col:[C.cognac,C.negro], orden:26,
+   d:"Caja de 36 mm en acero cepillado sobre correa de cuero vacuno cognac. Cristal mineral con tratamiento antirreflejo."},
+  {id:"ac7", n:"Cinturón Cuero Grano Fino", sec:"accesorios", sub:"marroquineria", ico:"i-cinturon", precio:129000, tallas:["85","90","95","100"], col:[C.cognac,C.negro], orden:27,
+   d:"Cuero vacuno de grano fino con hebilla de acero mate. 3,5 cm de ancho: correcto tanto con chino como con pantalón de vestir."},
+  {id:"ac8", n:"Billetera Cuero Vegetal", sec:"accesorios", sub:"marroquineria", ico:"i-billetera", precio:149000, tallas:["Talla única"], col:[C.cognac,C.negro], orden:28,
+   d:"Curtido vegetal que gana pátina con el uso. Seis alojamientos para tarjetas y compartimento único para billetes."}
+];
+
+/* ==========================================================================
+   ESTADO
+   ========================================================================== */
+const S = {
+  sec: "todo",
+  sub: null,
+  f: { talla:[], fit:[], tiro:[], color:[], subcat:[] },
+  orden: "destacado",
+  carrito: [],
+  pago: "adelantado",
+  cupon: null,
+  email: null
+};
+
+/* --- almacenamiento tolerante a fallos --- */
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+};
+
+/* --- utilidades --- */
+const $  = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => Array.from(r.querySelectorAll(s));
+const money = n => "$ " + n.toLocaleString("es-CO", {maximumFractionDigits:0});
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* textura de tejido (sarga) sobre el color real de la prenda */
+function tela(hex){
+  return `background-color:${hex};background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.10) 0 1px, rgba(0,0,0,0) 1px 4px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,.055) 0 1px, rgba(0,0,0,0) 1px 4px),
+    radial-gradient(118% 88% at 28% 12%, rgba(255,255,255,.30), rgba(0,0,0,.16) 100%);`;
+}
+/* la ilustración debe contrastar con el color del tejido */
+function trazo(hex){
+  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  const lum = (0.299*r + 0.587*g + 0.114*b)/255;
+  return lum > 0.62 ? "rgba(44,62,46,.72)" : "rgba(247,244,238,.82)";
+}
+
+/* ==========================================================================
+   NAVEGACIÓN
+   ========================================================================== */
+function pintarNav(){
+  const nav = $("#navEscritorio");
+  nav.innerHTML = SECCIONES.filter(s => s.id !== "todo").map(s => `
+    <div class="nav__i">
+      <button class="nav__t" data-sec="${s.id}" aria-haspopup="true">${esc(s.n)}</button>
+      <div class="drop">
+        <button data-sec="${s.id}">Ver todo · ${esc(s.n)}</button>
+        ${s.subs.map(x => `<button data-sec="${s.id}" data-sub="${x.id}">${esc(x.n)}</button>`).join("")}
+      </div>
+    </div>`).join("");
+
+  $("#menuMovilCuerpo").innerHTML = SECCIONES.filter(s => s.id !== "todo").map(s => `
+    <div class="mgrp">
+      <h4>${esc(s.n)}</h4>
+      ${s.subs.map(x => `<button data-sec="${s.id}" data-sub="${x.id}">${esc(x.n)}</button>`).join("")}
+      <button data-sec="${s.id}" style="color:var(--piedra);font-size:14px;font-family:var(--sans);padding-top:12px">Ver todo →</button>
+    </div>`).join("")
+    + `<div class="mmenu__cta">
+         <button class="btn btn--wa btn--full" data-wa="consulta">
+           <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg> Asesoría por WhatsApp
+         </button>
+       </div>`;
+
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-sec]");
+    if(!b) return;
+    irA(b.dataset.sec, b.dataset.sub || null);
+    cerrarTodo();
+  });
+}
+
+function irA(sec, sub){
+  S.sec = sec; S.sub = sub || null;
+  S.f = { talla:[], fit:[], tiro:[], color:[], subcat:[] };
+  pintarSecciones(); pintarSubs(); pintarFiltros(); pintarGrid();
+  const y = $("#coleccion").getBoundingClientRect().top + window.scrollY - 84;
+  window.scrollTo({ top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+
+function pintarSecciones(){
+  $("#secciones").innerHTML = SECCIONES.map(s =>
+    `<button class="sec" data-s="${s.id}" aria-pressed="${S.sec===s.id}">${esc(s.n)}</button>`).join("");
+  $$("#secciones .sec").forEach(b => b.onclick = () => {
+    S.sec = b.dataset.s; S.sub = null;
+    S.f = { talla:[], fit:[], tiro:[], color:[], subcat:[] };
+    pintarSecciones(); pintarSubs(); pintarFiltros(); pintarGrid();
+  });
+  const s = SECCIONES.find(x => x.id === S.sec);
+  const sb = S.sub && s.subs.find(x => x.id === S.sub);
+  $("#catTitulo").textContent = sb ? sb.n : s.titulo;
+  $("#catSub").textContent = s.sub;
+}
+
+function pintarSubs(){
+  const s = SECCIONES.find(x => x.id === S.sec);
+  const c = $("#subs");
+  if(!s.subs.length){ c.innerHTML = ""; c.style.display = "none"; return; }
+  c.style.display = "flex";
+  c.innerHTML = `<button class="sub" data-x="" aria-pressed="${!S.sub}">Todo</button>` +
+    s.subs.map(x => `<button class="sub" data-x="${x.id}" aria-pressed="${S.sub===x.id}">${esc(x.n)}</button>`).join("");
+  $$(".sub", c).forEach(b => b.onclick = () => {
+    S.sub = b.dataset.x || null;
+    pintarSecciones(); pintarSubs(); pintarGrid();
+  });
+}
+
+/* ==========================================================================
+   FILTROS DINÁMICOS — cambian según la sección visualizada
+   ========================================================================== */
+function defFiltros(){
+  if(S.sec === "superiores") return [
+    { k:"talla", t:"Talla", tipo:"chip", ops:["S","M","L","XL"] },
+    { k:"fit",   t:"Corte / Fit", tipo:"chip", ops:["Slim Fit","Regular Fit"] },
+    { k:"color", t:"Color", tipo:"color", ops:[C.marino,C.marfil,C.melange,C.negro] }
+  ];
+  if(S.sec === "inferiores") return [
+    { k:"talla", t:"Talla", tipo:"chip", ops:["28","30","32","34","36"] },
+    { k:"fit",   t:"Corte / Fit", tipo:"chip", ops:["Tailored Fit","Regular Fit","Slim Fit"] },
+    { k:"tiro",  t:"Tipo de tiro", tipo:"chip", ops:["Tiro Medio","Tiro Alto"] },
+    { k:"color", t:"Color", tipo:"color", ops:[C.khaki,C.marengo,C.marino,C.negro] }
+  ];
+  if(S.sec === "accesorios") return [
+    { k:"subcat", t:"Subcategoría", tipo:"chip",
+      ops:[["anillos","Anillos"],["collares","Collares"],["relojes","Relojes"],["marroquineria","Marroquinería"]] }
+  ];
+  return [
+    { k:"talla", t:"Talla", tipo:"chip", ops:["S","M","L","XL","28","30","32","34","36"] },
+    { k:"fit",   t:"Corte / Fit", tipo:"chip", ops:["Slim Fit","Regular Fit","Tailored Fit"] },
+    { k:"tiro",  t:"Tipo de tiro", tipo:"chip", ops:["Tiro Medio","Tiro Alto"] },
+    { k:"color", t:"Color", tipo:"color", ops:[C.marino,C.marfil,C.melange,C.negro,C.khaki,C.marengo] }
+  ];
+}
+
+function htmlFiltros(){
+  return defFiltros().map(g => {
+    let ops;
+    if(g.tipo === "color"){
+      ops = `<div class="fops fops--col">` + g.ops.map(c =>
+        `<button class="fcolor" data-k="color" data-v="${esc(c.n)}" aria-pressed="${S.f.color.includes(c.n)}">
+           <span class="sw" style="background:${c.hex}"></span>${esc(c.n)}</button>`).join("") + `</div>`;
+    } else {
+      ops = `<div class="fops">` + g.ops.map(o => {
+        const v = Array.isArray(o) ? o[0] : o, et = Array.isArray(o) ? o[1] : o;
+        return `<button class="fop" data-k="${g.k}" data-v="${esc(v)}" aria-pressed="${S.f[g.k].includes(v)}">${esc(et)}</button>`;
+      }).join("") + `</div>`;
+    }
+    return `<div class="fgrp"><h4 class="fgrp__t">${esc(g.t)}</h4>${ops}</div>`;
+  }).join("") + `<div class="fgrp" style="border-bottom:0"><button class="limpiar" data-limpiar>Limpiar filtros</button></div>`;
+}
+
+function pintarFiltros(){
+  const h = htmlFiltros();
+  $("#filtrosEscritorio").innerHTML = h;
+  $("#filtrosMovil").innerHTML = h;
+  $$("[data-k]").forEach(b => b.onclick = () => {
+    const {k,v} = b.dataset, a = S.f[k], i = a.indexOf(v);
+    i > -1 ? a.splice(i,1) : a.push(v);
+    pintarFiltros(); pintarGrid();
+  });
+  $$("[data-limpiar]").forEach(b => b.onclick = limpiar);
+  const n = Object.values(S.f).reduce((t,a) => t + a.length, 0);
+  $("#fCuenta").textContent = n ? `(${n})` : "";
+}
+function limpiar(){
+  S.f = { talla:[], fit:[], tiro:[], color:[], subcat:[] };
+  pintarFiltros(); pintarGrid();
+}
+
+/* ==========================================================================
+   GRID DE PRODUCTOS
+   ========================================================================== */
+function filtrar(){
+  let r = P.filter(p => {
+    if(S.sec !== "todo" && p.sec !== S.sec) return false;
+    if(S.sub && p.sub !== S.sub) return false;
+    if(S.f.subcat.length && !S.f.subcat.includes(p.sub)) return false;
+    if(S.f.talla.length && !p.tallas.some(t => S.f.talla.includes(t))) return false;
+    if(S.f.fit.length && !S.f.fit.includes(p.fit)) return false;
+    if(S.f.tiro.length && !S.f.tiro.includes(p.tiro)) return false;
+    if(S.f.color.length && !p.col.some(c => S.f.color.includes(c.n))) return false;
+    return true;
+  });
+  const o = S.orden;
+  r.sort((a,b) =>
+    o === "menor"  ? a.precio - b.precio :
+    o === "mayor"  ? b.precio - a.precio :
+    o === "nombre" ? a.n.localeCompare(b.n,"es") : a.orden - b.orden);
+  return r;
+}
+
+function tarjeta(p){
+  const c = p.col[0];
+  return `<article class="card">
+    <button class="card__media" data-abrir="${p.id}" aria-label="Ver ${esc(p.n)}">
+      <span class="card__tela" style="${tela(c.hex)}"></span>
+      <span class="card__ill"><svg viewBox="0 0 120 140" style="color:${trazo(c.hex)}" aria-hidden="true"><use href="#${p.ico}"/></svg></span>
+      ${p.badge ? `<span class="card__badge">${esc(p.badge)}</span>` : ""}
+      <span class="card__ver">Ver producto</span>
+    </button>
+    <div class="card__info">
+      <h3 class="card__n">${esc(p.n)}</h3>
+      <span class="card__m">${esc(p.fit || (p.tiro || "Accesorio"))}${p.tiro && p.fit ? " · " + esc(p.tiro) : ""}</span>
+      <div class="card__dots">${p.col.map(x => `<span class="dot" style="background:${x.hex}" title="${esc(x.n)}"></span>`).join("")}</div>
+      <span class="card__pr">${money(p.precio)}</span>
+    </div>
+  </article>`;
+}
+
+function pintarGrid(){
+  const r = filtrar(), g = $("#grid");
+  g.innerHTML = r.length ? r.map(tarjeta).join("")
+    : `<div class="vacio">
+         <h3>Sin resultados</h3>
+         <p>Ninguna pieza coincide con esta combinación de filtros.</p>
+         <button class="btn btn--g btn--sm" data-limpiar>Limpiar filtros</button>
+       </div>`;
+  $$("[data-abrir]", g).forEach(b => b.onclick = () => abrirFicha(b.dataset.abrir));
+  $$("[data-limpiar]", g).forEach(b => b.onclick = limpiar);
+  $("#conteo").textContent = `${r.length} ${r.length === 1 ? "pieza" : "piezas"}`;
+}
+
+/* ==========================================================================
+   FICHA DE PRODUCTO
+   ========================================================================== */
+let sel = { p:null, talla:null, color:0 };
+
+function abrirFicha(id){
+  const p = P.find(x => x.id === id); if(!p) return;
+  sel = { p, talla: p.tallas.length === 1 ? p.tallas[0] : null, color: 0 };
+  pintarFicha();
+  abrir("ficha");
+}
+
+function pintarFicha(){
+  const p = sel.p, c = p.col[sel.color];
+  $("#fichaCuerpo").innerHTML = `
+    <div class="ficha__m" id="fichaMedia" style="${tela(c.hex)}">
+      <div class="ficha__ill">
+        <svg viewBox="0 0 120 140" style="color:${trazo(c.hex)};width:100%;height:100%" aria-hidden="true"><use href="#${p.ico}"/></svg>
+      </div>
+    </div>
+    <div class="ficha__d">
+      <span class="eyebrow">${esc(nombreSub(p.sub))}</span>
+      <h2 class="ficha__n" id="fichaNombre">${esc(p.n)}</h2>
+      <p class="ficha__pr">${money(p.precio)}</p>
+      <p class="ficha__p">${esc(p.d)}</p>
+
+      <div class="opt">
+        <div class="opt__t"><span>Color</span><span>${esc(c.n)}</span></div>
+        <div class="colores">
+          ${p.col.map((x,i) => `<button class="colr" style="background:${x.hex}" data-c="${i}"
+            aria-pressed="${i===sel.color}" aria-label="Color ${esc(x.n)}"></button>`).join("")}
+        </div>
+      </div>
+
+      <div class="opt">
+        <div class="opt__t"><span>Talla</span><span>${sel.talla ? esc(sel.talla) : "Elige una talla"}</span></div>
+        <div class="tallas">
+          ${p.tallas.map(t => `<button class="talla" data-t="${esc(t)}" aria-pressed="${sel.talla===t}">${esc(t)}</button>`).join("")}
+        </div>
+      </div>
+
+      <div class="avisos">
+        <div class="aviso"><svg aria-hidden="true"><use href="#u-info"/></svg>
+          <span><strong>Procesamiento y preparación: 5 a 7 días hábiles</strong> (lunes a viernes, sin contar festivos).</span></div>
+        <div class="aviso"><svg aria-hidden="true"><use href="#u-camion"/></svg>
+          <span><strong>Envío gratis</strong> con pago por adelantado. El pago contra entrega aplica costo de envío de ${money(CONFIG.envioContraentrega)}.</span></div>
+        <div class="aviso"><svg aria-hidden="true"><use href="#u-escudo"/></svg>
+          <span>Garantía de fábrica cubierta 100 % por la marca.</span></div>
+      </div>
+
+      <div class="ficha__acts">
+        <button class="btn btn--p btn--full" id="btnAgregar">Agregar a la bolsa</button>
+        <button class="btn btn--wa btn--full" id="btnWaProducto">
+          <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg> Preguntar por esta pieza
+        </button>
+      </div>
+    </div>`;
+
+  $$("#fichaCuerpo [data-c]").forEach(b => b.onclick = () => { sel.color = +b.dataset.c; pintarFicha(); });
+  $$("#fichaCuerpo [data-t]").forEach(b => b.onclick = () => { sel.talla = b.dataset.t; pintarFicha(); });
+  $("#btnAgregar").onclick = agregar;
+  $("#btnWaProducto").onclick = () => {
+    const t = `Hola, me interesa la pieza *${p.n}*${sel.talla ? " en talla " + sel.talla : ""} (color ${c.n}). ¿Está disponible?`;
+    abrirWa(t);
+  };
+}
+
+function nombreSub(id){
+  for(const s of SECCIONES){ const x = s.subs.find(y => y.id === id); if(x) return x.n; }
+  return "";
+}
+
+/* ==========================================================================
+   CARRITO
+   ========================================================================== */
+function agregar(){
+  const p = sel.p;
+  if(!sel.talla){ toast("Elige una talla para continuar"); return; }
+  const c = p.col[sel.color];
+  const clave = `${p.id}|${sel.talla}|${c.n}`;
+  const ex = S.carrito.find(l => l.clave === clave);
+  ex ? ex.q++ : S.carrito.push({ clave, id:p.id, n:p.n, precio:p.precio, talla:sel.talla, color:c.n, hex:c.hex, ico:p.ico, q:1 });
+  guardar(); pintarCarrito(); cerrar("ficha"); abrir("carrito");
+  toast("Pieza agregada a tu bolsa");
+}
+
+function totales(){
+  const sub = S.carrito.reduce((t,l) => t + l.precio * l.q, 0);
+  const desc = S.cupon ? Math.round(sub * S.cupon.desc) : 0;
+  const envio = S.pago === "adelantado" ? 0 : (S.carrito.length ? CONFIG.envioContraentrega : 0);
+  return { sub, desc, envio, total: sub - desc + envio };
+}
+
+function pintarCarrito(){
+  const n = S.carrito.reduce((t,l) => t + l.q, 0);
+  const pill = $("#pillCarrito");
+  pill.textContent = n; pill.classList.toggle("on", n > 0);
+  $("#btnCarrito").setAttribute("aria-label", `Abrir bolsa de compra, ${n} ${n===1?"pieza":"piezas"}`);
+  $("#carritoN").textContent = n ? `(${n})` : "";
+
+  const cuerpo = $("#carritoCuerpo"), pie = $("#carritoPie");
+
+  if(!S.carrito.length){
+    cuerpo.innerHTML = `<div class="carrito-vacio">
+        <svg aria-hidden="true"><use href="#u-bolsa"/></svg>
+        <h4>Tu bolsa está vacía</h4>
+        <p>Explora la colección y añade tus piezas.</p>
+        <button class="btn btn--g btn--sm" data-cerrar="carrito">Seguir comprando</button>
+      </div>`;
+    pie.hidden = true;
+    enlazarCierres();
+    return;
+  }
+
+  cuerpo.innerHTML = S.carrito.map(l => `
+    <div class="linea">
+      <div class="linea__m" style="${tela(l.hex)}">
+        <span style="position:absolute;inset:14%;display:grid;place-items:center">
+          <svg viewBox="0 0 120 140" style="color:${trazo(l.hex)};width:100%;height:100%" aria-hidden="true"><use href="#${l.ico}"/></svg>
+        </span>
+      </div>
+      <div>
+        <h4 class="linea__n">${esc(l.n)}</h4>
+        <p class="linea__d">${esc(l.color)} · Talla ${esc(l.talla)}</p>
+        <div class="linea__r">
+          <div class="qty">
+            <button data-menos="${l.clave}" aria-label="Quitar una unidad de ${esc(l.n)}">−</button>
+            <span>${l.q}</span>
+            <button data-mas="${l.clave}" aria-label="Añadir una unidad de ${esc(l.n)}">+</button>
+          </div>
+          <span class="linea__p">${money(l.precio * l.q)}</span>
+        </div>
+      </div>
+      <button class="quitar" data-quitar="${l.clave}" aria-label="Eliminar ${esc(l.n)} de la bolsa">
+        <svg width="15" height="15" aria-hidden="true"><use href="#u-x"/></svg>
+      </button>
+    </div>`).join("");
+
+  const t = totales();
+  pie.hidden = false;
+  pie.innerHTML = `
+    <p class="pago__t">Método de pago</p>
+    <div class="pago__ops">
+      <button class="pop" data-pago="adelantado" aria-pressed="${S.pago==="adelantado"}">
+        <span class="pop__r"></span>
+        <span><span class="pop__n">Pago por adelantado</span><span class="pop__s">Envío gratis · Wompi, Mercado Pago o PSE</span></span>
+      </button>
+      <button class="pop" data-pago="contraentrega" aria-pressed="${S.pago==="contraentrega"}">
+        <span class="pop__r"></span>
+        <span><span class="pop__n">Pago contra entrega</span><span class="pop__s">Aplica costo de envío de ${money(CONFIG.envioContraentrega)}</span></span>
+      </button>
+    </div>
+
+    <div class="cupon">
+      <input id="inpCupon" placeholder="Código de descuento" value="${S.cupon ? esc(S.cupon.codigo) : ""}" aria-label="Código de descuento">
+      <button id="btnCupon">${S.cupon ? "Quitar" : "Aplicar"}</button>
+    </div>
+
+    <div class="totales">
+      <div class="tot"><span>Subtotal</span><strong>${money(t.sub)}</strong></div>
+      ${t.desc ? `<div class="tot tot--d"><span>Descuento ${esc(S.cupon.codigo)} (${Math.round(S.cupon.desc*100)} %)</span><strong>− ${money(t.desc)}</strong></div>` : ""}
+      <div class="tot"><span>Envío</span><strong>${t.envio ? money(t.envio) : "Gratis"}</strong></div>
+      <div class="tot tot--g"><span>Total</span><strong>${money(t.total)}</strong></div>
+    </div>
+
+    <div class="acciones">
+      ${S.pago === "adelantado" ? `
+        <button class="btn btn--p btn--full" id="btnPago">
+          <svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg>
+          Pagar con Mercado Pago
+        </button>` : ""}
+      <button class="btn btn--wa btn--full" id="btnWaCarrito">
+        <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg>
+        ${S.pago === "adelantado" ? "Completar pedido por WhatsApp" : "Confirmar pedido contra entrega"}
+      </button>
+    </div>
+
+    <div class="nota">
+      <svg aria-hidden="true"><use href="#u-info"/></svg>
+      <span>Procesamiento y preparación de 5 a 7 días hábiles (lunes a viernes, sin contar festivos). ${S.pago==="adelantado" ? "El envío es gratis por pagar de forma anticipada." : "Cambia a pago por adelantado para obtener el envío gratis."}</span>
+    </div>`;
+
+  $$("[data-mas]", cuerpo).forEach(b => b.onclick = () => cambiarQ(b.dataset.mas, 1));
+  $$("[data-menos]", cuerpo).forEach(b => b.onclick = () => cambiarQ(b.dataset.menos, -1));
+  $$("[data-quitar]", cuerpo).forEach(b => b.onclick = () => {
+    S.carrito = S.carrito.filter(l => l.clave !== b.dataset.quitar); guardar(); pintarCarrito();
+  });
+  $$("[data-pago]", pie).forEach(b => b.onclick = () => { S.pago = b.dataset.pago; guardar(); pintarCarrito(); });
+  $("#btnCupon").onclick = aplicarCupon;
+  const bp = $("#btnPago");
+  if(bp) bp.onclick = abrirCheckout;
+  $("#btnWaCarrito").onclick = pedidoWa;
+  enlazarCierres();
+}
+
+function cambiarQ(clave, d){
+  const l = S.carrito.find(x => x.clave === clave); if(!l) return;
+  l.q += d;
+  if(l.q < 1) S.carrito = S.carrito.filter(x => x.clave !== clave);
+  guardar(); pintarCarrito();
+}
+
+async function aplicarCupon(){
+  if(S.cupon){ S.cupon = null; guardar(); pintarCarrito(); toast("Descuento retirado"); return; }
+
+  const v = ($("#inpCupon").value || "").trim().toUpperCase();
+  if(!v){ toast("Escribe un código de descuento"); return; }
+
+  const btn = $("#btnCupon");
+  btn.classList.add("cargando"); btn.disabled = true;
+  try{
+    const r = await validarCodigo(v);
+    if(r.valido){
+      S.cupon = { codigo:r.codigo, desc:r.desc, tipo:r.tipo };
+      guardar(); pintarCarrito();
+      toast(`Descuento del ${Math.round(r.desc*100)} % aplicado`);
+    } else {
+      toast(r.motivo || "Ese código no es válido");
+    }
+  } finally {
+    const b = $("#btnCupon");
+    if(b){ b.classList.remove("cargando"); b.disabled = false; }
+  }
+}
+
+/* Consulta el backend. Si no hay backend disponible, simula la validación
+   para que la vista previa siga siendo navegable. */
+async function validarCodigo(codigo){
+  try{
+    return await api("/api/validar-codigo", { codigo, email: S.email || null });
+  }catch(e){
+    if(e.datos && e.datos.motivo) return e.datos;
+    SIN_BACKEND = true;
+    return simularCodigo(codigo);
+  }
+}
+
+function simularCodigo(c){
+  avisarSinBackend();
+  if(c === "MANCERA20") return { valido:true, codigo:c, desc:0.20, tipo:"maestro" };
+  if(/^MANCERA-[A-Z0-9]{4}$/.test(c)) return { valido:true, codigo:c, desc:0.10, tipo:"bienvenida" };
+  return { valido:false, motivo:"Ese código no es válido" };
+}
+
+let avisado = false;
+function avisarSinBackend(){
+  if(avisado) return;
+  avisado = true;
+  setTimeout(() => toast("Modo demostración: la API de códigos y correos aún no está desplegada"), 3400);
+}
+
+function guardar(){
+  store.set("mancera.carrito", JSON.stringify(S.carrito));
+  store.set("mancera.pago", S.pago);
+  store.set("mancera.cupon", S.cupon ? JSON.stringify(S.cupon) : "");
+  if(S.email) store.set("mancera.email", S.email);
+  guardarCarritoRemoto();
+}
+function restaurar(){
+  try{ const c = JSON.parse(store.get("mancera.carrito") || "[]"); if(Array.isArray(c)) S.carrito = c; }catch(e){}
+  const p = store.get("mancera.pago"); if(p === "adelantado" || p === "contraentrega") S.pago = p;
+  try{ const cu = JSON.parse(store.get("mancera.cupon") || "null"); if(cu && cu.codigo) S.cupon = cu; }catch(e){}
+  S.email = store.get("mancera.email") || null;
+}
+
+/* Guarda la bolsa en el servidor para poder enviar los recordatorios
+   de 1 hora y 48 horas. Solo si el cliente ya nos dio su correo. */
+let tGuardado;
+function guardarCarritoRemoto(){
+  if(!S.email) return;
+  clearTimeout(tGuardado);
+  tGuardado = setTimeout(() => {
+    const t = totales();
+    api("/api/guardar-carrito", {
+      email: S.email,
+      items: S.carrito.map(l => ({ n:l.n, color:l.color, talla:l.talla, q:l.q, precio:l.precio })),
+      total: t.total,
+      cupon: S.cupon ? S.cupon.codigo : null
+    }).catch(() => { SIN_BACKEND = true; });
+  }, 1200);
+}
+
+/* ==========================================================================
+   CHECKOUT
+   ========================================================================== */
+/* ==========================================================================
+   CHECKOUT CON MERCADO PAGO
+   ========================================================================== */
+function abrirCheckout(){
+  if(!S.carrito.length) return;
+  pintarCheckout();
+  abrir("checkout");
+}
+
+function pintarCheckout(){
+  const t = totales();
+  $("#coCuerpo").innerHTML = `
+    <div class="co__res">
+      ${S.carrito.map(l => `
+        <div class="co__li">
+          <span>${esc(l.n)}<em>${esc(l.color)} · Talla ${esc(l.talla)} · Cant. ${l.q}</em></span>
+          <strong>${money(l.precio * l.q)}</strong>
+        </div>`).join("")}
+      <div class="co__li"><span>Subtotal</span><strong>${money(t.sub)}</strong></div>
+      ${t.desc ? `<div class="co__li"><span style="color:#2C6B4F">Descuento ${esc(S.cupon.codigo)}</span><strong style="color:#2C6B4F">− ${money(t.desc)}</strong></div>` : ""}
+      <div class="co__li"><span>Envío</span><strong>${t.envio ? money(t.envio) : "Gratis"}</strong></div>
+      <div class="co__li" style="border-bottom:0;padding-top:14px">
+        <span style="font-size:15px">Total a pagar</span>
+        <strong style="font-size:19px;color:var(--botanico)">${money(t.total)}</strong>
+      </div>
+    </div>
+
+    <div class="campo">
+      <label for="coEmail">Correo electrónico</label>
+      <input type="email" id="coEmail" placeholder="tu@correo.com" autocomplete="email" value="${S.email ? esc(S.email) : ""}">
+      <small>Ahí te llega la confirmación y el número de guía.</small>
+    </div>
+
+    <div class="campo">
+      <label for="coNombre">Nombre completo</label>
+      <input type="text" id="coNombre" placeholder="Como aparece en tu documento" autocomplete="name" value="${store.get("mancera.nombre") ? esc(store.get("mancera.nombre")) : ""}">
+    </div>
+
+    <div class="avisos" style="margin:4px 0 6px">
+      <div class="aviso"><svg aria-hidden="true"><use href="#u-info"/></svg>
+        <span><strong>Preparación de 5 a 7 días hábiles</strong> (lunes a viernes, sin contar festivos). La dirección de entrega se confirma en el siguiente paso.</span></div>
+    </div>`;
+}
+
+async function pagarConMP(){
+  const email = ($("#coEmail")?.value || "").trim().toLowerCase();
+  const nombre = ($("#coNombre")?.value || "").trim();
+  const inp = $("#coEmail");
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    inp.classList.add("err"); inp.focus();
+    toast("Escribe un correo válido para enviarte la confirmación");
+    return;
+  }
+  inp.classList.remove("err");
+
+  S.email = email;
+  store.set("mancera.nombre", nombre);
+  guardar();
+
+  const btn = $("#btnPagarMP");
+  btn.classList.add("cargando"); btn.disabled = true;
+
+  try{
+    const r = await api("/api/crear-preferencia", {
+      email, nombre,
+      items: S.carrito.map(l => ({ id:l.id, n:l.n, color:l.color, talla:l.talla, q:l.q, precio:l.precio })),
+      cupon: S.cupon ? S.cupon.codigo : null,
+      pago: S.pago
+    });
+    if(!r.init_point) throw new Error("Respuesta incompleta de la pasarela");
+    window.location.href = r.init_point;
+  }catch(e){
+    btn.classList.remove("cargando"); btn.disabled = false;
+    SIN_BACKEND = true;
+    toast("No pudimos abrir la pasarela. Cierra tu pedido por WhatsApp y te ayudamos.");
+    console.warn("crear-preferencia:", e.message);
+  }
+}
+
+/* Mercado Pago devuelve al comprador con ?pago=... en la URL */
+function revisarRetornoDePago(){
+  const p = new URLSearchParams(location.search);
+  const estado = p.get("pago");
+  if(!estado) return;
+
+  const casos = {
+    exito: {
+      ico:"#u-check", clase:"ok",
+      h:"Pago confirmado",
+      t:"Gracias por tu compra. Te enviamos la confirmación por correo y el número de guía en cuanto tu pedido salga del taller, entre 5 y 7 días hábiles."
+    },
+    pendiente: {
+      ico:"#u-reloj-arena", clase:"esp",
+      h:"Pago en proceso",
+      t:"Mercado Pago todavía está confirmando tu pago. Cuando se acredite te avisamos por correo y empezamos a preparar tu pedido."
+    },
+    fallo: {
+      ico:"#u-alerta", clase:"mal",
+      h:"El pago no se completó",
+      t:"No se realizó ningún cobro. Puedes intentarlo de nuevo o cerrar tu pedido por WhatsApp: te acompañamos en el proceso."
+    }
+  };
+
+  const c = casos[estado];
+  if(!c) return;
+
+  $("#resIco").innerHTML = `<use href="${c.ico}"/>`;
+  $("#resIco").setAttribute("class", "res__ico " + c.clase);
+  $("#resTitulo").textContent = c.h;
+  $("#resTexto").textContent = c.t;
+
+  if(estado === "exito"){
+    S.carrito = []; S.cupon = null; guardar(); pintarCarrito();
+  }
+
+  history.replaceState({}, "", location.pathname + location.hash);
+  setTimeout(() => abrir("resultado"), 400);
+}
+
+function pedidoWa(){
+  if(!S.carrito.length) return;
+  const t = totales();
+  const l = [
+    "*NUEVO PEDIDO — MANCERA ATELIER*",
+    "",
+    ...S.carrito.map((x,i) =>
+      `${i+1}. ${x.n}\n   Color: ${x.color} · Talla: ${x.talla} · Cant: ${x.q}\n   ${money(x.precio * x.q)}`),
+    "",
+    `Subtotal: ${money(t.sub)}`,
+    ...(t.desc ? [`Descuento (${S.cupon.codigo} · ${Math.round(S.cupon.desc*100)} %): − ${money(t.desc)}`] : []),
+    `Envío: ${t.envio ? money(t.envio) : "Gratis"}`,
+    `*TOTAL: ${money(t.total)}*`,
+    "",
+    `Método de pago: ${S.pago === "adelantado" ? "Pago por adelantado (envío gratis)" : "Pago contra entrega (aplica costo de envío)"}`,
+    "",
+    "Quedo atento para confirmar mis datos de envío."
+  ].join("\n");
+  abrirWa(l);
+}
+
+function abrirWa(texto){
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
+}
+
+/* ==========================================================================
+   CAPAS: abrir / cerrar
+   ========================================================================== */
+const CAPAS = ["menuMovil","drawerFiltros","ficha","carrito","lead","checkout","resultado","politica"];
+let ultimoFoco = null;
+
+function abrir(id){
+  ultimoFoco = document.activeElement;
+  const el = $("#" + id);
+  el.hidden = false;
+  requestAnimationFrame(() => el.classList.add("on"));
+  if(id !== "menuMovil"){ const v = $("#velo"); v.hidden = false; requestAnimationFrame(() => v.classList.add("on")); }
+  document.body.classList.add("no-scroll");
+  if(id === "menuMovil") $("#btnMenu").setAttribute("aria-expanded","true");
+  const f = el.querySelector("button, input, select, a[href]");
+  if(f) setTimeout(() => f.focus({preventScroll:true}), 60);
+}
+
+function cerrar(id){
+  const el = $("#" + id);
+  el.classList.remove("on");
+  setTimeout(() => { el.hidden = true; }, 380);
+  if(id === "menuMovil") $("#btnMenu").setAttribute("aria-expanded","false");
+  if(!CAPAS.some(c => c !== id && $("#" + c).classList.contains("on"))){
+    const v = $("#velo"); v.classList.remove("on"); setTimeout(() => { v.hidden = true; }, 320);
+    document.body.classList.remove("no-scroll");
+    if(ultimoFoco) ultimoFoco.focus({preventScroll:true});
+  }
+}
+function cerrarTodo(){ CAPAS.forEach(c => { if($("#" + c).classList.contains("on")) cerrar(c); }); }
+
+function enlazarCierres(){
+  $$("[data-cerrar]").forEach(b => b.onclick = () => cerrar(b.dataset.cerrar));
+}
+
+/* ==========================================================================
+   TOAST
+   ========================================================================== */
+let tT;
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg; t.classList.add("on");
+  clearTimeout(tT); tT = setTimeout(() => t.classList.remove("on"), 3200);
+}
+
+/* ==========================================================================
+   PIE: ACORDEÓN LEGAL
+   ========================================================================== */
+const LEGAL = [
+  { t:"Políticas de envío", c:`
+    <p>Todos los pedidos se preparan en nuestro taller antes de salir a ruta.</p>
+    <ul>
+      <li><strong>Alistamiento y entrega: 5 a 7 días hábiles</strong>, contados de lunes a viernes y sin incluir festivos.</li>
+      <li><strong>Envío gratis</strong> en todos los pedidos con pago por adelantado (Wompi, Mercado Pago o PSE).</li>
+      <li><strong>Pago contra entrega:</strong> el costo de envío corre por cuenta del cliente y se paga al recibir.</li>
+      <li>Recibirás el número de guía por WhatsApp en cuanto el pedido salga del taller.</li>
+    </ul>` },
+  { t:"Cambios por talla", c:`
+    <p>Si la talla no es la correcta, la cambiamos por otra del mismo modelo.</p>
+    <ul>
+      <li>Dispones de <strong>10 días calendario</strong> desde la entrega para solicitar el cambio.</li>
+      <li>La prenda debe estar sin uso, sin lavar y con sus etiquetas originales.</li>
+      <li><strong>Los costos de envío del cambio corren por cuenta del cliente</strong>, tanto el envío de retorno como el despacho de la nueva talla.</li>
+      <li>El cambio queda sujeto a disponibilidad de la talla solicitada.</li>
+    </ul>` },
+  { t:"Garantía de fábrica", c:`
+    <p>Respondemos por lo que confeccionamos.</p>
+    <ul>
+      <li>Los <strong>defectos de fabricación están cubiertos al 100 % por la marca</strong>, incluidos los costos de envío del proceso.</li>
+      <li>Cubre costuras abiertas, cremalleras defectuosas, botones mal fijados y fallas del tejido.</li>
+      <li>No cubre el desgaste natural por uso ni los daños por lavado inadecuado.</li>
+      <li>Escríbenos por WhatsApp con fotos de la prenda y tu número de pedido para activarla.</li>
+    </ul>` },
+  { t:"Guía de tallas", c:`
+    <p>Medidas de la prenda en centímetros, tomada en plano. Si estás entre dos tallas, sube a la mayor en Regular Fit y mantén la menor en Slim Fit.</p>
+    <div class="tabla-scroll">
+      <table class="tabla-tallas">
+        <thead><tr><th>Talla</th><th>Pecho</th><th>Largo</th><th>Hombro</th><th>Cintura (pantalón)</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td>50 cm</td><td>69 cm</td><td>44 cm</td><td>28 – 30</td></tr>
+          <tr><td>M</td><td>53 cm</td><td>71 cm</td><td>46 cm</td><td>30 – 32</td></tr>
+          <tr><td>L</td><td>56 cm</td><td>73 cm</td><td>48 cm</td><td>32 – 34</td></tr>
+          <tr><td>XL</td><td>59 cm</td><td>75 cm</td><td>50 cm</td><td>34 – 36</td></tr>
+        </tbody>
+      </table>
+    </div>` },
+  { t:"Cuidado de las prendas", c:`
+    <ul>
+      <li><strong>Algodón y piqué:</strong> lavado a máquina en frío (máx. 30 °C), del revés y con prendas de color similar.</li>
+      <li><strong>Lana merino y lana fría:</strong> lavado a mano o programa lana; secar en plano, nunca colgado.</li>
+      <li>No usar blanqueador ni secadora: son las dos causas más comunes de deformación.</li>
+      <li>Plancha a temperatura media y por el revés; en lana, siempre con paño intermedio.</li>
+      <li><strong>Cuero:</strong> mantener lejos de fuentes de calor e hidratar cada seis meses con crema neutra.</li>
+    </ul>` },
+  { t:"Tratamiento de datos personales", c:`
+    <p>Tratamos tus datos conforme a la <strong>Ley 1581 de 2012</strong> y el Decreto 1377 de 2013.</p>
+    <ul>
+      <li>Solo recolectamos tus datos con tu <strong>autorización previa, expresa e informada</strong>.</li>
+      <li>Puedes conocer, actualizar, rectificar o suprimir tus datos, y revocar la autorización, escribiendo a <strong>datos@manceracol.com</strong>.</li>
+      <li>Las consultas se atienden en 10 días hábiles y los reclamos en 15 días hábiles.</li>
+      <li>Cada correo comercial incluye un enlace de baja inmediata.</li>
+    </ul>
+    <p style="margin-top:12px"><a href="#" data-politica style="color:#F2EFE7;text-decoration:underline;text-underline-offset:3px">Leer la política completa →</a></p>` },
+  { t:"Contacto", c:`
+    <p>Atención personalizada de lunes a viernes, de 9:00 a 18:00.</p>
+    <ul>
+      <li>WhatsApp Business: escríbenos con el botón verde de esta página.</li>
+      <li>Correo comercial: hola@manceracol.com</li>
+      <li>Protección de datos: datos@manceracol.com</li>
+      <li>Envíos a todo el territorio nacional.</li>
+    </ul>` }
+];
+
+function pintarAcordeon(){
+  $("#acordeon").innerHTML = LEGAL.map((x,i) => `
+    <div class="acor__i">
+      <button class="acor__t" aria-expanded="false" aria-controls="acc-${i}">
+        ${esc(x.t)} <svg aria-hidden="true"><use href="#u-mas"/></svg>
+      </button>
+      <div class="acor__c" id="acc-${i}"><div class="acor__in">${x.c}</div></div>
+    </div>`).join("");
+
+  $$(".acor__t").forEach(b => b.onclick = () => {
+    const item = b.parentElement, panel = item.querySelector(".acor__c");
+    const on = item.classList.toggle("on");
+    b.setAttribute("aria-expanded", String(on));
+    panel.style.maxHeight = on ? panel.scrollHeight + "px" : "0px";
+  });
+}
+
+/* ==========================================================================
+   MODAL DE CAPTURA
+   ========================================================================== */
+function iniciarLead(){
+  if(store.get("mancera.lead")) return;
+  let lanzado = false;
+  const lanzar = () => {
+    if(lanzado || document.body.classList.contains("no-scroll")) return;
+    lanzado = true; abrir("lead");
+  };
+  const porScroll = () => {
+    const p = window.scrollY / (document.body.scrollHeight - innerHeight);
+    if(p > 0.42){ window.removeEventListener("scroll", porScroll); lanzar(); }
+  };
+  setTimeout(lanzar, 22000);
+  window.addEventListener("scroll", porScroll, {passive:true});
+
+  $("#formLead").addEventListener("submit", enviarLead);
+}
+
+async function enviarLead(e){
+  e.preventDefault();
+  const email = $("#leadEmail").value.trim();
+  const consent = $("#leadConsent");
+  const fila = $("#consentRow");
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    toast("Escribe un correo válido"); $("#leadEmail").focus(); return;
+  }
+  /* Sin autorización expresa no se envía nada: artículo 9, Ley 1581 de 2012. */
+  if(!consent.checked){
+    fila.classList.add("err");
+    toast("Debes aceptar la política de tratamiento de datos para continuar");
+    consent.focus();
+    return;
+  }
+  fila.classList.remove("err");
+
+  const btn = $("#btnLead");
+  btn.classList.add("cargando"); btn.disabled = true;
+
+  let r;
+  try{
+    r = await api("/api/suscribir", {
+      email,
+      consentimiento: true,
+      origen: "modal-bienvenida",
+      fecha_consentimiento: new Date().toISOString()
+    });
+  }catch(err){
+    if(err.datos && err.datos.codigo){ r = err.datos; }
+    else {
+      SIN_BACKEND = true;
+      avisarSinBackend();
+      r = simularSuscripcion();
+    }
+  }finally{
+    btn.classList.remove("cargando"); btn.disabled = false;
+  }
+
+  store.set("mancera.lead", email);
+  S.email = email;
+
+  $("#leadCodigo").textContent = r.codigo;
+  $("#leadVence").textContent = fechaLarga(r.vence);
+  $("#leadForm").hidden = true;
+  $("#leadOk").hidden = false;
+
+  /* El código queda aplicado en la bolsa, además de llegar por correo. */
+  S.cupon = { codigo:r.codigo, desc:r.desc || 0.10, tipo:"bienvenida" };
+  guardar(); pintarCarrito();
+  enlazarCierres();
+}
+
+function simularSuscripcion(){
+  const abc = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = ""; for(let i=0;i<4;i++) s += abc[Math.floor(Math.random()*abc.length)];
+  return { codigo:`MANCERA-${s}`, desc:0.10, vence:new Date(Date.now() + 5*864e5).toISOString() };
+}
+
+function fechaLarga(iso){
+  try{
+    return new Date(iso).toLocaleDateString("es-CO", { day:"numeric", month:"long", year:"numeric" });
+  }catch(e){ return "—"; }
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE ENTRADA
+   ========================================================================== */
+function revelar(){
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add("vis"); io.unobserve(e.target); }
+  }), {rootMargin:"0px 0px -8% 0px", threshold:0.06});
+  $$(".rev").forEach((el,i) => { el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
+}
+
+/* ==========================================================================
+   ARRANQUE
+   ========================================================================== */
+function init(){
+  $("#anio").textContent = new Date().getFullYear();
+  $("#politicaFecha").textContent =
+    new Date().toLocaleDateString("es-CO", { day:"numeric", month:"long", year:"numeric" });
+  pintarNav(); pintarSecciones(); pintarSubs(); pintarFiltros(); pintarGrid();
+  pintarAcordeon(); restaurar(); pintarCarrito(); revelar(); iniciarLead();
+
+  $("#btnMenu").onclick = () => abrir("menuMovil");
+  $("#btnCerrarMenu").onclick = () => cerrar("menuMovil");
+  $("#btnCarrito").onclick = () => abrir("carrito");
+  $("#btnFiltros").onclick = () => abrir("drawerFiltros");
+  $("#verResultados").onclick = () => cerrar("drawerFiltros");
+  $("#limpiarMovil").onclick = limpiar;
+  $("#orden").onchange = e => { S.orden = e.target.value; pintarGrid(); };
+  $("#velo").onclick = cerrarTodo;
+  $("#btnPagarMP").onclick = pagarConMP;
+  $("#btnResWa").onclick = () => abrirWa("Hola, acabo de intentar un pago en la tienda y quisiera ayuda con mi pedido.");
+  revisarRetornoDePago();
+  $("#btnWaFooter").onclick = () => abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier.");
+  $("#waFlota").onclick = e => { e.preventDefault(); abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier."); };
+  $$("[data-wa]").forEach(b => b.onclick = () => abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier."));
+  $$("[data-ir]").forEach(b => b.onclick = () => irA(b.dataset.ir, null));
+  enlazarCierres();
+
+  /* la política se abre desde el checkbox, el footer y el acordeón */
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-politica]");
+    if(a){ e.preventDefault(); abrir("politica"); }
+  });
+  $("#leadConsent").addEventListener("change", () => $("#consentRow").classList.remove("err"));
+
+  document.addEventListener("keydown", e => {
+    if(e.key !== "Escape") return;
+    /* Escape cierra solo la capa de encima, no todas a la vez */
+    const abiertas = CAPAS.filter(c => $("#" + c).classList.contains("on"));
+    if(abiertas.length) cerrar(abiertas[abiertas.length - 1]);
+  });
+}
+
+document.readyState === "loading"
+  ? document.addEventListener("DOMContentLoaded", init)
+  : init();
+})();
+</script>

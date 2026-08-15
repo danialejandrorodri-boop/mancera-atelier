@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/cron/carrito-1h",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/carrito-48h",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/boletin-mensual",
+      "schedule": "0 14 1 * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    }
+  ]
+}

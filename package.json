@@ -1,0 +1,14 @@
+{
+  "name": "mancera-atelier",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tienda online de Mancera Atelier: catálogo, códigos de descuento y correos automáticos.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  }
+}
