@@ -225,7 +225,12 @@ h1.hero__h em::after{
   transform:skewX(-13deg);filter:blur(2px);
 }
 .hero__ill{position:absolute;inset:0;display:grid;place-items:center;padding:34px}
-.hero__ill svg{width:min(74%,420px);height:auto;color:var(--botanico)}
+.hero__ill svg{width:min(80%,440px);height:auto;color:var(--botanico)}
+/* Cuando exista img/hero.jpg, la fotografía sustituye a la ilustración. */
+.hero__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.hero__img.con-foto .hero__ill,
+.hero__img.con-foto .hero__luz,
+.hero__img.con-foto .hero__piso{display:none}
 .hero__piso{
   position:absolute;left:0;right:0;bottom:0;height:24%;
   background:linear-gradient(180deg,rgba(160,142,116,0) 0%,rgba(160,142,116,.13) 100%);
@@ -376,6 +381,17 @@ h1.hero__h em::after{
 .card:hover .card__tela{transform:scale(1.035)}
 .card__ill{position:absolute;inset:0;display:grid;place-items:center;padding:16%}
 .card__ill svg{width:100%;height:100%;opacity:.9}
+/* fotografía real de la prenda; si falla la carga, vuelve la ilustración */
+.card__foto{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  transition:transform .7s var(--e),opacity .4s var(--e);
+}
+.card:hover .card__foto{transform:scale(1.035)}
+.card__media.con-foto .card__tela,
+.card__media.con-foto .card__ill{opacity:0}
+/* segunda foto: aparece al pasar el cursor */
+.card__foto--rev{opacity:0;z-index:2}
+@media (hover:hover){.card__media.con-foto:hover .card__foto--rev{opacity:1}}
 .card__badge{
   position:absolute;top:10px;left:10px;padding:5px 10px;
   background:rgba(255,252,247,.94);border:1px solid var(--filete);
@@ -574,6 +590,36 @@ body.es-admin .card.oculta .card__media::after{
 .ficha__m{position:relative;min-height:280px;border-right:1px solid var(--filete)}
 @media (max-width:719px){.ficha__m{aspect-ratio:5/4;min-height:0;border-right:0;border-bottom:1px solid var(--filete)}}
 .ficha__ill{position:absolute;inset:0;display:grid;place-items:center;padding:11%}
+.ficha__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ficha__m.con-foto .ficha__ill{opacity:0}
+.ficha__thumbs{position:absolute;left:12px;bottom:12px;display:flex;gap:7px;z-index:3}
+.ficha__thumbs button{
+  width:42px;height:53px;border:1px solid var(--filete);background:var(--blanco);
+  overflow:hidden;opacity:.6;transition:opacity .2s var(--e),border-color .2s var(--e);padding:0;
+}
+.ficha__thumbs button:hover{opacity:.9}
+.ficha__thumbs button[aria-pressed="true"]{opacity:1;border-color:var(--botanico)}
+.ficha__thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* composición, cuidados y medidas */
+.detalles{border-top:1px solid var(--filete);margin:20px 0 4px}
+.detalle{border-bottom:1px solid var(--filete)}
+.detalle__t{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 0;text-align:left;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--azabache);
+}
+.detalle__t svg{width:12px;height:12px;flex:0 0 auto;transition:transform .3s var(--e);color:var(--piedra)}
+.detalle.on .detalle__t svg{transform:rotate(45deg)}
+.detalle__c{max-height:0;overflow:hidden;transition:max-height .34s var(--e)}
+.detalle__in{padding:0 0 16px;font-size:13px;line-height:1.75;color:var(--piedra)}
+.detalle__in strong{color:var(--azabache);font-weight:600}
+.detalle__in ul{display:grid;gap:6px;margin-top:6px}
+.detalle__in li{padding-left:15px;position:relative}
+.detalle__in li::before{content:"";position:absolute;left:0;top:.75em;width:6px;height:1px;background:var(--laton)}
+.medidas{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums;margin-top:8px}
+.medidas th,.medidas td{border:1px solid var(--filete);padding:6px 9px;text-align:left}
+.medidas th{background:var(--lino);font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--azabache)}
 .ficha__d{padding:26px var(--gutter) 24px;overflow-y:auto}
 @media (min-width:720px){.ficha__d{padding:32px 30px}}
 .ficha__n{font-size:clamp(23px,3.4vw,29px);line-height:1.15;margin:11px 0 6px;color:var(--botanico)}
@@ -967,17 +1013,39 @@ body.es-admin .card.oculta .card__media::after{
         <circle cx="76" cy="78" r="3.2"/>
       </g>
     </symbol>
-    <!-- hero -->
+    <!-- portada: silla de madera con una prenda reposando encima -->
     <symbol id="i-hero" viewBox="0 0 300 380">
-      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M150 22 C142 22 136 28 136 36 C136 42 140 46 146 48 L150 50"/>
-        <path d="M150 50 L44 96 C38 99 40 106 47 106 L253 106 C260 106 262 99 256 96 Z"/>
-        <path d="M112 100 L86 118 L66 156 L88 172 L100 150 L100 330 L200 330 L200 150 L212 172 L234 156 L214 118 L188 100"/>
-        <path d="M112 100 C122 122 178 122 188 100"/>
-        <path d="M116 104 C126 124 174 124 184 104"/>
-        <path d="M150 122 L150 320" stroke-dasharray="2 5" opacity=".55"/>
-        <path d="M100 300 C124 312 176 312 200 300" opacity=".5"/>
-        <path d="M100 268 C126 258 174 258 200 268" opacity=".35"/>
+      <g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round">
+        <!-- sombra proyectada en el suelo -->
+        <ellipse cx="152" cy="342" rx="86" ry="10" stroke="none" fill="currentColor" opacity=".07"/>
+
+        <!-- estructura de la silla -->
+        <g stroke-width="1.5">
+          <path d="M96 214 L96 96 Q96 90 102 90 L196 90 Q202 90 202 96 L202 214"/>
+          <path d="M100 128 L198 128"/>
+          <path d="M100 160 L198 160"/>
+          <path d="M78 214 L222 214 L236 236 L64 236 Z"/>
+          <path d="M74 236 L69 338"/>
+          <path d="M226 236 L231 338"/>
+          <path d="M99 236 L99 300"/>
+          <path d="M201 236 L201 300"/>
+          <path d="M80 292 L220 292" opacity=".55"/>
+        </g>
+
+        <!-- prenda de lino reposando sobre el respaldo -->
+        <g stroke-width="1.4">
+          <path d="M92 100 Q90 86 104 83 Q124 79 140 84 Q152 88 164 84 Q184 78 200 86 Q210 91 208 104
+                   Q206 126 210 148 Q212 170 204 190 Q198 205 186 212
+                   Q160 222 130 216 Q112 212 102 198 Q92 182 91 158 Q90 128 92 100 Z"/>
+          <path d="M110 88 Q114 132 111 166 Q109 190 104 204" opacity=".6"/>
+          <path d="M140 84 Q144 130 141 168 Q139 196 134 216" opacity=".45"/>
+          <path d="M172 85 Q176 130 173 166 Q171 192 166 214" opacity=".6"/>
+          <!-- manga cayendo por el costado -->
+          <path d="M206 112 Q228 122 234 148 Q238 172 226 192 Q220 202 210 206"/>
+          <path d="M212 122 Q228 136 226 162 Q225 180 216 194" opacity=".5"/>
+          <!-- cuello insinuado sobre el travesaño -->
+          <path d="M128 86 Q150 100 172 86" opacity=".7"/>
+        </g>
       </g>
     </symbol>
     <!-- interfaz -->
@@ -1567,73 +1635,29 @@ const SECCIONES = [
    CATÁLOGO
    ========================================================================== */
 const P = [
-  // ---- CAMISETAS BÁSICAS ----
-  {id:"cb1", n:"Camiseta Peso Pesado 240 g", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:89000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.negro,C.melange], badge:"Best seller", orden:1,
-   d:"Punto de algodón peinado de 240 g que cae recto desde el hombro. Cuello redondo con ribete doble que no se abre con el lavado. La base de todo el guardarropa."},
-  {id:"cb2", n:"Camiseta Pima Cuello Redondo", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:95000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.marino,C.marfil], orden:2,
-   d:"Algodón Pima de fibra larga, tacto sedoso y color estable. Corte ceñido en cintura, pensado para llevarse solo o bajo quarter-zip."},
-  {id:"cb3", n:"Camiseta Cuello Alto Estructurado", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:99000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.negro,C.melange], orden:3,
-   d:"Cuello de mayor altura con entretela ligera que sostiene la forma. Un detalle mínimo que cambia por completo la silueta del torso."},
-  {id:"cb4", n:"Camiseta Bolsillo Ribeteado", sec:"superiores", sub:"camisetas", ico:"i-tee", precio:92000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.melange,C.marfil], orden:4,
-   d:"Bolsillo de parche con ribete al tono, cosido a mano sobre el pecho. Jersey de 220 g con acabado mate."},
-
-  // ---- POLOS ----
-  {id:"po1", n:"Polo Piqué Clásico", sec:"superiores", sub:"polos", ico:"i-polo", precio:139000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marino,C.marfil], badge:"Icónico", orden:5,
-   d:"Piqué de doble torsión, cuello tejido aparte y tapeta de tres botones de corozo. El polo que resuelve del almuerzo a la oficina."},
-  {id:"po2", n:"Polo Punto Milano", sec:"superiores", sub:"polos", ico:"i-polo", precio:159000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.melange,C.negro], orden:6,
-   d:"Punto Milano de superficie lisa y cuerpo firme. Cae como una prenda de punto fino pero se comporta como una camiseta."},
-  {id:"po3", n:"Polo Manga Larga Tejido", sec:"superiores", sub:"polos", ico:"i-polo", precio:169000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.marino], orden:7,
-   d:"Manga larga con puño acanalado y tapeta corta. La alternativa cómoda a la camisa cuando el clima baja."},
-  {id:"po4", n:"Polo Cuello Camisero", sec:"superiores", sub:"polos", ico:"i-polo", precio:149000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.negro,C.marino], orden:8,
-   d:"Cuello camisero con entretela suave que se sostiene abierto sin plancha. Punto de algodón mercerizado con brillo discreto."},
-
-  // ---- QUARTER-ZIP ----
-  {id:"qz1", n:"Quarter-Zip Merino", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:229000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marino,C.melange], badge:"Serie corta", orden:9,
-   d:"Lana merino de 19,5 micras: térmica, ligera y sin picor. Cremallera metálica con tirador embebido y cuello alto."},
-  {id:"qz2", n:"Quarter-Zip Algodón Peinado", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:199000, fit:"Slim Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.negro], orden:10,
-   d:"Algodón peinado de punto medio para entretiempo. Puños y bajo acanalados que mantienen la prenda en su sitio."},
-  {id:"qz3", n:"Quarter-Zip Cuello Alto", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:219000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.melange,C.marengo], orden:11,
-   d:"Cuello de 9 cm que se puede llevar cerrado sin agobiar. Hombro caído mínimo para una silueta más relajada."},
-  {id:"qz4", n:"Quarter-Zip Tejido de Ochos", sec:"superiores", sub:"qzip", ico:"i-qzip", precio:249000, fit:"Regular Fit", tallas:["S","M","L","XL"], col:[C.marfil,C.marino], orden:12,
-   d:"Trenzado de ochos en el delantero, tejido en galga gruesa. Una pieza de invierno con carácter, sin estridencias."},
-
-  // ---- CHINOS ----
-  {id:"ch1", n:"Chino Clásico Tiro Medio", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:159000, fit:"Regular Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.khaki,C.marino], badge:"Best seller", orden:13,
-   d:"Gabardina de algodón con 2 % de elastano y pretina construida. Tiro medio, pierna recta y bajo sin dobladillo para ajustar a tu altura."},
-  {id:"ch2", n:"Chino Gabardina Tiro Alto", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:179000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.khaki,C.marengo], orden:14,
-   d:"Tiro alto que alarga la pierna y permite llevar la camiseta por dentro sin tirones. Gabardina compacta de 280 g."},
-  {id:"ch3", n:"Chino Slim Tiro Medio", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:165000, fit:"Slim Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.negro,C.marino], orden:15,
-   d:"Corte estrecho de muslo a tobillo, con caída limpia sobre el zapato. Para quien busca una línea vertical continua."},
-  {id:"ch4", n:"Chino con Pinzas Frontales", sec:"inferiores", sub:"chinos", ico:"i-chino", precio:189000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.khaki,C.marengo], badge:"Nuevo", orden:16,
-   d:"Dos pinzas por delantero que dan volumen en la cadera y estrechan hacia el bajo. El chino más cercano a un pantalón de sastre."},
-
-  // ---- PANTALONES DE VESTIR ----
-  {id:"pv1", n:"Pantalón de Vestir con Pinzas", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:219000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.marengo,C.marino], badge:"Sastrería", orden:17,
-   d:"Pinza profunda, pretina alta con trabilla interna y raya marcada permanente. Tejido de lana fría con caída fluida."},
-  {id:"pv2", n:"Pantalón de Vestir Liso", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:199000, fit:"Regular Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.negro,C.marengo], orden:18,
-   d:"Delantero liso sin pinzas para una silueta limpia. Forro parcial hasta la rodilla que evita que se marque la pierna."},
-  {id:"pv3", n:"Pantalón Lana Fría con Pinzas", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:259000, fit:"Tailored Fit", tiro:"Tiro Alto", tallas:["28","30","32","34","36"], col:[C.marino,C.marengo], badge:"Serie corta", orden:19,
-   d:"Lana fría Super 110's de tejido abierto, transpirable y con recuperación natural del pliegue. La pieza más formal de la casa."},
-  {id:"pv4", n:"Pantalón de Vestir Slim", sec:"inferiores", sub:"vestir", ico:"i-vestir", precio:209000, fit:"Slim Fit", tiro:"Tiro Medio", tallas:["28","30","32","34","36"], col:[C.negro,C.marino], orden:20,
-   d:"Versión afilada del pantalón de vestir, con bajo estrecho pensado para llevar sin doblez sobre mocasín o bota."},
-
-  // ---- ACCESORIOS ----
-  {id:"ac1", n:"Anillo Sello Acero", sec:"accesorios", sub:"anillos", ico:"i-anillo", precio:79000, tallas:["16","18","20","22"], col:[C.acero,C.oro], orden:21,
-   d:"Sello de cara ovalada en acero quirúrgico con acabado satinado. Grabado opcional sin costo adicional."},
-  {id:"ac2", n:"Anillo Banda Pulida", sec:"accesorios", sub:"anillos", ico:"i-anillo", precio:69000, tallas:["16","18","20","22"], col:[C.acero,C.oro], orden:22,
-   d:"Banda de 4 mm con canto redondeado y pulido espejo. Discreta, cómoda y resistente al agua."},
-  {id:"ac3", n:"Collar Cadena Veneciana", sec:"accesorios", sub:"collares", ico:"i-collar", precio:119000, tallas:["50 cm","55 cm"], col:[C.acero,C.oro], orden:23,
-   d:"Eslabón veneciano de 2,5 mm con cierre de mosquetón reforzado. Se lleva bajo la camiseta o a la vista con el cuello abierto."},
-  {id:"ac4", n:"Collar Placa Grabada", sec:"accesorios", sub:"collares", ico:"i-collar", precio:129000, tallas:["50 cm","55 cm"], col:[C.acero], badge:"Personalizable", orden:24,
-   d:"Placa rectangular de canto biselado sobre cadena fina. Personalizable con iniciales grabadas a láser."},
-  {id:"ac5", n:"Reloj Automático Esfera Marfil", sec:"accesorios", sub:"relojes", ico:"i-reloj", precio:459000, tallas:["Talla única"], col:[C.marfil,C.acero], badge:"Serie corta", orden:25,
-   d:"Movimiento automático de 40 h de reserva, caja de 38 mm y esfera color marfil con índices aplicados. Correa intercambiable."},
-  {id:"ac6", n:"Reloj Correa de Cuero Cognac", sec:"accesorios", sub:"relojes", ico:"i-reloj", precio:389000, tallas:["Talla única"], col:[C.cognac,C.negro], orden:26,
-   d:"Caja de 36 mm en acero cepillado sobre correa de cuero vacuno cognac. Cristal mineral con tratamiento antirreflejo."},
-  {id:"ac7", n:"Cinturón Cuero Grano Fino", sec:"accesorios", sub:"marroquineria", ico:"i-cinturon", precio:129000, tallas:["85","90","95","100"], col:[C.cognac,C.negro], orden:27,
-   d:"Cuero vacuno de grano fino con hebilla de acero mate. 3,5 cm de ancho: correcto tanto con chino como con pantalón de vestir."},
-  {id:"ac8", n:"Billetera Cuero Vegetal", sec:"accesorios", sub:"marroquineria", ico:"i-billetera", precio:149000, tallas:["Talla única"], col:[C.cognac,C.negro], orden:28,
-   d:"Curtido vegetal que gana pátina con el uso. Seis alojamientos para tarjetas y compartimento único para billetes."}
+  {
+    id: "ost01",
+    n: "Organic Stretch Slim Tee /01",
+    sec: "superiores", sub: "camisetas", ico: "i-tee",
+    precio: 129900,
+    fit: "Slim Fit",
+    tallas: ["S", "M", "L", "XL"],
+    col: [
+      { ...C.negro,  fotos: ["ost01-negro-1.jpg",  "ost01-negro-2.jpg"] },
+      { ...C.marfil, fotos: ["ost01-marfil-1.jpg", "ost01-marfil-2.jpg"] }
+    ],
+    badge: "Nuevo",
+    orden: 1,
+    d: "Silueta entallada, limpia y estructurada, pensada para un estilo sobrio y atemporal. Cae recta desde el hombro y marca el torso sin apretar.",
+    materiales: "95 % algodón orgánico · 5 % elastano reciclado",
+    cuidado: [
+      "Lavar a máquina en frío, máximo 30 °C.",
+      "Lavar del revés y con prendas de color similar.",
+      "No usar blanqueador ni secadora: el calor arruina la elasticidad.",
+      "Planchar a temperatura media y por el revés."
+    ],
+    medidas: null
+  }
 ];
 
 /* ==========================================================================
@@ -1677,6 +1701,25 @@ function trazo(hex){
   const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
   const lum = (0.299*r + 0.587*g + 0.114*b)/255;
   return lum > 0.62 ? "rgba(44,62,46,.72)" : "rgba(247,244,238,.82)";
+}
+
+/* ==========================================================================
+   FOTOGRAFÍA DE PORTADA
+   Si existe img/hero.jpg, sustituye a la ilustración de línea. Si no,
+   la ilustración se queda: la portada nunca se ve rota.
+   ========================================================================== */
+function cargarFotoPortada(){
+  const prueba = new Image();
+  prueba.onload = () => {
+    const panel = $(".hero__img");
+    const img = document.createElement("img");
+    img.className = "hero__foto";
+    img.src = prueba.src;
+    img.alt = "Camisa de lino reposando sobre una silla de madera, iluminada por la ventana";
+    panel.appendChild(img);
+    panel.classList.add("con-foto");
+  };
+  prueba.src = "img/hero.jpg";
 }
 
 /* ==========================================================================
@@ -1927,15 +1970,23 @@ function filtrar(){
   return r;
 }
 
+/* Las fotos viven en /img/productos/. Mientras una prenda no tenga foto,
+   la tarjeta muestra la muestra de tejido y la ilustración de línea. */
+const RUTA_FOTOS = "img/productos/";
+const fotosDe = c => Array.isArray(c.fotos) ? c.fotos : [];
+
 function tarjeta(p){
   const c = p.col[0];
   const est = estadoDe(p.id);
   const agotada = est === "agotado";
+  const fotos = fotosDe(c);
 
   return `<article class="card ${agotada ? "agotada" : ""} ${est === "oculta" ? "oculta" : ""}">
     <button class="card__media" data-abrir="${p.id}" aria-label="Ver ${esc(p.n)}">
       <span class="card__tela" style="${tela(c.hex)}"></span>
       <span class="card__ill"><svg viewBox="0 0 120 140" style="color:${trazo(c.hex)}" aria-hidden="true"><use href="#${p.ico}"/></svg></span>
+      ${fotos[0] ? `<img class="card__foto" src="${RUTA_FOTOS}${esc(fotos[0])}" alt="${esc(p.n)} en ${esc(c.n)}" loading="lazy">` : ""}
+      ${fotos[1] ? `<img class="card__foto card__foto--rev" src="${RUTA_FOTOS}${esc(fotos[1])}" alt="" loading="lazy" aria-hidden="true">` : ""}
       ${p.badge && !agotada ? `<span class="card__badge">${esc(p.badge)}</span>` : ""}
       ${agotada ? `<span class="card__agot"><span>Agotado</span></span>` : `<span class="card__ver">Ver producto</span>`}
     </button>
@@ -1955,12 +2006,31 @@ function tarjeta(p){
 
 function pintarGrid(){
   const r = filtrar(), g = $("#grid");
-  g.innerHTML = r.length ? r.map(tarjeta).join("")
-    : `<div class="vacio">
-         <h3>Sin resultados</h3>
-         <p>Ninguna pieza coincide con esta combinación de filtros.</p>
-         <button class="btn btn--g btn--sm" data-limpiar>Limpiar filtros</button>
-       </div>`;
+  const hayFiltros = Object.values(S.f).some(a => a.length);
+
+  g.innerHTML = r.length
+    ? r.map(tarjeta).join("")
+    : hayFiltros
+      ? `<div class="vacio">
+           <h3>Sin resultados</h3>
+           <p>Ninguna pieza coincide con esta combinación de filtros.</p>
+           <button class="btn btn--g btn--sm" data-limpiar>Limpiar filtros</button>
+         </div>`
+      : `<div class="vacio">
+           <h3>Próximamente</h3>
+           <p>Estamos terminando de preparar esta sección. Escríbenos y te avisamos apenas esté lista.</p>
+           <button class="btn btn--wa btn--sm" data-wa>Avísenme por WhatsApp</button>
+         </div>`;
+  /* La foto solo tapa la ilustración si de verdad carga: así, mientras no
+     hayas subido las imágenes, la tienda se sigue viendo bien. */
+  $$(".card__foto", g).forEach(im => {
+    const media = im.closest(".card__media");
+    const mostrar = () => media.classList.add("con-foto");
+    if(im.complete && im.naturalWidth) mostrar();
+    im.addEventListener("load", mostrar);
+    im.addEventListener("error", () => im.remove());
+  });
+
   $$("[data-abrir]", g).forEach(b => b.onclick = () => abrirFicha(b.dataset.abrir));
   $$("[data-limpiar]", g).forEach(b => b.onclick = limpiar);
   $$("[data-est]", g).forEach(b => b.onclick = e => {
@@ -1973,22 +2043,47 @@ function pintarGrid(){
 /* ==========================================================================
    FICHA DE PRODUCTO
    ========================================================================== */
-let sel = { p:null, talla:null, color:0 };
+let sel = { p:null, talla:null, color:0, foto:0 };
 
 function abrirFicha(id){
   const p = P.find(x => x.id === id); if(!p) return;
-  sel = { p, talla: p.tallas.length === 1 ? p.tallas[0] : null, color: 0 };
+  sel = { p, talla: p.tallas.length === 1 ? p.tallas[0] : null, color: 0, foto: 0 };
   pintarFicha();
   abrir("ficha");
 }
 
+function bloqueDetalle(titulo, contenido){
+  return `<div class="detalle">
+    <button class="detalle__t" aria-expanded="false">
+      ${esc(titulo)} <svg aria-hidden="true"><use href="#u-mas"/></svg>
+    </button>
+    <div class="detalle__c"><div class="detalle__in">${contenido}</div></div>
+  </div>`;
+}
+
+function tablaMedidas(m){
+  return `<div class="tabla-scroll"><table class="medidas">
+    <thead><tr><th>Talla</th>${m.columnas.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+    <tbody>${m.filas.map(f => `<tr><td><strong>${esc(f[0])}</strong></td>${f.slice(1).map(v => `<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody>
+  </table></div>
+  <p style="margin-top:9px;font-size:11.5px;color:var(--piedra-claro)">Medidas de la prenda en centímetros, tomadas en plano.</p>`;
+}
+
 function pintarFicha(){
   const p = sel.p, c = p.col[sel.color];
+  const fotos = fotosDe(c);
+  const foto = fotos[sel.foto] || fotos[0];
+
   $("#fichaCuerpo").innerHTML = `
-    <div class="ficha__m" id="fichaMedia" style="${tela(c.hex)}">
+    <div class="ficha__m ${foto ? "con-foto" : ""}" id="fichaMedia" style="${tela(c.hex)}">
       <div class="ficha__ill">
         <svg viewBox="0 0 120 140" style="color:${trazo(c.hex)};width:100%;height:100%" aria-hidden="true"><use href="#${p.ico}"/></svg>
       </div>
+      ${foto ? `<img class="ficha__foto" src="${RUTA_FOTOS}${esc(foto)}" alt="${esc(p.n)} en ${esc(c.n)}">` : ""}
+      ${fotos.length > 1 ? `<div class="ficha__thumbs">
+        ${fotos.map((f, i) => `<button data-f="${i}" aria-pressed="${i === sel.foto}" aria-label="Ver imagen ${i + 1} de ${fotos.length}">
+          <img src="${RUTA_FOTOS}${esc(f)}" alt="" loading="lazy"></button>`).join("")}
+      </div>` : ""}
     </div>
     <div class="ficha__d">
       <span class="eyebrow">${esc(nombreSub(p.sub))}</span>
@@ -2029,10 +2124,32 @@ function pintarFicha(){
           ${estadoDe(p.id) === "disponible" ? "Preguntar por esta pieza" : "Avísenme cuando vuelva"}
         </button>
       </div>
+
+      ${(p.materiales || p.cuidado || p.medidas) ? `<div class="detalles">
+        ${p.materiales ? bloqueDetalle("Composición", `<p>${esc(p.materiales)}</p>`) : ""}
+        ${p.cuidado ? bloqueDetalle("Cuidado de la prenda", `<ul>${p.cuidado.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`) : ""}
+        ${p.medidas ? bloqueDetalle("Medidas y talla", tablaMedidas(p.medidas)) : ""}
+      </div>` : ""}
     </div>`;
 
-  $$("#fichaCuerpo [data-c]").forEach(b => b.onclick = () => { sel.color = +b.dataset.c; pintarFicha(); });
+  /* Al cambiar de color se vuelve a la primera foto de ese color. */
+  $$("#fichaCuerpo [data-c]").forEach(b => b.onclick = () => { sel.color = +b.dataset.c; sel.foto = 0; pintarFicha(); });
   $$("#fichaCuerpo [data-t]").forEach(b => b.onclick = () => { sel.talla = b.dataset.t; pintarFicha(); });
+  $$("#fichaCuerpo [data-f]").forEach(b => b.onclick = () => { sel.foto = +b.dataset.f; pintarFicha(); });
+
+  /* Si la foto no existe todavía, se descubre la ilustración de línea. */
+  const ff = $("#fichaCuerpo .ficha__foto");
+  if(ff) ff.addEventListener("error", () => {
+    $("#fichaMedia").classList.remove("con-foto");
+    ff.remove();
+  });
+
+  $$("#fichaCuerpo .detalle__t").forEach(b => b.onclick = () => {
+    const item = b.parentElement, panel = item.querySelector(".detalle__c");
+    const on = item.classList.toggle("on");
+    b.setAttribute("aria-expanded", String(on));
+    panel.style.maxHeight = on ? panel.scrollHeight + "px" : "0px";
+  });
   const ba = $("#btnAgregar");
   if(ba) ba.onclick = agregar;
   $("#btnWaProducto").onclick = () => {
@@ -2864,13 +2981,19 @@ function init(){
   $("#orden").onchange = e => { S.orden = e.target.value; pintarGrid(); };
   $("#velo").onclick = cerrarTodo;
   $("#btnPagarMP").onclick = finalizarPedido;
+  cargarFotoPortada();
   cargarDisponibilidad();
   iniciarAdmin();
   $("#btnResWa").onclick = () => abrirWa("Hola, acabo de intentar un pago en la tienda y quisiera ayuda con mi pedido.");
   revisarRetornoDePago();
   const SALUDO = "Hola, quisiera asesoría sobre las piezas de Mancera Atelier.";
   $("#btnWaFooter").onclick = () => abrirWa(SALUDO);
-  $$("[data-wa]").forEach(b => b.onclick = () => abrirWa(SALUDO));
+
+  /* Delegado: así funciona también en los botones que se crean después,
+     como el de las secciones que aún no tienen piezas. */
+  document.addEventListener("click", e => {
+    if(e.target.closest("[data-wa]")) abrirWa(SALUDO);
+  });
 
   /* El botón flotante es un enlace de verdad: así funciona el clic derecho,
      el "abrir en pestaña nueva" y sigue sirviendo aunque falle el JavaScript. */
