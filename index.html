@@ -2600,8 +2600,23 @@ function pedidoWa(){
   abrirWa(l);
 }
 
+function urlWa(texto){
+  return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(texto)}`;
+}
+
 function abrirWa(texto){
-  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
+  abrirEnlace(urlWa(texto));
+}
+
+/* Abre un enlace externo sin dejar nunca al cliente sin respuesta.
+   Muchos navegadores bloquean las ventanas nuevas dentro de vistas previas
+   e iframes: cuando eso ocurre, window.open devuelve null y navegamos en la
+   misma pestaña, que siempre funciona. */
+function abrirEnlace(url){
+  let ventana = null;
+  try{ ventana = window.open(url, "_blank", "noopener"); }catch(e){}
+  if(ventana) return;
+  window.location.href = url;
 }
 
 /* ==========================================================================
@@ -2853,9 +2868,17 @@ function init(){
   iniciarAdmin();
   $("#btnResWa").onclick = () => abrirWa("Hola, acabo de intentar un pago en la tienda y quisiera ayuda con mi pedido.");
   revisarRetornoDePago();
-  $("#btnWaFooter").onclick = () => abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier.");
-  $("#waFlota").onclick = e => { e.preventDefault(); abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier."); };
-  $$("[data-wa]").forEach(b => b.onclick = () => abrirWa("Hola, quisiera asesoría sobre las piezas de Mancera Atelier."));
+  const SALUDO = "Hola, quisiera asesoría sobre las piezas de Mancera Atelier.";
+  $("#btnWaFooter").onclick = () => abrirWa(SALUDO);
+  $$("[data-wa]").forEach(b => b.onclick = () => abrirWa(SALUDO));
+
+  /* El botón flotante es un enlace de verdad: así funciona el clic derecho,
+     el "abrir en pestaña nueva" y sigue sirviendo aunque falle el JavaScript. */
+  const wf = $("#waFlota");
+  wf.href = urlWa(SALUDO);
+  wf.target = "_blank";
+  wf.rel = "noopener noreferrer";
+  wf.onclick = e => { e.preventDefault(); abrirWa(SALUDO); };
   $$("[data-ir]").forEach(b => b.onclick = () => irA(b.dataset.ir, null));
   enlazarCierres();
 
