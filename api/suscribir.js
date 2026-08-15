@@ -80,23 +80,36 @@ export default async function handler(req, res) {
       origen: registro.origen
     });
 
-    const plantilla = correoBienvenida({
-      codigo: registro.codigo,
-      vence: registro.vence
-    });
-
-    await enviarCorreo({
-      para: correo,
-      asunto: plantilla.asunto,
-      html: plantilla.html,
-      etiquetas: [{ name: "tipo", value: "bienvenida" }]
-    });
+    /* El código ya está creado y guardado. Si el envío del correo falla
+       —dominio sin verificar, caída de Resend, cuota agotada— el cliente NO
+       debe quedarse sin su descuento: se le entrega igual en pantalla y el
+       fallo queda registrado para revisarlo. */
+    let correoEnviado = false;
+    let correoError = null;
+    try {
+      const plantilla = correoBienvenida({
+        codigo: registro.codigo,
+        vence: registro.vence
+      });
+      await enviarCorreo({
+        para: correo,
+        asunto: plantilla.asunto,
+        html: plantilla.html,
+        etiquetas: [{ name: "tipo", value: "bienvenida" }]
+      });
+      correoEnviado = true;
+    } catch (e) {
+      correoError = e.message;
+      console.error("No se pudo enviar el correo de bienvenida:", e.message);
+    }
 
     return res.status(200).json({
       codigo: registro.codigo,
       desc: DESCUENTO,
       vence: registro.vence,
-      contacto_guardado: contacto.ok
+      contacto_guardado: contacto.ok,
+      correo_enviado: correoEnviado,
+      correo_error: correoError
     });
   } catch (e) {
     console.error("suscribir:", e);
