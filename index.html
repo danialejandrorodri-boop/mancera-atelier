@@ -286,6 +286,51 @@ h1.hero__h em::after{
 .pilar p{color:var(--piedra);font-size:14px;line-height:1.72}
 
 /* ============================================================
+   OUTFITS ARMADOS
+   ============================================================ */
+.outfits{background:var(--lino);border-bottom:1px solid var(--filete);padding:70px 0 78px;scroll-margin-top:calc(var(--header-h) + 8px)}
+.outfits__h{font-size:clamp(28px,5vw,42px);line-height:1.12;color:var(--botanico);margin-top:16px;max-width:16ch}
+.outfits__p{margin-top:18px;max-width:62ch;color:var(--piedra);font-size:15px;line-height:1.8}
+.outfits__g{display:grid;gap:26px;margin-top:46px}
+@media (min-width:900px){.outfits__g{grid-template-columns:repeat(2,1fr);gap:30px}}
+
+.outfit{background:var(--marfil);border:1px solid var(--filete);display:flex;flex-direction:column}
+.outfit__piezas{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--filete)}
+.pieza{position:relative;aspect-ratio:4/5;background:var(--lino);overflow:hidden}
+.pieza__tela{position:absolute;inset:0}
+.pieza__ill{position:absolute;inset:0;display:grid;place-items:center;padding:18%}
+.pieza__ill svg{width:100%;height:100%;opacity:.85}
+.pieza__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.pieza__et{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;padding:7px 8px;
+  background:linear-gradient(180deg,rgba(247,244,238,0),rgba(247,244,238,.94) 55%);
+  font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--azabache);
+  text-align:center;line-height:1.3;
+}
+.pieza--pendiente .pieza__et{color:var(--piedra-claro)}
+.pieza--pendiente::after{
+  content:"Próximamente";position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:3;
+  padding:4px 9px;background:rgba(255,252,247,.94);border:1px solid var(--filete);
+  font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--laton);
+  white-space:nowrap;
+}
+.outfit__d{padding:22px var(--gutter) 24px;display:flex;flex-direction:column;flex:1}
+@media (min-width:620px){.outfit__d{padding:24px 26px 26px}}
+.outfit__n{font-size:21px;line-height:1.2;color:var(--botanico)}
+.outfit__t{font-size:13px;line-height:1.7;color:var(--piedra);margin-top:9px;flex:1}
+.outfit__tallas{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:18px}
+.outfit__tallas span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-right:3px}
+.outfit__tallas button{
+  min-width:38px;padding:8px 10px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:12px;border-radius:1px;transition:all .18s var(--e);
+}
+.outfit__tallas button[aria-pressed="true"]{background:var(--botanico);border-color:var(--botanico);color:#F2EFE7;font-weight:600}
+.outfit__pie{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:18px;flex-wrap:wrap}
+.outfit__pr{font-variant-numeric:tabular-nums}
+.outfit__pr small{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--piedra-claro);margin-bottom:3px}
+.outfit__pr strong{font-size:19px;font-weight:600;color:var(--botanico)}
+
+/* ============================================================
    CATÁLOGO
    ============================================================ */
 .cat{padding:64px 0 90px;scroll-margin-top:calc(var(--header-h) + 8px)}
@@ -603,6 +648,24 @@ body.es-admin .card.oculta .card__media::after{
 .ficha__ill{position:absolute;inset:0;display:grid;place-items:center;padding:11%}
 .ficha__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .ficha__m.con-foto .ficha__ill{opacity:0}
+/* flechas para pasar entre las fotos de la prenda */
+.ficha__nav{
+  position:absolute;top:50%;margin-top:-19px;z-index:4;
+  width:38px;height:38px;display:grid;place-items:center;
+  background:rgba(255,252,247,.88);border:1px solid var(--filete);border-radius:50%;
+  color:var(--botanico);
+  opacity:0;transform:scale(.9);
+  transition:opacity .25s var(--e),transform .25s var(--e),background .2s var(--e);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+}
+.ficha__nav svg{width:17px;height:17px}
+.ficha__nav:hover{background:var(--blanco);transform:scale(1)}
+.ficha__nav--ant{left:12px}
+.ficha__nav--sig{right:12px}
+.ficha__nav--sig svg{transform:rotate(180deg)}
+.ficha__m:hover .ficha__nav,.ficha__m:focus-within .ficha__nav{opacity:1;transform:scale(1)}
+@media (hover:none){.ficha__nav{opacity:1;transform:scale(1)}}
+
 .ficha__thumbs{position:absolute;left:12px;bottom:12px;display:flex;gap:7px;z-index:3}
 .ficha__thumbs button{
   width:42px;height:53px;border:1px solid var(--filete);background:var(--blanco);
@@ -1075,6 +1138,7 @@ body.es-admin .card.oculta .card__media::after{
     <symbol id="u-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.94.53 3.75 1.44 5.3L2 22l4.98-1.6a9.8 9.8 0 0 0 5.06 1.4h.01c5.43 0 9.84-4.4 9.84-9.84C21.89 6.4 17.48 2 12.04 2Zm0 17.98h-.01a8.2 8.2 0 0 1-4.16-1.14l-.3-.18-3.1.99.99-3.02-.2-.31a8.14 8.14 0 0 1-1.25-4.36c0-4.5 3.67-8.16 8.18-8.16 2.18 0 4.23.85 5.77 2.4a8.1 8.1 0 0 1 2.4 5.77c0 4.5-3.67 8.16-8.17 8.16Zm4.49-6.11c-.25-.13-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.13-1.04-.39-1.98-1.22-.73-.65-1.22-1.46-1.37-1.7-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.09-.17.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.81-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.3-.22.25-.86.84-.86 2.05s.88 2.37 1 2.54c.13.16 1.73 2.64 4.2 3.7.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.45-.59 1.66-1.17.2-.57.2-1.06.14-1.16-.06-.11-.22-.17-.47-.29Z"/></symbol>
     <symbol id="u-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></g></symbol>
     <symbol id="u-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 2h-2.7v13.1a2.6 2.6 0 1 1-2.6-2.6c.2 0 .4 0 .6.07V9.8a5.5 5.5 0 1 0 4.7 5.44V8.6a6.3 6.3 0 0 0 3.7 1.2V7.1a3.6 3.6 0 0 1-3.7-3.5V2Z"/></symbol>
+    <symbol id="u-flecha" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></g></symbol>
     <symbol id="u-tarjeta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.2"/><path d="M2.5 9.5h19"/><path d="M6 14.5h4"/></g></symbol>
     <symbol id="u-candado" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></g></symbol>
     <symbol id="u-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="m7.8 12.3 2.9 2.9 5.5-6"/></g></symbol>
@@ -1189,6 +1253,22 @@ body.es-admin .card.oculta .card__media::after{
           <p>Tres cortes definidos y dos alturas de tiro, ajustados sobre cuerpos reales. La talla correcta hace más por tu imagen que cualquier logotipo.</p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ OUTFITS ARMADOS ============ -->
+  <section class="outfits" id="outfits">
+    <div class="wrap">
+      <div class="rev">
+        <span class="eyebrow">Looks completos</span>
+        <h2 class="outfits__h">Armamos el outfit por ti</h2>
+        <p class="outfits__p">
+          Combinar bien es un oficio. Nosotros ya hicimos ese trabajo: cada look está
+          pensado pieza por pieza, con proporciones y tonos que funcionan juntos.
+          Eliges tu talla, lo añades completo y listo.
+        </p>
+      </div>
+      <div class="outfits__g" id="outfitsGrid"></div>
     </div>
   </section>
 
@@ -1838,6 +1918,117 @@ const P = [
 ];
 
 /* ==========================================================================
+   OUTFITS ARMADOS
+   Cada look enlaza piezas del catálogo por su id. Las que aún no existen se
+   declaran con `pendiente` y se muestran como "Próximamente": así el look se
+   entiende completo y, cuando subas la prenda, solo hay que cambiar la línea.
+   ========================================================================== */
+const OUTFITS = [
+  {
+    id: "of1",
+    n: "El Clásico de Fin de Semana",
+    d: "La fórmula que nunca falla: blanco arriba, azul en el medio, beige abajo. Funciona para un almuerzo, una reunión informal o un viaje corto.",
+    piezas: [
+      { id: "kvt02", color: "Blanco Marfil" },
+      { id: "iqz05", color: "Azul Marino Imperial" },
+      { pendiente: "Chino Beige Tiro Medio", ico: "i-chino", hex: "#C4B18C" }
+    ]
+  },
+  {
+    id: "of2",
+    n: "El Formal Silencioso",
+    d: "El mismo principio, subido de registro: punto perlado en lugar de interlock y pantalón de vestir con pinzas. Para cuando hay que estar impecable sin ponerse corbata.",
+    piezas: [
+      { id: "kvt02", color: "Blanco Marfil" },
+      { id: "opk07", color: "Azul Marino Imperial" },
+      { pendiente: "Pantalón de Vestir Beige con Pinzas", ico: "i-vestir", hex: "#C4B18C" }
+    ]
+  }
+];
+
+function pintarOutfits(){
+  const cont = $("#outfitsGrid");
+  if(!cont) return;
+
+  cont.innerHTML = OUTFITS.map(o => {
+    const piezas = o.piezas.map(x => {
+      if(x.pendiente) return { pendiente:true, n:x.pendiente, ico:x.ico, hex:x.hex };
+      const p = P.find(y => y.id === x.id);
+      if(!p) return { pendiente:true, n:"Pieza no disponible", ico:"i-tee", hex:"#E2DDD5" };
+      const c = p.col.find(y => y.n === x.color) || p.col[0];
+      return { p, c, n:p.n, ico:p.ico, hex:c.hex, precio:p.precio, foto:fotosDe(c)[0] };
+    });
+
+    const disponibles = piezas.filter(x => !x.pendiente && estadoDe(x.p.id) === "disponible");
+    const total = disponibles.reduce((t, x) => t + x.precio, 0);
+
+    return `<article class="outfit" data-outfit="${o.id}">
+      <div class="outfit__piezas">
+        ${piezas.map(x => `
+          <div class="pieza ${x.pendiente ? "pieza--pendiente" : ""}">
+            <span class="pieza__tela" style="${tela(x.hex)}"></span>
+            <span class="pieza__ill"><svg viewBox="0 0 120 140" style="color:${trazo(x.hex)}" aria-hidden="true"><use href="#${x.ico}"/></svg></span>
+            ${x.foto ? `<img class="pieza__foto" src="${RUTA_FOTOS}${esc(x.foto)}" alt="${esc(x.n)}" loading="lazy">` : ""}
+            <span class="pieza__et">${esc(x.n)}</span>
+          </div>`).join("")}
+      </div>
+      <div class="outfit__d">
+        <h3 class="outfit__n">${esc(o.n)}</h3>
+        <p class="outfit__t">${esc(o.d)}</p>
+        <div class="outfit__tallas" role="group" aria-label="Talla del outfit ${esc(o.n)}">
+          <span>Talla</span>
+          ${["S","M","L","XL"].map(t => `<button data-talla="${t}" aria-pressed="false">${t}</button>`).join("")}
+        </div>
+        <div class="outfit__pie">
+          <div class="outfit__pr">
+            <small>${disponibles.length} de ${piezas.length} piezas disponibles</small>
+            <strong>${money(total)}</strong>
+          </div>
+          <button class="btn btn--p btn--sm" data-agregar="${o.id}">Añadir el outfit</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+
+  $$(".pieza__foto", cont).forEach(im => im.addEventListener("error", () => im.remove()));
+
+  $$(".outfit", cont).forEach(card => {
+    $$("[data-talla]", card).forEach(b => b.onclick = () => {
+      $$("[data-talla]", card).forEach(x => x.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+    });
+    $("[data-agregar]", card).onclick = () => {
+      const sel = $("[data-talla][aria-pressed='true']", card);
+      if(!sel){ toast("Elige una talla para el outfit"); return; }
+      agregarOutfit(card.dataset.outfit, sel.dataset.talla);
+    };
+  });
+}
+
+function agregarOutfit(idOutfit, talla){
+  const o = OUTFITS.find(x => x.id === idOutfit);
+  let n = 0;
+
+  o.piezas.forEach(x => {
+    if(x.pendiente) return;
+    const p = P.find(y => y.id === x.id);
+    if(!p || estadoDe(p.id) !== "disponible") return;
+    const c = p.col.find(y => y.n === x.color) || p.col[0];
+    const clave = `${p.id}|${talla}|${c.n}`;
+    const ex = S.carrito.find(l => l.clave === clave);
+    ex ? ex.q++ : S.carrito.push({
+      clave, id:p.id, n:p.n, precio:p.precio, talla,
+      color:c.n, hex:c.hex, ico:p.ico, foto:fotosDe(c)[0] || null, q:1
+    });
+    n++;
+  });
+
+  if(!n){ toast("Las piezas de este outfit no están disponibles ahora"); return; }
+  guardar(); pintarCarrito(); abrir("carrito");
+  toast(`${n} ${n === 1 ? "pieza añadida" : "piezas añadidas"} en talla ${talla}`);
+}
+
+/* ==========================================================================
    ESTADO
    ========================================================================== */
 const S = {
@@ -1995,7 +2186,8 @@ async function guardarDisponibilidad(){
    ========================================================================== */
 function pintarNav(){
   const nav = $("#navEscritorio");
-  nav.innerHTML = SECCIONES.filter(s => s.id !== "todo").map(s => `
+  nav.innerHTML = `<div class="nav__i"><a class="nav__t" href="#outfits">Outfits</a></div>` +
+    SECCIONES.filter(s => s.id !== "todo").map(s => `
     <div class="nav__i">
       <button class="nav__t" data-sec="${s.id}" aria-haspopup="true">${esc(s.n)}</button>
       <div class="drop">
@@ -2214,6 +2406,7 @@ function pintarGrid(){
     e.stopPropagation();
     cambiarEstado(b.dataset.id, b.dataset.est);
   });
+  pintarOutfits();
   $("#conteo").textContent = `${r.length} ${r.length === 1 ? "pieza" : "piezas"}`;
 }
 
@@ -2284,7 +2477,14 @@ function pintarFicha(){
         <svg viewBox="0 0 120 140" style="color:${trazo(c.hex)};width:100%;height:100%" aria-hidden="true"><use href="#${p.ico}"/></svg>
       </div>
       ${foto ? `<img class="ficha__foto" src="${RUTA_FOTOS}${esc(foto)}" alt="${esc(p.n)} en ${esc(c.n)}">` : ""}
-      ${fotos.length > 1 ? `<div class="ficha__thumbs">
+      ${fotos.length > 1 ? `
+      <button class="ficha__nav ficha__nav--ant" data-paso="-1" aria-label="Imagen anterior">
+        <svg aria-hidden="true"><use href="#u-flecha"/></svg>
+      </button>
+      <button class="ficha__nav ficha__nav--sig" data-paso="1" aria-label="Imagen siguiente">
+        <svg aria-hidden="true"><use href="#u-flecha"/></svg>
+      </button>
+      <div class="ficha__thumbs">
         ${fotos.map((f, i) => `<button data-f="${i}" aria-pressed="${i === sel.foto}" aria-label="Ver imagen ${i + 1} de ${fotos.length}">
           <img src="${RUTA_FOTOS}${esc(f)}" alt="" loading="lazy"></button>`).join("")}
       </div>` : ""}
@@ -2344,6 +2544,13 @@ function pintarFicha(){
   $$("#fichaCuerpo [data-c]").forEach(b => b.onclick = () => { sel.color = +b.dataset.c; sel.foto = 0; pintarFicha(); });
   $$("#fichaCuerpo [data-t]").forEach(b => b.onclick = () => { sel.talla = b.dataset.t; pintarFicha(); });
   $$("#fichaCuerpo [data-f]").forEach(b => b.onclick = () => { sel.foto = +b.dataset.f; pintarFicha(); });
+
+  /* Las flechas giran en círculo: de la última se vuelve a la primera. */
+  $$("#fichaCuerpo [data-paso]").forEach(b => b.onclick = () => {
+    const n = fotos.length;
+    sel.foto = (sel.foto + +b.dataset.paso + n) % n;
+    pintarFicha();
+  });
 
   /* Si la foto no existe todavía, se descubre la ilustración de línea. */
   const ff = $("#fichaCuerpo .ficha__foto");
@@ -3223,7 +3430,7 @@ function init(){
   $("#anio").textContent = new Date().getFullYear();
   $("#politicaFecha").textContent =
     new Date().toLocaleDateString("es-CO", { day:"numeric", month:"long", year:"numeric" });
-  pintarNav(); pintarSecciones(); pintarSubs(); pintarFiltros(); pintarGrid();
+  pintarNav(); pintarSecciones(); pintarSubs(); pintarFiltros(); pintarGrid(); pintarOutfits();
   pintarAcordeon(); restaurar(); pintarCarrito(); revelar(); iniciarLead();
 
   $("#btnMenu").onclick = () => abrir("menuMovil");
