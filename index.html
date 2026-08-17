@@ -316,8 +316,10 @@ h1.hero__h em::after{
 @media (min-width:1240px){.outfits__g{grid-auto-columns:37%}}
 
 .outfit{scroll-snap-align:center;transition:opacity .4s var(--e)}
-/* Los looks que no están centrados se atenúan: guía la vista sin estorbar. */
-.outfit:not(.outfit--activo){opacity:.55}
+/* Los looks que no están centrados se atenúan, PERO solo cuando el carrusel
+   de verdad se desliza. Si caben todos en pantalla, atenuar uno lo hacía
+   parecer agotado o deshabilitado. */
+.outfits__g--desliza .outfit:not(.outfit--activo){opacity:.62}
 
 .outfits__flechas{display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
 .outfits__flechas button{
@@ -2044,7 +2046,7 @@ function pintarOutfits(){
           <div class="pieza ${x.pendiente ? "pieza--pendiente" : ""}">
             <span class="pieza__tela" style="${tela(x.hex)}"></span>
             <span class="pieza__ill"><svg viewBox="0 0 120 140" style="color:${trazo(x.hex)}" aria-hidden="true"><use href="#${x.ico}"/></svg></span>
-            ${x.foto ? `<img class="pieza__foto" src="${RUTA_FOTOS}${esc(x.foto)}" alt="${esc(x.n)}" loading="lazy">` : ""}
+            ${x.foto ? `<img class="pieza__foto" src="${esc(urlFoto(x.foto))}" alt="${esc(x.n)}" loading="lazy">` : ""}
             <span class="pieza__et">${esc(x.n)}</span>
           </div>`).join("")}
       </div>
@@ -2128,8 +2130,11 @@ function activarCarruselOutfits(){
     tarjetas.forEach((t, i) => t.classList.toggle("outfit--activo", i === indice));
 
     const fin = pista.scrollWidth - pista.clientWidth - 4;
-    ant.disabled = pista.scrollLeft <= 4;
-    sig.disabled = pista.scrollLeft >= fin;
+    const seDesliza = pista.scrollWidth > pista.clientWidth + 4;
+
+    pista.classList.toggle("outfits__g--desliza", seDesliza);
+    ant.disabled = !seDesliza || pista.scrollLeft <= 4;
+    sig.disabled = !seDesliza || pista.scrollLeft >= fin;
   };
 
   /* Se navega de tarjeta en tarjeta, no por píxeles. Y si el desplazamiento
@@ -2155,10 +2160,13 @@ function activarCarruselOutfits(){
   sig.onclick = () => mover(1);
   pista.addEventListener("scroll", marcarActivo, { passive:true });
 
-  /* El primer cálculo se hace cuando el navegador ya midió las tarjetas, y se
-     rehace al cambiar el tamaño: con pocos looks caben todos y las flechas
-     deben quedar desactivadas. */
+  /* Se calcula de inmediato y se repite cuando el navegador ya midió las
+     tarjetas. El primer cálculo NO puede depender solo de requestAnimationFrame:
+     en una pestaña de fondo no se ejecuta, y entonces ningún look quedaría
+     marcado como activo y todos se verían apagados. */
+  marcarActivo();
   requestAnimationFrame(marcarActivo);
+  setTimeout(marcarActivo, 300);
   window.addEventListener("resize", marcarActivo, { passive:true });
   $$("img", pista).forEach(im => im.addEventListener("load", marcarActivo, { once:true }));
 }
@@ -2250,7 +2258,7 @@ function cargarFotoPortada(){
     panel.appendChild(img);
     panel.classList.add("con-foto");
   };
-  prueba.src = "img/hero.jpg";
+  prueba.src = "img/hero.jpg?v=" + VERSION_FOTOS;
 }
 
 /* ==========================================================================
@@ -2504,7 +2512,14 @@ function filtrar(){
 
 /* Las fotos viven en /img/productos/. Mientras una prenda no tenga foto,
    la tarjeta muestra la muestra de tejido y la ilustración de línea. */
+/* Versión de las imágenes. Se añade a cada dirección como ?v=…
+   Sirve para dos cosas: forzar que los navegadores descarten copias viejas
+   cuando cambies una foto, y saltarse un 404 que se haya quedado cacheado
+   de cuando el archivo todavía no existía. Súbele el número al reemplazar
+   imágenes. */
+const VERSION_FOTOS = "2";
 const RUTA_FOTOS = "img/productos/";
+const urlFoto = f => `${RUTA_FOTOS}${f}?v=${VERSION_FOTOS}`;
 const fotosDe = c => Array.isArray(c.fotos) ? c.fotos : [];
 
 function tarjeta(p){
@@ -2517,8 +2532,8 @@ function tarjeta(p){
     <button class="card__media" data-abrir="${p.id}" aria-label="Ver ${esc(p.n)}">
       <span class="card__tela" style="${tela(c.hex)}"></span>
       <span class="card__ill"><svg viewBox="0 0 120 140" style="color:${trazo(c.hex)}" aria-hidden="true"><use href="#${p.ico}"/></svg></span>
-      ${fotos[0] ? `<img class="card__foto" src="${RUTA_FOTOS}${esc(fotos[0])}" alt="${esc(p.n)} en ${esc(c.n)}" loading="lazy">` : ""}
-      ${fotos[1] ? `<img class="card__foto card__foto--rev" src="${RUTA_FOTOS}${esc(fotos[1])}" alt="" loading="lazy" aria-hidden="true">` : ""}
+      ${fotos[0] ? `<img class="card__foto" src="${esc(urlFoto(fotos[0]))}" alt="${esc(p.n)} en ${esc(c.n)}" loading="lazy">` : ""}
+      ${fotos[1] ? `<img class="card__foto card__foto--rev" src="${esc(urlFoto(fotos[1]))}" alt="" loading="lazy" aria-hidden="true">` : ""}
       ${p.badge && !agotada ? `<span class="card__badge">${esc(p.badge)}</span>` : ""}
       ${agotada ? `<span class="card__agot"><span>Agotado</span></span>` : `<span class="card__ver">Ver producto</span>`}
     </button>
@@ -2639,7 +2654,7 @@ function pintarFicha(){
       <div class="ficha__ill">
         <svg viewBox="0 0 120 140" style="color:${trazo(c.hex)};width:100%;height:100%" aria-hidden="true"><use href="#${p.ico}"/></svg>
       </div>
-      ${foto ? `<img class="ficha__foto" src="${RUTA_FOTOS}${esc(foto)}" alt="${esc(p.n)} en ${esc(c.n)}">` : ""}
+      ${foto ? `<img class="ficha__foto" src="${esc(urlFoto(foto))}" alt="${esc(p.n)} en ${esc(c.n)}">` : ""}
       ${fotos.length > 1 ? `
       <button class="ficha__nav ficha__nav--ant" data-paso="-1" aria-label="Imagen anterior">
         <svg aria-hidden="true"><use href="#u-flecha"/></svg>
@@ -2649,7 +2664,7 @@ function pintarFicha(){
       </button>
       <div class="ficha__thumbs">
         ${fotos.map((f, i) => `<button data-f="${i}" aria-pressed="${i === sel.foto}" aria-label="Ver imagen ${i + 1} de ${fotos.length}">
-          <img src="${RUTA_FOTOS}${esc(f)}" alt="" loading="lazy"></button>`).join("")}
+          <img src="${esc(urlFoto(f))}" alt="" loading="lazy"></button>`).join("")}
       </div>` : ""}
     </div>
     <div class="ficha__d">
@@ -2794,7 +2809,7 @@ function pintarCarrito(){
         <span style="position:absolute;inset:14%;display:grid;place-items:center">
           <svg viewBox="0 0 120 140" style="color:${trazo(l.hex)};width:100%;height:100%" aria-hidden="true"><use href="#${l.ico}"/></svg>
         </span>
-        ${l.foto ? `<img class="linea__foto" src="${RUTA_FOTOS}${esc(l.foto)}" alt="${esc(l.n)}">` : ""}
+        ${l.foto ? `<img class="linea__foto" src="${esc(urlFoto(l.foto))}" alt="${esc(l.n)}">` : ""}
       </div>
       <div>
         <h4 class="linea__n">${esc(l.n)}</h4>
