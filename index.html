@@ -295,8 +295,40 @@ h1.hero__h em::after{
 .outfits{background:var(--lino);border-bottom:1px solid var(--filete);padding:70px 0 78px;scroll-margin-top:calc(var(--header-h) + 8px)}
 .outfits__h{font-size:clamp(28px,5vw,42px);line-height:1.12;color:var(--botanico);margin-top:16px;max-width:16ch}
 .outfits__p{margin-top:18px;max-width:62ch;color:var(--piedra);font-size:15px;line-height:1.8}
-.outfits__g{display:grid;gap:26px;margin-top:46px}
-@media (min-width:900px){.outfits__g{grid-template-columns:repeat(2,1fr);gap:30px}}
+/* Carrusel horizontal: se desliza a los lados y deja asomar el siguiente,
+   así ocupa poco alto y se entiende que hay más looks. */
+.outfits__car{position:relative;margin-top:40px}
+.outfits__g{
+  display:grid;grid-auto-flow:column;
+  /* Ancho fijo, no minmax(0,…): con un mínimo de 0 las tarjetas se encogen
+     hasta caber y el carrusel nunca llega a desbordar ni a deslizarse. */
+  grid-auto-columns:84%;
+  gap:16px;
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  scroll-padding-inline:var(--gutter);
+  padding:2px var(--gutter) 16px;
+  margin-inline:calc(var(--gutter) * -1);
+  scrollbar-width:none;
+}
+.outfits__g::-webkit-scrollbar{display:none}
+@media (min-width:760px){.outfits__g{grid-auto-columns:47%;gap:22px}}
+@media (min-width:1240px){.outfits__g{grid-auto-columns:37%}}
+
+.outfit{scroll-snap-align:center;transition:opacity .4s var(--e)}
+/* Los looks que no están centrados se atenúan: guía la vista sin estorbar. */
+.outfit:not(.outfit--activo){opacity:.55}
+
+.outfits__flechas{display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
+.outfits__flechas button{
+  width:42px;height:42px;display:grid;place-items:center;
+  border:1px solid var(--filete);background:var(--marfil);border-radius:50%;
+  color:var(--botanico);transition:all .2s var(--e);
+}
+.outfits__flechas button:hover:not([disabled]){background:var(--botanico);border-color:var(--botanico);color:#F2EFE7}
+.outfits__flechas button[disabled]{opacity:.3;cursor:not-allowed}
+.outfits__flechas svg{width:17px;height:17px}
+.outfits__flechas .sig svg{transform:rotate(180deg)}
 
 .outfit{background:var(--marfil);border:1px solid var(--filete);display:flex;flex-direction:column}
 .outfit__piezas{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--filete)}
@@ -1287,7 +1319,17 @@ body.es-admin .card.oculta .card__media::after{
           Eliges tu talla, lo añades completo y listo.
         </p>
       </div>
-      <div class="outfits__g" id="outfitsGrid"></div>
+      <div class="outfits__car">
+        <div class="outfits__g" id="outfitsGrid"></div>
+        <div class="outfits__flechas">
+          <button class="ant" id="outfitAnt" aria-label="Look anterior">
+            <svg aria-hidden="true"><use href="#u-flecha"/></svg>
+          </button>
+          <button class="sig" id="outfitSig" aria-label="Look siguiente">
+            <svg aria-hidden="true"><use href="#u-flecha"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1754,27 +1796,38 @@ const SECCIONES = [
 /* ==========================================================================
    CATÁLOGO
    ========================================================================== */
-/* Texto de certificación que comparten las prendas de algodón orgánico. */
-const OCS = `
-  <p><strong>Exterior:</strong> 100 % algodón.</p>
-  <p style="margin-top:8px">Que contiene al menos: 100 % algodón de cultivo
-  orgánico certificado <strong>OCS</strong>.</p>
-  <p style="margin-top:14px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">
-    Algodón de cultivo orgánico certificado OCS
-  </p>
-  <p>Esta fibra se produce sin utilizar fertilizantes ni pesticidas artificiales
-  y se cultiva a partir de semillas que no han sido modificadas genéticamente.
-  Trabajamos con el <strong>Organic Content Standard (OCS)</strong>, que supervisa
-  el proceso desde el origen hasta el producto final.</p>`;
-
-/* Cuidados habituales del punto de algodón. */
-const CUIDADO_PUNTO = [
-  "Lavar a máquina en frío, máximo 30 °C, en programa delicado.",
-  "Lavar del revés y con prendas de color similar.",
-  "Secar en plano, nunca colgado: el punto se descuelga con el peso del agua.",
-  "No usar blanqueador ni secadora.",
-  "Planchar a temperatura media por el revés."
+/* Cuidados de etiqueta. Se separan por temperatura de lavado. */
+const CUIDADO_30 = [
+  "Lavar a máquina a máximo 30 °C, con centrifugado corto.",
+  "No usar lejía ni blanqueador.",
+  "Planchar a máximo 110 °C.",
+  "No limpiar en seco.",
+  "No usar secadora."
 ];
+const CUIDADO_40 = [
+  "Lavar a máquina a máximo 40 °C, con centrifugado corto.",
+  "No usar lejía ni blanqueador.",
+  "Planchar a máximo 110 °C.",
+  "No limpiar en seco.",
+  "No usar secadora."
+];
+
+/* Bloque de composición reutilizable. */
+const ficha = (composicion, certificacion, origen) => `
+  <p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Composición</p>
+  ${composicion}
+  ${certificacion ? `
+    <p style="margin-top:16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Materiales certificados</p>
+    ${certificacion}` : ""}
+  <p style="margin-top:16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Origen</p>
+  <p>${origen}</p>`;
+
+const OCS_TEXTO = `
+  <p><strong>Algodón de cultivo orgánico certificado OCS.</strong> Esta fibra se
+  produce sin utilizar fertilizantes ni pesticidas artificiales y se cultiva a
+  partir de semillas que no han sido modificadas genéticamente. El
+  <em>Organic Content Standard</em> supervisa el proceso desde el origen hasta
+  el producto final.</p>`;
 
 const P = [
   /* ---------------- CAMISETAS BÁSICAS ---------------- */
@@ -1792,13 +1845,8 @@ const P = [
     badge: "Esencial",
     orden: 1,
     d: "Silueta entallada, limpia y estructurada, pensada para un estilo sobrio y atemporal. Cae recta desde el hombro y marca el torso sin apretar.",
-    materiales: "95 % algodón orgánico · 5 % elastano reciclado",
-    cuidado: [
-      "Lavar a máquina en frío, máximo 30 °C.",
-      "Lavar del revés y con prendas de color similar.",
-      "No usar blanqueador ni secadora: el calor arruina la elasticidad.",
-      "Planchar a temperatura media y por el revés."
-    ],
+    materiales: ficha(`<p>95 % algodón, 5 % elastano.</p>`, null, "Egipto, Bangladesh, Marruecos, Portugal o Turquía."),
+    cuidado: CUIDADO_30,
     medidas: {
       columnas: ["S", "M", "L", "XL"],
       filas: [
@@ -1824,8 +1872,8 @@ const P = [
     ],
     orden: 2,
     d: "Camiseta de punto tejido en hilatura de viscosa, con caída fluida y textura ultrasuave al tacto. Corte regular estructurado con acabados en rib en cuello y mangas, que eleva la básica tradicional hacia una pieza de sofisticación cotidiana.",
-    materiales: "Punto de viscosa",
-    cuidado: CUIDADO_PUNTO,
+    materiales: ficha(`<p>80 % viscosa, 20 % poliamida.</p>`, null, "Bangladesh o China."),
+    cuidado: CUIDADO_40,
     medidas: null
   },
 
@@ -1845,8 +1893,8 @@ const P = [
     badge: "Cápsula 1",
     orden: 3,
     d: "Polo de punto tejido en hilatura de puro algodón orgánico certificado. Cuello solapa con abertura frontal limpia, sin botones, y remates acanalados en rib: la frescura de una fibra natural con una textura de alta presencia visual.",
-    materiales: OCS,
-    cuidado: CUIDADO_PUNTO,
+    materiales: ficha(`<p>100 % algodón.</p>`, OCS_TEXTO, "Bulgaria."),
+    cuidado: CUIDADO_30,
     medidas: {
       columnas: ["M", "L", "XL"],
       filas: [
@@ -1872,8 +1920,8 @@ const P = [
     ],
     orden: 4,
     d: "Polo de punto tejido en hilatura de algodón orgánico certificado, con cierre frontal de cremallera sutil. Una reinterpretación moderna del polo de punto tradicional, con un detalle metálico sobrio para un aire urbano y refinado.",
-    materiales: OCS,
-    cuidado: CUIDADO_PUNTO,
+    materiales: ficha(`<p>100 % algodón.</p>`, OCS_TEXTO, "Bangladesh."),
+    cuidado: CUIDADO_40,
     medidas: null
   },
 
@@ -1893,8 +1941,8 @@ const P = [
     badge: "Cápsula 1",
     orden: 5,
     d: "Sudadera de corte estructurado en tejido técnico interlock de algodón con elasticidad adaptativa. Cuello solapa con cremallera frontal y un tacto ultrasuave de densidad superior: la prenda clave para superponer en días fríos o templados.",
-    materiales: "Interlock de algodón con elastano",
-    cuidado: CUIDADO_PUNTO,
+    materiales: ficha(`<p><strong>Tejido principal:</strong> 81 % algodón, 14 % poliéster, 5 % viscosa.</p><p style="margin-top:6px"><strong>Tejido secundario:</strong> 92 % algodón, 5 % elastano, 3 % viscosa.</p>`, `<p><strong>Algodón orgánico OCS</strong>, poliéster reciclado <strong>RCS</strong> y elastano reciclado <strong>RCS</strong>. Certificado Intertek 193341.</p>` + OCS_TEXTO, "Bangladesh."),
+    cuidado: CUIDADO_40,
     medidas: null
   },
   {
@@ -1911,8 +1959,8 @@ const P = [
     ],
     orden: 6,
     d: "Sudadera de silueta estructurada con cuello subido y cierre frontal de cremallera metálica. Confeccionada en una mezcla densa de algodón con acabado en rib, protege del frío manteniendo una presencia sobria y atemporal.",
-    materiales: "Mezcla densa de algodón con acabado en rib",
-    cuidado: CUIDADO_PUNTO,
+    materiales: ficha(`<p><strong>Tejido principal:</strong> 80 % algodón, 20 % poliéster.</p><p style="margin-top:6px"><strong>Detalles:</strong> 99 % algodón, 1 % elastano.</p>`, null, "Bangladesh, Egipto o Turquía."),
+    cuidado: CUIDADO_30,
     medidas: null
   },
   {
@@ -1931,8 +1979,8 @@ const P = [
     badge: "Serie corta",
     orden: 7,
     d: "Jersey de punto perlado en hilatura de puro algodón orgánico certificado. Cuello perkins de estructura erguida con cierre frontal de cremallera metálica y una textura de relieve tridimensional que da presencia y cuerpo al atuendo.",
-    materiales: OCS,
-    cuidado: CUIDADO_PUNTO,
+    materiales: ficha(`<p>100 % algodón.</p>`, OCS_TEXTO, "Bulgaria."),
+    cuidado: CUIDADO_30,
     medidas: null
   }
 ];
@@ -2058,7 +2106,69 @@ function pintarOutfits(){
       agregarOutfit(card.dataset.outfit, elegidas);
     };
   });
+
+  activarCarruselOutfits();
 }
+
+/* Carrusel: marca el look centrado y habilita las flechas según haya
+   recorrido a un lado o al otro. */
+function activarCarruselOutfits(){
+  const pista = $("#outfitsGrid");
+  const ant = $("#outfitAnt"), sig = $("#outfitSig");
+  if(!pista || !ant || !sig) return;
+
+  const tarjetas = $$(".outfit", pista);
+  if(!tarjetas.length) return;
+
+  let indice = 0;
+
+  const marcarActivo = () => {
+    const centro = pista.scrollLeft + pista.clientWidth / 2;
+    let menor = Infinity;
+    tarjetas.forEach((t, i) => {
+      const d = Math.abs((t.offsetLeft + t.offsetWidth / 2) - centro);
+      if(d < menor){ menor = d; indice = i; }
+    });
+    tarjetas.forEach((t, i) => t.classList.toggle("outfit--activo", i === indice));
+
+    const fin = pista.scrollWidth - pista.clientWidth - 4;
+    ant.disabled = pista.scrollLeft <= 4;
+    sig.disabled = pista.scrollLeft >= fin;
+  };
+
+  /* Se navega de tarjeta en tarjeta, no por píxeles. Y si el desplazamiento
+     suave no llega a moverse —algunos navegadores lo cancelan al combinarlo
+     con el ajuste automático— se salta directo al destino: la flecha siempre
+     hace algo. */
+  const mover = dir => {
+    const i = Math.min(Math.max(indice + dir, 0), tarjetas.length - 1);
+    const destino = tarjetas[i];
+    if(!destino) return;
+
+    const objetivo = Math.max(0, destino.offsetLeft - (pista.clientWidth - destino.offsetWidth) / 2);
+    const antes = pista.scrollLeft;
+    pista.scrollTo({ left: objetivo, behavior: mueveSuave() });
+
+    setTimeout(() => {
+      if(Math.abs(pista.scrollLeft - antes) < 2) pista.scrollLeft = objetivo;
+      marcarActivo();
+    }, 380);
+  };
+
+  ant.onclick = () => mover(-1);
+  sig.onclick = () => mover(1);
+  pista.addEventListener("scroll", marcarActivo, { passive:true });
+
+  /* El primer cálculo se hace cuando el navegador ya midió las tarjetas, y se
+     rehace al cambiar el tamaño: con pocos looks caben todos y las flechas
+     deben quedar desactivadas. */
+  requestAnimationFrame(marcarActivo);
+  window.addEventListener("resize", marcarActivo, { passive:true });
+  $$("img", pista).forEach(im => im.addEventListener("load", marcarActivo, { once:true }));
+}
+
+const mueveSuave = () =>
+  matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
 function agregarOutfit(idOutfit, tallas){
   const o = OUTFITS.find(x => x.id === idOutfit);
