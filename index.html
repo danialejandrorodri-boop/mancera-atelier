@@ -99,6 +99,16 @@ ul{margin:0;padding:0;list-style:none}
   margin-top:5px;padding-left:3px;
 }
 .header__acc{display:flex;align-items:center;gap:4px}
+/* Contacto directo en la barra: llena el lado derecho y da confianza. */
+.header__wa{
+  display:none;align-items:center;gap:8px;padding:9px 15px;margin-right:6px;
+  border:1px solid var(--filete);border-radius:999px;color:var(--botanico);
+  font-size:11.5px;font-weight:600;letter-spacing:.04em;white-space:nowrap;
+  transition:border-color .2s var(--e),background .2s var(--e);
+}
+.header__wa:hover{border-color:var(--botanico);background:var(--lino)}
+.header__wa svg{width:15px;height:15px;flex:0 0 auto}
+@media (min-width:1120px){.header__wa{display:inline-flex}}
 .iconbtn{
   width:40px;height:40px;display:grid;place-items:center;position:relative;
   color:var(--azabache);border-radius:2px;transition:color .2s var(--e);
@@ -120,7 +130,8 @@ ul{margin:0;padding:0;list-style:none}
   .burger{display:none}
   .marca{margin-right:40px}
   .marca__n{font-size:21px}
-  .nav{display:flex;align-items:stretch;gap:2px;margin-right:auto;height:100%}
+  /* Nav centrada: la barra deja de verse vacía en pantallas anchas. */
+  .nav{display:flex;align-items:stretch;gap:2px;margin-inline:auto;height:100%}
   .nav__i{position:relative;display:flex;align-items:center}
   .nav__t{
     padding:0 16px;height:100%;display:flex;align-items:center;gap:6px;
@@ -178,16 +189,21 @@ ul{margin:0;padding:0;list-style:none}
 .hero{border-bottom:1px solid var(--filete)}
 .hero__in{display:grid;gap:0}
 @media (min-width:900px){
-  .hero__in{grid-template-columns:1fr 1fr;align-items:stretch;min-height:min(74vh,640px)}
+  .hero__in{grid-template-columns:1fr 1fr;align-items:stretch;min-height:min(82vh,780px)}
 }
 .hero__txt{
   padding:56px var(--gutter) 60px;
   display:flex;flex-direction:column;justify-content:center;
 }
-/* En escritorio el texto se apoya en el borde interior de su columna:
-   sin margin-left:auto, que en pantallas anchas abría un hueco enorme. */
+/* En escritorio el texto se apoya en el borde interior de su columna.
+   En pantallas muy anchas crece la caja y el titular para que no quede
+   un vacío a la derecha. */
 @media (min-width:900px){
-  .hero__txt{padding:72px clamp(36px,4vw,80px);max-width:640px;margin-right:auto}
+  .hero__txt{padding:72px clamp(36px,4vw,72px);max-width:700px;margin-right:auto}
+}
+@media (min-width:1500px){
+  .hero__in{grid-template-columns:1.06fr .94fr}
+  .hero__txt{max-width:840px;padding-inline:clamp(56px,5vw,96px)}
 }
 
 .hero__lead{display:flex;align-items:center;gap:12px;margin-bottom:26px}
@@ -195,6 +211,10 @@ ul{margin:0;padding:0;list-style:none}
 h1.hero__h{
   font-size:clamp(38px,8.4vw,62px);line-height:1.02;letter-spacing:-.012em;
   color:var(--botanico);
+}
+@media (min-width:1500px){
+  h1.hero__h{font-size:clamp(62px,4.6vw,80px)}
+  .hero__p{font-size:16px;max-width:50ch}
 }
 h1.hero__h em{font-style:normal;position:relative;white-space:nowrap}
 h1.hero__h em::after{
@@ -1093,6 +1113,10 @@ body.es-admin .card.oculta .card__media::after{
     <nav class="nav" id="navEscritorio" aria-label="Categorías"></nav>
 
     <div class="header__acc">
+      <a class="header__wa" id="waHeader" href="#" aria-label="Escribir por WhatsApp al 319 737 9462">
+        <svg aria-hidden="true"><use href="#u-wa"/></svg>
+        <span>319 737 9462</span>
+      </a>
       <button class="iconbtn" id="btnCarrito" aria-label="Abrir bolsa de compra">
         <svg width="21" height="21" aria-hidden="true"><use href="#u-bolsa"/></svg>
         <span class="pill" id="pillCarrito" aria-hidden="true">0</span>
@@ -1370,6 +1394,10 @@ body.es-admin .card.oculta .card__media::after{
     <a class="btn btn--p btn--full" id="btnPagarMP" href="#" role="button">
       <svg width="17" height="17" aria-hidden="true"><use href="#u-tarjeta"/></svg>
       <span id="btnPagarTxt">Pagar</span>
+    </a>
+    <a class="btn btn--wa btn--full" id="btnWaCheckout" href="#" role="button" style="margin-top:9px">
+      <svg width="17" height="17" aria-hidden="true"><use href="#u-wa"/></svg>
+      Enviar mi pedido por WhatsApp
     </a>
     <div class="co__seguro" id="coSeguro"></div>
   </div>
@@ -1662,7 +1690,16 @@ const P = [
       "No usar blanqueador ni secadora: el calor arruina la elasticidad.",
       "Planchar a temperatura media y por el revés."
     ],
-    medidas: null
+    medidas: {
+      columnas: ["S", "M", "L", "XL"],
+      filas: [
+        ["Pecho", "42.5", "46.5", "50.5", "54.5"],
+        ["Largo delantero", "70.0", "70.5", "71.0", "71.5"],
+        ["Largo de manga", "15.0", "18.0", "21.0", "24.0"],
+        ["Ancho espalda", "42.5", "44.5", "46.5", "48.5"],
+        ["Ancho de brazo", "16.5", "17.5", "18.5", "19.5"]
+      ]
+    }
   },
   {
     id: "kvt02",
@@ -1788,7 +1825,7 @@ const P = [
     id: "opk07",
     n: "Organic Pearl-Knit Perkins Quarter-Zip",
     sec: "superiores", sub: "qzip", ico: "i-qzip",
-    precio: 319900,
+    precio: 359900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1800,7 +1837,17 @@ const P = [
     badge: "Serie corta",
     orden: 7,
     d: "Jersey de punto perlado en hilatura de puro algodón orgánico certificado. Cuello perkins de estructura erguida con cierre frontal de cremallera metálica y una textura de relieve tridimensional que da presencia y cuerpo al atuendo.",
-    materiales: "100 % algodón orgánico certificado, punto perlado",
+    materiales: `
+      <p><strong>Exterior:</strong> 100 % algodón.</p>
+      <p style="margin-top:8px">Que contiene al menos: 100 % algodón de cultivo
+      orgánico certificado <strong>OCS</strong>.</p>
+      <p style="margin-top:12px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">
+        Algodón de cultivo orgánico certificado OCS
+      </p>
+      <p>Esta fibra se produce sin utilizar fertilizantes ni pesticidas artificiales
+      y se cultiva a partir de semillas que no han sido modificadas genéticamente.
+      Trabajamos con el <strong>Organic Content Standard (OCS)</strong>, que supervisa
+      el proceso desde el origen hasta el producto final.</p>`,
     cuidado: [
       "Lavar a mano o en programa lana, máximo 30 °C.",
       "Secar en plano, nunca colgado.",
@@ -2214,11 +2261,38 @@ function bloqueDetalle(titulo, contenido){
 
 function tablaMedidas(m){
   return `<div class="tabla-scroll"><table class="medidas">
-    <thead><tr><th>Talla</th>${m.columnas.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+    <thead><tr><th>Zona</th>${m.columnas.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
     <tbody>${m.filas.map(f => `<tr><td><strong>${esc(f[0])}</strong></td>${f.slice(1).map(v => `<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody>
   </table></div>
   <p style="margin-top:9px;font-size:11.5px;color:var(--piedra-claro)">Medidas de la prenda en centímetros, tomadas en plano.</p>`;
 }
+
+/* Tabla de referencia de la casa para prendas superiores. Se muestra en las
+   piezas que todavía no tienen su propia ficha de medidas. */
+const MEDIDAS_GENERALES = {
+  columnas: ["S", "M", "L", "XL"],
+  filas: [
+    ["Pecho", "42.5", "46.5", "50.5", "54.5"],
+    ["Largo delantero", "70.0", "70.5", "71.0", "71.5"],
+    ["Largo de manga", "15.0", "18.0", "21.0", "24.0"],
+    ["Ancho espalda", "42.5", "44.5", "46.5", "48.5"],
+    ["Ancho de brazo", "16.5", "17.5", "18.5", "19.5"]
+  ]
+};
+
+const AVISO_TALLAS = `
+  <p style="margin-top:14px"><strong>Esto es una guía, no una medida exacta.</strong>
+  Cada prenda se teje y se confecciona por lotes, y cada tejido se comporta a su
+  manera: puede haber pequeñas variaciones de una referencia a otra, e incluso
+  entre colores de la misma pieza.</p>
+  <p style="margin-top:10px"><strong>Cómo acertar:</strong> toma una prenda tuya que
+  te quede como te gusta, tiéndela en plano sin estirarla y mide las mismas zonas
+  de la tabla. Compara esos números, no tu talla habitual en otras marcas.</p>
+  <p style="margin-top:10px">Elegir la talla correcta es responsabilidad de cada
+  cliente. Si necesitas cambiarla, tienes 10 días desde la entrega y los costos
+  de envío del cambio corren por tu cuenta.</p>
+  <p style="margin-top:10px">Si dudas entre dos tallas, escríbenos por WhatsApp
+  antes de comprar y te ayudamos a elegir.</p>`;
 
 function pintarFicha(){
   const p = sel.p, c = p.col[sel.color];
@@ -2276,11 +2350,15 @@ function pintarFicha(){
         </button>
       </div>
 
-      ${(p.materiales || p.cuidado || p.medidas) ? `<div class="detalles">
-        ${p.materiales ? bloqueDetalle("Composición", `<p>${esc(p.materiales)}</p>`) : ""}
+      <div class="detalles">
+        ${p.materiales ? bloqueDetalle("Composición y origen",
+            p.materiales.trim().startsWith("<") ? p.materiales : `<p>${esc(p.materiales)}</p>`) : ""}
         ${p.cuidado ? bloqueDetalle("Cuidado de la prenda", `<ul>${p.cuidado.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`) : ""}
-        ${p.medidas ? bloqueDetalle("Medidas y talla", tablaMedidas(p.medidas)) : ""}
-      </div>` : ""}
+        ${bloqueDetalle(
+          p.medidas ? "Medidas de esta prenda" : "Guía de tallas",
+          tablaMedidas(p.medidas || MEDIDAS_GENERALES) + AVISO_TALLAS
+        )}
+      </div>
     </div>`;
 
   /* Al cambiar de color se vuelve a la primera foto de ese color. */
@@ -2996,18 +3074,21 @@ const LEGAL = [
       <li>Escríbenos por WhatsApp con fotos de la prenda y tu número de pedido para activarla.</li>
     </ul>` },
   { t:"Guía de tallas", c:`
-    <p>Medidas de la prenda en centímetros, tomada en plano. Si estás entre dos tallas, sube a la mayor en Regular Fit y mantén la menor en Slim Fit.</p>
+    <p>Medidas de referencia de prendas superiores, en centímetros y tomadas sobre la prenda en plano.</p>
     <div class="tabla-scroll">
       <table class="tabla-tallas">
-        <thead><tr><th>Talla</th><th>Pecho</th><th>Largo</th><th>Hombro</th><th>Cintura (pantalón)</th></tr></thead>
+        <thead><tr><th>Zona</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead>
         <tbody>
-          <tr><td>S</td><td>50 cm</td><td>69 cm</td><td>44 cm</td><td>28 – 30</td></tr>
-          <tr><td>M</td><td>53 cm</td><td>71 cm</td><td>46 cm</td><td>30 – 32</td></tr>
-          <tr><td>L</td><td>56 cm</td><td>73 cm</td><td>48 cm</td><td>32 – 34</td></tr>
-          <tr><td>XL</td><td>59 cm</td><td>75 cm</td><td>50 cm</td><td>34 – 36</td></tr>
+          <tr><td>Pecho</td><td>42.5</td><td>46.5</td><td>50.5</td><td>54.5</td></tr>
+          <tr><td>Largo delantero</td><td>70.0</td><td>70.5</td><td>71.0</td><td>71.5</td></tr>
+          <tr><td>Largo de manga</td><td>15.0</td><td>18.0</td><td>21.0</td><td>24.0</td></tr>
+          <tr><td>Ancho espalda</td><td>42.5</td><td>44.5</td><td>46.5</td><td>48.5</td></tr>
+          <tr><td>Ancho de brazo</td><td>16.5</td><td>17.5</td><td>18.5</td><td>19.5</td></tr>
         </tbody>
       </table>
-    </div>` },
+    </div>
+    <p style="margin-top:12px"><strong>Es una guía, no una medida exacta.</strong> Cada prenda se confecciona por lotes y cada tejido se comporta a su manera: puede haber pequeñas variaciones entre referencias e incluso entre colores.</p>
+    <p style="margin-top:10px">Elegir la talla correcta es responsabilidad de cada cliente. Cada ficha de producto incluye sus propias medidas cuando las tenemos. Ante la duda, escríbenos por WhatsApp antes de comprar.</p>` },
   { t:"Cuidado de las prendas", c:`
     <ul>
       <li><strong>Algodón y piqué:</strong> lavado a máquina en frío (máx. 30 °C), del revés y con prendas de color similar.</li>
@@ -3026,12 +3107,13 @@ const LEGAL = [
     </ul>
     <p style="margin-top:12px"><a href="#" data-politica style="color:#F2EFE7;text-decoration:underline;text-underline-offset:3px">Leer la política completa →</a></p>` },
   { t:"Contacto", c:`
-    <p>Atención personalizada de lunes a viernes, de 9:00 a 18:00.</p>
+    <p>Atención personalizada de lunes a viernes, de 9:00 a 18:00 (hora de Colombia).</p>
     <ul>
-      <li>WhatsApp Business: escríbenos con el botón verde de esta página.</li>
+      <li><strong>WhatsApp Business: +57 319 737 9462</strong> — la vía más rápida, también para asesoría de talla antes de comprar.</li>
       <li>Correo comercial: hola@manceracol.com</li>
       <li>Protección de datos: datos@manceracol.com</li>
       <li>Envíos a todo el territorio nacional.</li>
+      <li>Tiempo de respuesta habitual: menos de 24 horas hábiles.</li>
     </ul>` }
 ];
 
@@ -3167,6 +3249,19 @@ function init(){
   $("#orden").onchange = e => { S.orden = e.target.value; pintarGrid(); };
   $("#velo").onclick = cerrarTodo;
   $("#btnPagarMP").onclick = finalizarPedido;
+
+  /* Enviar el pedido completo por WhatsApp desde el checkout, con los datos
+     del formulario ya escritos. Sirva o no la pasarela, la venta se cierra. */
+  $("#btnWaCheckout").onclick = e => {
+    const envio = leerFormularioEnvio();
+    if(!envio){ e.preventDefault(); return; }
+    S.envio = envio;
+    S.email = envio.email;
+    store.set("mancera.envio", JSON.stringify(envio));
+    guardar();
+    e.currentTarget.href = urlWa(mensajePedido());
+    setTimeout(() => cerrar("checkout"), 600);
+  };
   cargarFotoPortada();
   cargarDisponibilidad();
   iniciarAdmin();
@@ -3174,6 +3269,12 @@ function init(){
   revisarRetornoDePago();
   const SALUDO = "Hola, quisiera asesoría sobre las piezas de Mancera Atelier.";
   $("#btnWaFooter").onclick = () => abrirWa(SALUDO);
+
+  const wh = $("#waHeader");
+  wh.href = urlWa(SALUDO);
+  wh.target = "_blank";
+  wh.rel = "noopener noreferrer";
+  wh.onclick = e => { e.preventDefault(); abrirWa(SALUDO); };
 
   /* Delegado: así funciona también en los botones que se crean después,
      como el de las secciones que aún no tienen piezas. */
