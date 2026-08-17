@@ -1812,22 +1812,16 @@ const CUIDADO_40 = [
   "No usar secadora."
 ];
 
-/* Bloque de composición reutilizable. */
-const ficha = (composicion, certificacion, origen) => `
+/* Bloque de composición reutilizable.
+   Solo se declara lo que Mancera puede sostener por sí misma: la composición
+   de la fibra y el país de confección, que vienen en la etiqueta de la prenda.
+   Las certificaciones (OCS, RCS) pertenecen a la cadena de suministro del
+   fabricante, no a Mancera, así que no se exhiben como propias. */
+const ficha = (composicion, origen) => `
   <p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Composición</p>
   ${composicion}
-  ${certificacion ? `
-    <p style="margin-top:16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Materiales certificados</p>
-    ${certificacion}` : ""}
   <p style="margin-top:16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Origen</p>
   <p>${origen}</p>`;
-
-const OCS_TEXTO = `
-  <p><strong>Algodón de cultivo orgánico certificado OCS.</strong> Esta fibra se
-  produce sin utilizar fertilizantes ni pesticidas artificiales y se cultiva a
-  partir de semillas que no han sido modificadas genéticamente. El
-  <em>Organic Content Standard</em> supervisa el proceso desde el origen hasta
-  el producto final.</p>`;
 
 const P = [
   /* ---------------- CAMISETAS BÁSICAS ---------------- */
@@ -1845,7 +1839,7 @@ const P = [
     badge: "Esencial",
     orden: 1,
     d: "Silueta entallada, limpia y estructurada, pensada para un estilo sobrio y atemporal. Cae recta desde el hombro y marca el torso sin apretar.",
-    materiales: ficha(`<p>95 % algodón, 5 % elastano.</p>`, null, "Egipto, Bangladesh, Marruecos, Portugal o Turquía."),
+    materiales: ficha(`<p>95 % algodón, 5 % elastano.</p>`, "Egipto, Bangladesh, Marruecos, Portugal o Turquía."),
     cuidado: CUIDADO_30,
     medidas: {
       columnas: ["S", "M", "L", "XL"],
@@ -1862,7 +1856,7 @@ const P = [
     id: "kvt02",
     n: "Knit Viscose Essential Tee", alias: "basica premium",
     sec: "superiores", sub: "camisetas", ico: "i-tee",
-    precio: 229900,
+    precio: 259900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1872,7 +1866,7 @@ const P = [
     ],
     orden: 2,
     d: "Camiseta de punto tejido en hilatura de viscosa, con caída fluida y textura ultrasuave al tacto. Corte regular estructurado con acabados en rib en cuello y mangas, que eleva la básica tradicional hacia una pieza de sofisticación cotidiana.",
-    materiales: ficha(`<p>80 % viscosa, 20 % poliamida.</p>`, null, "Bangladesh o China."),
+    materiales: ficha(`<p>80 % viscosa, 20 % poliamida.</p>`, "Bangladesh o China."),
     cuidado: CUIDADO_40,
     medidas: null
   },
@@ -1882,7 +1876,7 @@ const P = [
     id: "ocp03",
     n: "Organic Open Collar Knit Polo", alias: "polo basica",
     sec: "superiores", sub: "polos", ico: "i-polo",
-    precio: 319900,
+    precio: 329900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1892,8 +1886,8 @@ const P = [
     ],
     badge: "Cápsula 1",
     orden: 3,
-    d: "Polo de punto tejido en hilatura de puro algodón orgánico certificado. Cuello solapa con abertura frontal limpia, sin botones, y remates acanalados en rib: la frescura de una fibra natural con una textura de alta presencia visual.",
-    materiales: ficha(`<p>100 % algodón.</p>`, OCS_TEXTO, "Bulgaria."),
+    d: "Polo de punto tejido en hilatura de puro algodón orgánico. Cuello solapa con abertura frontal limpia, sin botones, y remates acanalados en rib: la frescura de una fibra natural con una textura de alta presencia visual.",
+    materiales: ficha(`<p>100 % algodón.</p>`, "Bulgaria."),
     cuidado: CUIDADO_30,
     medidas: {
       columnas: ["M", "L", "XL"],
@@ -1910,7 +1904,7 @@ const P = [
     id: "ozp04",
     n: "Organic Zipper Knit Polo", alias: "polo cremallera",
     sec: "superiores", sub: "polos", ico: "i-polo",
-    precio: 319900,
+    precio: 329900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1919,8 +1913,8 @@ const P = [
       { ...C.crema, fotos: ["p2-crema-1.jpg", "p2-crema-2.jpg"] }
     ],
     orden: 4,
-    d: "Polo de punto tejido en hilatura de algodón orgánico certificado, con cierre frontal de cremallera sutil. Una reinterpretación moderna del polo de punto tradicional, con un detalle metálico sobrio para un aire urbano y refinado.",
-    materiales: ficha(`<p>100 % algodón.</p>`, OCS_TEXTO, "Bangladesh."),
+    d: "Polo de punto tejido en hilatura de algodón orgánico, con cierre frontal de cremallera sutil. Una reinterpretación moderna del polo de punto tradicional, con un detalle metálico sobrio para un aire urbano y refinado.",
+    materiales: ficha(`<p>100 % algodón.</p>`, "Bangladesh."),
     cuidado: CUIDADO_40,
     medidas: null
   },
@@ -1930,7 +1924,7 @@ const P = [
     id: "iqz05",
     n: "Interlock Quarter-Zip Pullover",
     sec: "superiores", sub: "qzip", ico: "i-qzip",
-    precio: 319900,
+    precio: 329900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1941,7 +1935,7 @@ const P = [
     badge: "Cápsula 1",
     orden: 5,
     d: "Sudadera de corte estructurado en tejido técnico interlock de algodón con elasticidad adaptativa. Cuello solapa con cremallera frontal y un tacto ultrasuave de densidad superior: la prenda clave para superponer en días fríos o templados.",
-    materiales: ficha(`<p><strong>Tejido principal:</strong> 81 % algodón, 14 % poliéster, 5 % viscosa.</p><p style="margin-top:6px"><strong>Tejido secundario:</strong> 92 % algodón, 5 % elastano, 3 % viscosa.</p>`, `<p><strong>Algodón orgánico OCS</strong>, poliéster reciclado <strong>RCS</strong> y elastano reciclado <strong>RCS</strong>. Certificado Intertek 193341.</p>` + OCS_TEXTO, "Bangladesh."),
+    materiales: ficha(`<p><strong>Tejido principal:</strong> 81 % algodón, 14 % poliéster, 5 % viscosa.</p><p style="margin-top:6px"><strong>Tejido secundario:</strong> 92 % algodón, 5 % elastano, 3 % viscosa.</p>`, "Bangladesh."),
     cuidado: CUIDADO_40,
     medidas: null
   },
@@ -1949,7 +1943,7 @@ const P = [
     id: "ehq06",
     n: "Essential High-Neck Quarter-Zip",
     sec: "superiores", sub: "qzip", ico: "i-qzip",
-    precio: 319900,
+    precio: 329900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1959,7 +1953,7 @@ const P = [
     ],
     orden: 6,
     d: "Sudadera de silueta estructurada con cuello subido y cierre frontal de cremallera metálica. Confeccionada en una mezcla densa de algodón con acabado en rib, protege del frío manteniendo una presencia sobria y atemporal.",
-    materiales: ficha(`<p><strong>Tejido principal:</strong> 80 % algodón, 20 % poliéster.</p><p style="margin-top:6px"><strong>Detalles:</strong> 99 % algodón, 1 % elastano.</p>`, null, "Bangladesh, Egipto o Turquía."),
+    materiales: ficha(`<p><strong>Tejido principal:</strong> 80 % algodón, 20 % poliéster.</p><p style="margin-top:6px"><strong>Detalles:</strong> 99 % algodón, 1 % elastano.</p>`, "Bangladesh, Egipto o Turquía."),
     cuidado: CUIDADO_30,
     medidas: null
   },
@@ -1967,7 +1961,7 @@ const P = [
     id: "opk07",
     n: "Organic Pearl-Knit Perkins Quarter-Zip",
     sec: "superiores", sub: "qzip", ico: "i-qzip",
-    precio: 359900,
+    precio: 369900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
@@ -1978,8 +1972,8 @@ const P = [
     ],
     badge: "Serie corta",
     orden: 7,
-    d: "Jersey de punto perlado en hilatura de puro algodón orgánico certificado. Cuello perkins de estructura erguida con cierre frontal de cremallera metálica y una textura de relieve tridimensional que da presencia y cuerpo al atuendo.",
-    materiales: ficha(`<p>100 % algodón.</p>`, OCS_TEXTO, "Bulgaria."),
+    d: "Jersey de punto perlado en hilatura de puro algodón orgánico. Cuello perkins de estructura erguida con cierre frontal de cremallera metálica y una textura de relieve tridimensional que da presencia y cuerpo al atuendo.",
+    materiales: ficha(`<p>100 % algodón.</p>`, "Bulgaria."),
     cuidado: CUIDADO_30,
     medidas: null
   }
@@ -2327,7 +2321,7 @@ async function guardarDisponibilidad(){
   btn.textContent = "Guardando…";
 
   try{
-    const r = await fetch(CONFIG.api + "/api/admin-disponibilidad", {
+    const r = await fetch(CONFIG.api + "/api/disponibilidad", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: "Bearer " + clave },
       body: JSON.stringify({ cambios: S.cambios })

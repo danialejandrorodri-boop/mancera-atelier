@@ -9,3 +9,6 @@ Thumbs.db
 # Fotos originales sin comprimir: se quedan en tu computador, no en el
 # repositorio. La web solo usa las versiones ligeras.
 img/originales/
+
+# Referencias visuales: no forman parte del sitio
+img/inspiracion/
