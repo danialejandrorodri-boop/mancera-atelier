@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
 <title>Mancera Atelier</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Mancera Atelier — colección cápsula de caballero: camisetas, polos, quarter-zips, chinos, pantalones de vestir y accesorios. Envío gratis con pago por adelantado.">
@@ -1006,6 +1010,9 @@ body.es-admin .card.oculta .card__media::after{
 }
 </style>
 
+</head>
+<body>
+
 <!-- ============ ICONOS (sprite) ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
@@ -1223,6 +1230,7 @@ body.es-admin .card.oculta .card__media::after{
         </p>
         <div class="hero__acts">
           <button class="btn btn--p" data-ir="todo">Explorar colección</button>
+          <a class="btn btn--g" href="#outfits">Armamos tu outfit</a>
           <a class="btn btn--g" href="#manifiesto">Nuestro criterio</a>
         </div>
         <ul class="hero__meta">
@@ -2834,7 +2842,7 @@ function guardarCarritoRemoto(){
     const t = totales();
     api("/api/guardar-carrito", {
       email: S.email,
-      items: S.carrito.map(l => ({ n:l.n, color:l.color, talla:l.talla, q:l.q, precio:l.precio })),
+      items: S.carrito.map(l => ({ n:l.n, color:l.color, talla:l.talla, q:l.q, precio:l.precio, foto:l.foto || null })),
       total: t.total,
       cupon: S.cupon ? S.cupon.codigo : null
     }).catch(() => { SIN_BACKEND = true; });
@@ -3536,3 +3544,6 @@ document.readyState === "loading"
   : init();
 })();
 </script>
+
+</body>
+</html>
