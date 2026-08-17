@@ -1817,10 +1817,8 @@ const CUIDADO_40 = [
 ];
 
 /* Bloque de composición reutilizable.
-   Solo se declara lo que Mancera puede sostener por sí misma: la composición
-   de la fibra y el país de confección, que vienen en la etiqueta de la prenda.
-   Las certificaciones (OCS, RCS) pertenecen a la cadena de suministro del
-   fabricante, no a Mancera, así que no se exhiben como propias. */
+   Solo se declara lo que viene en la etiqueta de la prenda: la composición de
+   la fibra y el país de confección. */
 const ficha = (composicion, origen) => `
   <p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--azabache)">Composición</p>
   ${composicion}
