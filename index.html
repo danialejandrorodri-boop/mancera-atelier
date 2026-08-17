@@ -1780,7 +1780,7 @@ const P = [
   /* ---------------- CAMISETAS BÁSICAS ---------------- */
   {
     id: "ost01",
-    n: "Organic Stretch Slim Tee",
+    n: "Organic Stretch Slim Tee", alias: "camiseta basica",
     sec: "superiores", sub: "camisetas", ico: "i-tee",
     precio: 129900,
     fit: "Slim Fit",
@@ -1812,14 +1812,15 @@ const P = [
   },
   {
     id: "kvt02",
-    n: "Knit Viscose Essential Tee",
+    n: "Knit Viscose Essential Tee", alias: "basica premium",
     sec: "superiores", sub: "camisetas", ico: "i-tee",
     precio: 229900,
     fit: "Regular Fit",
     tallas: ["S", "M", "L", "XL"],
     col: [
-      { ...C.negro,  fotos: ["t2-negro-1.jpg",  "t2-negro-2.jpg"] },
-      { ...C.blanco, fotos: ["t2-blanco-1.jpg", "t2-blanco-2.jpg"] }
+      { ...C.negro, fotos: ["t2-negro-1.jpg", "t2-negro-2.jpg"] },
+      { ...C.crema, fotos: ["t2-crema-1.jpg", "t2-crema-2.jpg"] },
+      { ...C.azul,  fotos: ["t2-azul-1.jpg",  "t2-azul-2.jpg"] }
     ],
     orden: 2,
     d: "Camiseta de punto tejido en hilatura de viscosa, con caída fluida y textura ultrasuave al tacto. Corte regular estructurado con acabados en rib en cuello y mangas, que eleva la básica tradicional hacia una pieza de sofisticación cotidiana.",
@@ -1831,7 +1832,7 @@ const P = [
   /* ---------------- POLOS ---------------- */
   {
     id: "ocp03",
-    n: "Organic Open Collar Knit Polo",
+    n: "Organic Open Collar Knit Polo", alias: "polo basica",
     sec: "superiores", sub: "polos", ico: "i-polo",
     precio: 319900,
     fit: "Regular Fit",
@@ -1859,7 +1860,7 @@ const P = [
   },
   {
     id: "ozp04",
-    n: "Organic Zipper Knit Polo",
+    n: "Organic Zipper Knit Polo", alias: "polo cremallera",
     sec: "superiores", sub: "polos", ico: "i-polo",
     precio: 319900,
     fit: "Regular Fit",
@@ -1948,7 +1949,7 @@ const OUTFITS = [
     n: "El Clásico de Fin de Semana",
     d: "La fórmula que nunca falla: blanco arriba, azul en el medio, beige abajo. Funciona para un almuerzo, una reunión informal o un viaje corto.",
     piezas: [
-      { id: "kvt02", color: "Blanco Marfil" },
+      { id: "kvt02", color: "Crema Marfil" },
       { id: "iqz05", color: "Azul Marino Imperial" },
       { pendiente: "Chino Beige Tiro Medio", ico: "i-chino", hex: "#C4B18C" }
     ]
@@ -1958,12 +1959,24 @@ const OUTFITS = [
     n: "El Formal Silencioso",
     d: "El mismo principio, subido de registro: punto perlado en lugar de interlock y pantalón de vestir con pinzas. Para cuando hay que estar impecable sin ponerse corbata.",
     piezas: [
-      { id: "kvt02", color: "Blanco Marfil" },
+      { id: "kvt02", color: "Crema Marfil" },
       { id: "opk07", color: "Azul Marino Imperial" },
       { pendiente: "Pantalón de Vestir Beige con Pinzas", ico: "i-vestir", hex: "#C4B18C" }
     ]
   }
 ];
+
+/* Si un outfit pide un color que la prenda ya no tiene (porque se renombró o
+   se retiró), avisamos en consola en vez de cambiar la pieza en silencio: un
+   look que muestra un color y añade otro al carrito es peor que un error. */
+function colorDe(p, nombre, idOutfit){
+  const c = p.col.find(y => y.n === nombre);
+  if(!c){
+    console.warn(`Outfit ${idOutfit}: «${p.n}» no tiene el color «${nombre}». Se usa «${p.col[0].n}».`);
+    return p.col[0];
+  }
+  return c;
+}
 
 function pintarOutfits(){
   const cont = $("#outfitsGrid");
@@ -1974,7 +1987,7 @@ function pintarOutfits(){
       if(x.pendiente) return { pendiente:true, n:x.pendiente, ico:x.ico, hex:x.hex };
       const p = P.find(y => y.id === x.id);
       if(!p) return { pendiente:true, n:"Pieza no disponible", ico:"i-tee", hex:"#E2DDD5" };
-      const c = p.col.find(y => y.n === x.color) || p.col[0];
+      const c = colorDe(p, x.color, o.id);
       return { p, c, n:p.n, ico:p.ico, hex:c.hex, precio:p.precio, foto:fotosDe(c)[0] };
     });
 
@@ -2057,7 +2070,7 @@ function agregarOutfit(idOutfit, tallas){
     if(!p || estadoDe(p.id) !== "disponible") return;
     const talla = tallas[p.id];
     if(!talla) return;
-    const c = p.col.find(y => y.n === x.color) || p.col[0];
+    const c = colorDe(p, x.color, idOutfit);
     const clave = `${p.id}|${talla}|${c.n}`;
     const ex = S.carrito.find(l => l.clave === clave);
     ex ? ex.q++ : S.carrito.push({
