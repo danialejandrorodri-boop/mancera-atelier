@@ -318,13 +318,24 @@ h1.hero__h em::after{
 @media (min-width:620px){.outfit__d{padding:24px 26px 26px}}
 .outfit__n{font-size:21px;line-height:1.2;color:var(--botanico)}
 .outfit__t{font-size:13px;line-height:1.7;color:var(--piedra);margin-top:9px;flex:1}
-.outfit__tallas{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:18px}
-.outfit__tallas span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-right:3px}
-.outfit__tallas button{
-  min-width:38px;padding:8px 10px;border:1px solid var(--filete);background:var(--blanco);
-  font-size:12px;border-radius:1px;transition:all .18s var(--e);
+/* Cada pieza elige su propia talla: las superiores usan S–XL, los pantalones
+   tallaje numérico y los accesorios el suyo. */
+.outfit__tallas{margin-top:20px;border-top:1px solid var(--filete);padding-top:16px}
+.outfit__tallas > span{
+  display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;color:var(--azabache);margin-bottom:12px;
 }
-.outfit__tallas button[aria-pressed="true"]{background:var(--botanico);border-color:var(--botanico);color:#F2EFE7;font-weight:600}
+.tallaFila{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.tallaFila__n{font-size:12px;color:var(--piedra);flex:1;min-width:130px;line-height:1.35}
+.tallaFila__o{display:flex;gap:5px;flex-wrap:wrap}
+.tallaFila__o button{
+  min-width:34px;padding:7px 9px;border:1px solid var(--filete);background:var(--blanco);
+  font-size:11.5px;border-radius:1px;transition:all .18s var(--e);font-variant-numeric:tabular-nums;
+}
+.tallaFila__o button:hover{border-color:var(--piedra)}
+.tallaFila__o button[aria-pressed="true"]{background:var(--botanico);border-color:var(--botanico);color:#F2EFE7;font-weight:600}
+.tallaFila--pendiente .tallaFila__n{color:var(--piedra-claro)}
+.tallaFila__prox{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--laton)}
 .outfit__pie{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:18px;flex-wrap:wrap}
 .outfit__pr{font-variant-numeric:tabular-nums}
 .outfit__pr small{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--piedra-claro);margin-bottom:3px}
@@ -1768,7 +1779,7 @@ const P = [
     tallas: ["S", "M", "L", "XL"],
     col: [
       { ...C.negro, fotos: ["t1-negro-1.jpg", "t1-negro-2.jpg"] },
-      { ...C.crema, fotos: ["t1-crema-1.jpg", "t1-crema-2.jpg"] }
+      { ...C.blanco, fotos: ["t1-blanco-1.jpg", "t1-blanco-2.jpg"] }
     ],
     badge: "Esencial",
     orden: 1,
@@ -1975,9 +1986,19 @@ function pintarOutfits(){
       <div class="outfit__d">
         <h3 class="outfit__n">${esc(o.n)}</h3>
         <p class="outfit__t">${esc(o.d)}</p>
-        <div class="outfit__tallas" role="group" aria-label="Talla del outfit ${esc(o.n)}">
-          <span>Talla</span>
-          ${["S","M","L","XL"].map(t => `<button data-talla="${t}" aria-pressed="false">${t}</button>`).join("")}
+        <div class="outfit__tallas">
+          <span>Elige tu talla en cada pieza</span>
+          ${piezas.map(x => x.pendiente
+            ? `<div class="tallaFila tallaFila--pendiente">
+                 <span class="tallaFila__n">${esc(x.n)}</span>
+                 <span class="tallaFila__prox">Próximamente</span>
+               </div>`
+            : `<div class="tallaFila" role="group" aria-label="Talla de ${esc(x.n)}">
+                 <span class="tallaFila__n">${esc(x.n)}</span>
+                 <span class="tallaFila__o">
+                   ${x.p.tallas.map(t => `<button data-pieza="${x.p.id}" data-talla="${esc(t)}" aria-pressed="false">${esc(t)}</button>`).join("")}
+                 </span>
+               </div>`).join("")}
         </div>
         <div class="outfit__pie">
           <div class="outfit__pr">
@@ -1993,19 +2014,32 @@ function pintarOutfits(){
   $$(".pieza__foto", cont).forEach(im => im.addEventListener("error", () => im.remove()));
 
   $$(".outfit", cont).forEach(card => {
-    $$("[data-talla]", card).forEach(b => b.onclick = () => {
-      $$("[data-talla]", card).forEach(x => x.setAttribute("aria-pressed", "false"));
-      b.setAttribute("aria-pressed", "true");
+    /* La selección es por pieza: cada fila tiene su propio grupo de tallas. */
+    $$(".tallaFila__o", card).forEach(grupo => {
+      $$("button", grupo).forEach(b => b.onclick = () => {
+        $$("button", grupo).forEach(x => x.setAttribute("aria-pressed", "false"));
+        b.setAttribute("aria-pressed", "true");
+      });
     });
+
     $("[data-agregar]", card).onclick = () => {
-      const sel = $("[data-talla][aria-pressed='true']", card);
-      if(!sel){ toast("Elige una talla para el outfit"); return; }
-      agregarOutfit(card.dataset.outfit, sel.dataset.talla);
+      const elegidas = {};
+      let faltan = 0;
+      $$(".tallaFila__o", card).forEach(grupo => {
+        const b = $("button[aria-pressed='true']", grupo);
+        if(b) elegidas[b.dataset.pieza] = b.dataset.talla;
+        else faltan++;
+      });
+      if(faltan){
+        toast(faltan === 1 ? "Falta elegir la talla de una pieza" : `Faltan ${faltan} tallas por elegir`);
+        return;
+      }
+      agregarOutfit(card.dataset.outfit, elegidas);
     };
   });
 }
 
-function agregarOutfit(idOutfit, talla){
+function agregarOutfit(idOutfit, tallas){
   const o = OUTFITS.find(x => x.id === idOutfit);
   let n = 0;
 
@@ -2013,6 +2047,8 @@ function agregarOutfit(idOutfit, talla){
     if(x.pendiente) return;
     const p = P.find(y => y.id === x.id);
     if(!p || estadoDe(p.id) !== "disponible") return;
+    const talla = tallas[p.id];
+    if(!talla) return;
     const c = p.col.find(y => y.n === x.color) || p.col[0];
     const clave = `${p.id}|${talla}|${c.n}`;
     const ex = S.carrito.find(l => l.clave === clave);
@@ -2025,7 +2061,7 @@ function agregarOutfit(idOutfit, talla){
 
   if(!n){ toast("Las piezas de este outfit no están disponibles ahora"); return; }
   guardar(); pintarCarrito(); abrir("carrito");
-  toast(`${n} ${n === 1 ? "pieza añadida" : "piezas añadidas"} en talla ${talla}`);
+  toast(`${n} ${n === 1 ? "pieza añadida" : "piezas añadidas"} a tu bolsa`);
 }
 
 /* ==========================================================================
