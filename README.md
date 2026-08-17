@@ -80,6 +80,26 @@ de pruebas `onboarding@resend.dev`.
 
 ---
 
+## 2.b Dos trampas de Vercel que ya nos mordieron
+
+**`vercel.json` no admite comentarios ni campos inventados.** Es JSON puro y con
+esquema estricto: si añades una clave que no existe (por ejemplo `"comment"`),
+la construcción falla entera. Las explicaciones van en este README, no ahí.
+
+**Cuidado con la caché de las imágenes.** Vercel aplica las cabeceras de
+`headers` también a las respuestas **404**. Si pones `max-age` de un año con
+`immutable` y un navegador pide una foto que todavía no has subido, se guarda
+ese «no existe» durante un año y la imagen no aparecerá nunca, aunque después
+subas el archivo. Por eso el `max-age` es de una hora.
+
+Para forzar que todos los navegadores recojan fotos nuevas, sube el número de
+`VERSION_FOTOS` en `index.html`: se añade a cada dirección como `?v=3`.
+
+**El plan Hobby permite 12 funciones** en `api/`. Ahora hay 10. Si necesitas
+otra, consolida en un archivo existente en vez de crear uno nuevo.
+
+---
+
 ## 3. Las tareas programadas
 
 El proyecto está en el **plan Hobby**, que solo permite tareas programadas una
