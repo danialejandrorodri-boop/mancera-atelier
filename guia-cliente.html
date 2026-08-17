@@ -1,0 +1,484 @@
+<title>Qué necesito de ti</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --papel:#FBFAF7;
+  --superficie:#F3F1EB;
+  --superficie-2:#EAE7DE;
+  --linea:#E934DA;
+  --linea:#E2DFD6;
+  --tinta:#1B1F2A;
+  --gris:#6B6E78;
+  --gris-claro:#8A8E99;
+  --petroleo:#1F5E63;
+  --petroleo-fuerte:#164A4E;
+  --ambar:#8E6220;
+  --ambar-suave:#F5EDDC;
+
+  --serif:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+  --sans:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+
+  --max:70ch;
+  --e:cubic-bezier(.22,.61,.36,1);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --papel:#14161C;
+    --superficie:#1B1E26;
+    --superficie-2:#232730;
+    --linea:#2E323C;
+    --tinta:#ECEAE5;
+    --gris:#9BA1AD;
+    --gris-claro:#7B818D;
+    --petroleo:#79BCC1;
+    --petroleo-fuerte:#9AD3D7;
+    --ambar:#D9AC63;
+    --ambar-suave:#2A2418;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#14161C;
+  --superficie:#1B1E26;
+  --superficie-2:#232730;
+  --linea:#2E323C;
+  --tinta:#ECEAE5;
+  --gris:#9BA1AD;
+  --gris-claro:#7B818D;
+  --petroleo:#79BCC1;
+  --petroleo-fuerte:#9AD3D7;
+  --ambar:#D9AC63;
+  --ambar-suave:#2A2418;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--sans);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--petroleo);outline-offset:3px;border-radius:2px}
+
+.hoja{max-width:920px;margin:0 auto;padding:0 24px 80px}
+
+/* --- cabecera --- */
+.cab{padding:56px 0 40px;border-bottom:1px solid var(--linea)}
+.cab__marca{
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:700;color:var(--petroleo);
+}
+.cab h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(34px,6.5vw,52px);line-height:1.06;letter-spacing:-.015em;
+  margin:20px 0 0;
+}
+.cab__bajada{
+  margin-top:20px;max-width:var(--max);color:var(--gris);
+  font-size:17px;line-height:1.7;
+}
+
+/* --- progreso --- */
+.progreso{
+  position:sticky;top:0;z-index:10;
+  background:color-mix(in srgb, var(--papel) 92%, transparent);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--linea);
+  padding:12px 0;margin-bottom:8px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.progreso__t{font-size:12px;color:var(--gris);font-variant-numeric:tabular-nums}
+.progreso__t strong{color:var(--tinta);font-weight:600}
+.barra{flex:1;min-width:120px;height:4px;background:var(--superficie-2);border-radius:99px;overflow:hidden}
+.barra span{display:block;height:100%;width:0;background:var(--petroleo);transition:width .4s var(--e)}
+.progreso button{
+  border:1px solid var(--linea);background:transparent;color:var(--gris);
+  font:inherit;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 12px;border-radius:99px;cursor:pointer;transition:all .2s var(--e);
+}
+.progreso button:hover{border-color:var(--petroleo);color:var(--petroleo)}
+
+/* --- secciones --- */
+.sec{padding:44px 0;border-bottom:1px solid var(--linea)}
+.sec:last-of-type{border-bottom:0}
+.sec__n{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  color:var(--gris-claro);font-variant-numeric:tabular-nums;
+}
+.sec h2{
+  font-size:clamp(21px,3.4vw,27px);line-height:1.2;margin-top:10px;
+  letter-spacing:-.01em;
+}
+.sec__p{margin-top:14px;max-width:var(--max);color:var(--gris);line-height:1.75}
+.sec__p + .sec__p{margin-top:12px}
+.sec__p strong{color:var(--tinta);font-weight:600}
+
+/* --- lista marcable --- */
+.lista{display:grid;gap:2px;margin-top:26px}
+.item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 16px;border:1px solid var(--linea);border-radius:3px;
+  background:var(--superficie);cursor:pointer;
+  transition:border-color .2s var(--e),background .2s var(--e);
+}
+.item:hover{border-color:var(--gris-claro)}
+.item input{
+  appearance:none;-webkit-appearance:none;
+  width:19px;height:19px;flex:0 0 auto;margin:2px 0 0;
+  border:1.5px solid var(--gris-claro);border-radius:3px;background:transparent;
+  cursor:pointer;position:relative;transition:all .18s var(--e);
+}
+.item input:checked{background:var(--petroleo);border-color:var(--petroleo)}
+.item input:checked::after{
+  content:"";position:absolute;left:6px;top:2px;width:4px;height:9px;
+  border:solid var(--papel);border-width:0 2px 2px 0;transform:rotate(43deg);
+}
+.item__c{flex:1;min-width:0}
+.item__t{font-weight:600;font-size:15px;display:block}
+.item__d{display:block;margin-top:4px;font-size:14px;color:var(--gris);line-height:1.6}
+.item:has(input:checked){background:transparent}
+.item:has(input:checked) .item__t{color:var(--gris-claro);text-decoration:line-through}
+.item:has(input:checked) .item__d{color:var(--gris-claro)}
+
+.etiq{
+  display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  vertical-align:1px;
+}
+.etiq--coste{background:var(--ambar-suave);color:var(--ambar)}
+.etiq--gratis{background:var(--superficie-2);color:var(--gris)}
+
+/* --- tabla --- */
+.tabla-scroll{overflow-x:auto;margin-top:24px;border:1px solid var(--linea);border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--linea)}
+tbody tr:last-child td{border-bottom:0}
+th{
+  background:var(--superficie);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:700;color:var(--tinta);
+}
+td:first-child{font-weight:600;white-space:nowrap}
+td:last-child{color:var(--gris)}
+
+/* --- avisos --- */
+.aviso{
+  margin-top:24px;padding:18px 20px;border-radius:3px;
+  background:var(--superficie);border-left:3px solid var(--petroleo);
+  font-size:15px;line-height:1.7;color:var(--gris);
+}
+.aviso strong{color:var(--tinta);font-weight:600}
+.aviso--ojo{border-left-color:var(--ambar);background:var(--ambar-suave)}
+.aviso--ojo strong{color:var(--ambar)}
+
+/* --- cierre --- */
+.cierre{
+  margin-top:52px;padding:32px;border-radius:4px;
+  background:var(--superficie);border:1px solid var(--linea);
+}
+.cierre h2{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:-.01em}
+.cierre p{margin-top:14px;color:var(--gris);max-width:var(--max);line-height:1.75}
+
+@media print{
+  .progreso{display:none}
+  body{background:#fff;color:#000}
+  .sec{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.001ms !important}
+}
+</style>
+
+<div class="hoja">
+
+  <header class="cab">
+    <div class="cab__marca">Antes de empezar</div>
+    <h1>Qué necesito de ti</h1>
+    <p class="cab__bajada">
+      Para montar tu tienda en línea necesito que reúnas unas cuantas cosas. Nada
+      de esto es técnico: son cuentas a tu nombre, datos de tus productos y tus
+      fotos. Yo me encargo del resto.
+    </p>
+  </header>
+
+  <div class="progreso">
+    <span class="progreso__t"><strong id="hechos">0</strong> de <span id="total">0</span> listos</span>
+    <span class="barra"><span id="barra"></span></span>
+    <button id="reiniciar" type="button">Empezar de nuevo</button>
+  </div>
+
+  <section class="sec">
+    <div class="sec__n">Lo primero</div>
+    <h2>Qué vas a tener cuando terminemos</h2>
+    <p class="sec__p">
+      Una tienda propia, en tu dominio, sin cuotas mensuales de plataforma. No es
+      un catálogo bonito: cobra de verdad y se administra sola.
+    </p>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr><th>Función</th><th>Qué significa para ti</th></tr></thead>
+        <tbody>
+          <tr><td>Catálogo con filtros</td><td>El cliente encuentra por talla, color y tipo sin perderse</td></tr>
+          <tr><td>Pago en línea</td><td>Tarjeta, PSE, Nequi y efectivo, con el dinero entrando a tu cuenta</td></tr>
+          <tr><td>Cierre por WhatsApp</td><td>El pedido te llega escrito, con dirección y cédula listas para la guía</td></tr>
+          <tr><td>Códigos de descuento</td><td>Uno personal por cliente nuevo y uno fijo tuyo para redes</td></tr>
+          <tr><td>Correos automáticos</td><td>Bienvenida, recordatorio de carrito abandonado y confirmación de compra</td></tr>
+          <tr><td>Panel de disponibilidad</td><td>Marcas una prenda agotada desde la propia tienda, sin tocar código</td></tr>
+          <tr><td>Ficha de márgenes</td><td>Ves lo que ganas de verdad por producto, ya descontada la comisión</td></tr>
+          <tr><td>Textos legales</td><td>Datos personales, retracto y garantía, según la ley colombiana</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Paso 1</div>
+    <h2>Cuentas que tienes que abrir</h2>
+    <p class="sec__p">
+      Todas van <strong>a tu nombre</strong>. Es importante: así el negocio es
+      tuyo y puedes cambiar de proveedor cuando quieras. Nunca voy a pedirte una
+      contraseña; tú creas la cuenta y me das acceso o pegas las credenciales
+      donde te indique.
+    </p>
+    <ul class="lista">
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">GitHub <span class="etiq etiq--gratis">Gratis</span></span>
+        <span class="item__d">Donde vive el código de tu tienda. Solo hay que crear la cuenta.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Vercel <span class="etiq etiq--gratis">Gratis</span></span>
+        <span class="item__d">El servidor que muestra la tienda al mundo. El plan gratuito alcanza de sobra.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Resend <span class="etiq etiq--gratis">Gratis hasta 3.000 correos/mes</span></span>
+        <span class="item__d">El que envía los correos automáticos a tus clientes.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Pasarela de pagos <span class="etiq etiq--coste">Comisión por venta</span></span>
+        <span class="item__d">Mercado Pago o Wompi. Cobran entre el 3 % y el 4 % de cada venta. Necesitas las credenciales de producción.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">WhatsApp Business <span class="etiq etiq--gratis">Gratis</span></span>
+        <span class="item__d">El número al que llegarán los pedidos. Puede ser el que ya usas.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Paso 2</div>
+    <h2>Un dominio propio</h2>
+    <p class="sec__p">
+      Es el único gasto inevitable: alrededor de <strong>12 dólares al año</strong>,
+      unos 50.000 pesos. Y no es opcional por una razón práctica.
+    </p>
+    <div class="aviso aviso--ojo">
+      <strong>Sin dominio propio no hay correos.</strong> Gmail rechaza los mensajes
+      de quien no puede demostrar que es dueño de un dominio. Sin él, tu cliente
+      nunca recibe su código de descuento ni la confirmación de su pedido.
+    </div>
+    <p class="sec__p">
+      Y hay un motivo comercial: un cliente que va a pagar 300.000 pesos
+      desconfía de una dirección terminada en <code>.vercel.app</code>. Con tu
+      dominio, la tienda se ve establecida.
+    </p>
+    <ul class="lista">
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Dominio comprado <span class="etiq etiq--coste">~12 USD/año</span></span>
+        <span class="item__d">Cómpralo dentro de Vercel: se conecta solo y te ahorras la parte más confusa.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Paso 3</div>
+    <h2>Los datos de cada producto</h2>
+    <p class="sec__p">
+      Esta es la parte que más tiempo toma, y no la puedo hacer por ti. Cuanto
+      más completa llegue, más rápido sale la tienda.
+    </p>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr><th>Dato</th><th>Para qué sirve</th></tr></thead>
+        <tbody>
+          <tr><td>Nombre</td><td>Cómo lo verá el cliente</td></tr>
+          <tr><td>Precio de venta</td><td>Lo que cobra la tienda</td></tr>
+          <tr><td>Costo para ti</td><td>Calcular tu margen real. No se muestra a nadie</td></tr>
+          <tr><td>Colores</td><td>Selector de color y filtro del catálogo</td></tr>
+          <tr><td>Tallas</td><td>Selector de talla y filtro</td></tr>
+          <tr><td>Composición</td><td>Ficha del producto</td></tr>
+          <tr><td>Cuidados</td><td>Reduce reclamos por prendas dañadas al lavar</td></tr>
+          <tr><td>Medidas por talla</td><td>Reduce cambios y devoluciones, que es donde se pierde plata</td></tr>
+          <tr><td>Descripción</td><td>Dos o tres frases que expliquen por qué vale la pena</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="lista">
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Lista de productos completa</span>
+        <span class="item__d">En una hoja de cálculo o un documento, con todas las columnas de arriba.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Paso 4</div>
+    <h2>Las fotos</h2>
+    <p class="sec__p">
+      Dos por cada color: una de frente y una de espalda. Si tienes tres colores,
+      son seis fotos de ese producto.
+    </p>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr><th>Requisito</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Proporción</td><td>Vertical 4:5</td></tr>
+          <tr><td>Tamaño</td><td>Mínimo 1200 × 1500 píxeles</td></tr>
+          <tr><td>Peso</td><td>Menos de 250 KB por foto</td></tr>
+          <tr><td>Fondo</td><td>El mismo en todas, y la prenda siempre a la misma distancia</td></tr>
+          <tr><td>Nombre</td><td>Te doy la lista exacta de nombres. Guardarlas así ahorra horas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="aviso aviso--ojo">
+      <strong>Las fotos tienen que ser tuyas.</strong> No puedo publicar imágenes
+      tomadas de otra marca, ni siquiera cambiándoles el fondo o recortando al
+      modelo: la ley protege la fotografía, no solo el producto que aparece en
+      ella. Si aún no tienes fotos propias, la tienda arranca con ilustraciones
+      de la prenda y las vamos reemplazando conforme las consigas.
+    </div>
+    <p class="sec__p">
+      Si vendes sin stock físico, hay una salida que no cuesta nada:
+      <strong>fotografía la primera unidad que compres para despachar un pedido</strong>.
+      Diez minutos contra una pared blanca con luz de ventana, antes de empacarla.
+    </p>
+    <ul class="lista">
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Fotos en una carpeta</span>
+        <span class="item__d">Todas juntas. Si no puedes renombrarlas, mándamelas y dime qué rango es cada producto.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Paso 5</div>
+    <h2>Los datos legales del negocio</h2>
+    <p class="sec__p">
+      Van escritos en la tienda y son obligatorios en Colombia. Sin ellos, la
+      página queda expuesta ante la Superintendencia de Industria y Comercio.
+    </p>
+    <ul class="lista">
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Razón social y NIT</span>
+        <span class="item__d">Quién vende, tal como está registrado.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Dirección y teléfono</span>
+        <span class="item__d">Aparecen en los términos y en la política de datos.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Política de envíos</span>
+        <span class="item__d">Cuántos días tardas y cuánto cobras, si es que cobras.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Política de cambios</span>
+        <span class="item__d">Cuántos días das y quién paga el transporte.</span>
+      </span></label></li>
+      <li><label class="item"><input type="checkbox"><span class="item__c">
+        <span class="item__t">Correo de atención</span>
+        <span class="item__d">Uno comercial y otro para protección de datos. Pueden ser el mismo.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Paso 6</div>
+    <h2>Cuánto tarda</h2>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr><th>Fase</th><th>Tiempo</th></tr></thead>
+        <tbody>
+          <tr><td>Diseño y estructura</td><td>1 día</td></tr>
+          <tr><td>Cargar el catálogo</td><td>1 día por cada 10 a 15 productos</td></tr>
+          <tr><td>Conectar cuentas y publicar</td><td>medio día</td></tr>
+          <tr><td>Probar pagos y correos</td><td>medio día</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="aviso">
+      <strong>El cuello de botella nunca es el código: son las fotos y los datos.</strong>
+      Si llegan completos, la tienda está lista en tres días. Si llegan a
+      cuentagotas, el proyecto se alarga semanas. Es la variable que más
+      controlas tú.
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec__n">Tranquilo</div>
+    <h2>Lo que no tienes que hacer</h2>
+    <p class="sec__p">
+      No necesitas saber programar, ni entender qué es un servidor, ni tocar
+      código nunca. Tampoco tienes que configurar el dominio, los correos, la
+      base de datos ni la pasarela: de eso me encargo yo con las cuentas que
+      abriste.
+    </p>
+    <p class="sec__p">
+      Y una vez publicada, cambiar un precio, marcar algo agotado o añadir un
+      producto no requiere un desarrollador cada vez. Te enseño cómo.
+    </p>
+  </section>
+
+  <div class="cierre">
+    <h2>Cuando tengas todo</h2>
+    <p>
+      Mándamelo junto y arrancamos. Si algo te falta o no sabes de dónde sacarlo,
+      escríbeme antes: casi siempre hay una manera más fácil de la que parece, y
+      es mejor resolverlo ahora que a mitad del proyecto.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  "use strict";
+  const casillas = Array.from(document.querySelectorAll(".item input"));
+  const hechos = document.getElementById("hechos");
+  const total = document.getElementById("total");
+  const barra = document.getElementById("barra");
+  const CLAVE = "guia-cliente-progreso";
+
+  total.textContent = casillas.length;
+
+  const leer = () => {
+    try { return JSON.parse(localStorage.getItem(CLAVE) || "[]"); }
+    catch { return []; }
+  };
+  const guardar = () => {
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify(
+        casillas.map(c => c.checked)
+      ));
+    } catch { /* modo privado: el progreso simplemente no se recuerda */ }
+  };
+
+  const pintar = () => {
+    const n = casillas.filter(c => c.checked).length;
+    hechos.textContent = n;
+    barra.style.width = (n / casillas.length * 100) + "%";
+  };
+
+  const previo = leer();
+  casillas.forEach((c, i) => {
+    if (previo[i]) c.checked = true;
+    c.addEventListener("change", () => { guardar(); pintar(); });
+  });
+
+  document.getElementById("reiniciar").addEventListener("click", () => {
+    casillas.forEach(c => { c.checked = false; });
+    guardar(); pintar();
+  });
+
+  pintar();
+})();
+</script>
