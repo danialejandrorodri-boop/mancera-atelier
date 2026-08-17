@@ -1,0 +1,9 @@
+# Documentación interna: vive en el repositorio pero no se publica en la tienda.
+# Sin esto, cualquiera podría abrir tudominio.com/PLANTILLA.md y leer cómo está
+# montado el negocio por dentro.
+README.md
+PLANTILLA.md
+guia-cliente.html
+.env.example
+img/originales/
+img/inspiracion/
